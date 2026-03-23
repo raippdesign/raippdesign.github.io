@@ -23,6 +23,7 @@
                     width: 100%;
                     max-width: 200px;
                 }
+
                 &:nth-child(2) {
                     width: 100%;
                     max-width: 400px;
@@ -61,6 +62,7 @@
             from {
                 transform: translateX(0);
             }
+
             to {
                 transform: translateX(-50%);
             }
@@ -85,6 +87,7 @@
         P {
             width: 25%;
         }
+
         h2 {
             width: 75%;
         }
@@ -107,7 +110,8 @@
             display: flex;
             flex-direction: column;
             gap: 4vw;
-            > div {
+
+            >div {
                 p {
                     width: 100%;
                     max-width: 650px;
@@ -135,6 +139,7 @@
             margin-top: 5vw;
         }
     }
+
     .work {
         position: relative;
         width: 100vw;
@@ -200,6 +205,7 @@
             align-items: center;
             gap: 2em;
             border-bottom: 1px solid rgba(198, 198, 198, 0.5);
+
             h2 {
                 font-size: 4vw;
             }
@@ -258,6 +264,7 @@
                     .i-1 {
                         left: 0;
                     }
+
                     .i-2 {
                         left: 70px;
                     }
@@ -317,6 +324,7 @@
             P {
                 width: 100%;
             }
+
             h2 {
                 width: 100%;
             }
@@ -325,19 +333,24 @@
 }
 
 @media (max-width: 768px) {
+
     // Header
     .header {
         height: auto;
         padding-top: 200px;
+
         .wrapper {
             flex-direction: column-reverse;
+
             .text {
                 gap: 2vw;
             }
+
             .headerImg {
                 width: 80%;
             }
         }
+
         /* Marquee */
         .marquee {
             height: 17vw;
@@ -351,10 +364,12 @@
             .work-item {
                 padding: 1em 0;
                 gap: 2em;
+
                 h2 {
                     font-size: 7vw;
                     letter-spacing: -0.2vw;
                 }
+
                 .work-item-icon {
                     scale: 0.8;
 
@@ -368,16 +383,19 @@
 }
 
 @media (max-width: 560px) {
+
     // Header
     .header {
         .wrapper {
             .text {
                 gap: 8vw;
             }
+
             .headerImg {
                 height: 48vh;
             }
         }
+
         /* Marquee */
         .marquee {
             height: 25vw;
@@ -389,6 +407,7 @@
     .about {
         padding-top: 20vw;
         padding-bottom: 20vw;
+
         .about_text {
             padding-top: 10vw;
             padding-bottom: 30vw;
@@ -421,9 +440,11 @@
                 margin-top: 10vw;
             }
         }
+
         .work {
             padding-top: 20vw;
             padding-bottom: 20vw;
+
             .work-item {
                 h2 {
                     font-size: 10vw;
