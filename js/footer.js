@@ -1,5 +1,8 @@
 export function footersvg() {
     const svg = document.querySelector("#svg");
+    if (!svg) {
+        return;
+    }
     const mouse = svg.createSVGPoint();
 
     const leftEye = createEye("#left-eye");

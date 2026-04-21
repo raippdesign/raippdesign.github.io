@@ -5,6 +5,10 @@ export function projectHover() {
         const overlay = document.querySelector(".overlay");
         const prevElements = document.querySelectorAll(".prev");
 
+        if (!work || !overlay || !workItems.length) {
+            return;
+        }
+
         // Initialize overlay position
         overlay.style.top = "0%";
         overlay.style.left = "13.25%";
