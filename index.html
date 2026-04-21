@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
@@ -8,7 +8,25 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <link rel="icon" type="image/x-icon" href="assets/favicon.png">
-    <title>Raipp - Portfolio</title>
+    <title>Raipp · Design Systems para a era da IA generativa · Getúlio Lima</title>
+    <meta name="description"
+        content="Consultoria de Design Systems focada em preparar produtos digitais para escalar com IA generativa. Diagnóstico, arquitetura e governança por Getúlio Lima, 15+ anos em produto.">
+    <meta name="keywords"
+        content="Design Systems, Product Design, IA Generativa, Consultoria, UX, UI, DesignOps, São Paulo, Brasil">
+    <link rel="canonical" href="https://www.raipp.com.br/">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.raipp.com.br/">
+    <meta property="og:title" content="Raipp · Design Systems para a era da IA generativa">
+    <meta property="og:description"
+        content="Prepare seu produto para escalar com IA sem virar um Frankenstein visual. Consultoria estratégica em três etapas.">
+    <meta property="og:image" content="https://www.raipp.com.br/assets/social-preview.png">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.raipp.com.br/">
+    <meta property="twitter:title" content="Raipp · Design Systems para a era da IA generativa">
+    <meta property="twitter:description"
+        content="Consultoria estratégica de Design Systems por Getúlio Lima. 15+ anos em produto.">
+    <meta property="twitter:image" content="https://www.raipp.com.br/assets/social-preview.png">
     <!-- CSS -->
     <!-- Loco -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.css">
@@ -31,7 +49,9 @@
         <!-- Navbar -->
         <nav>
             <div class="wrapper">
-                <h1>Raipp</h1>
+                <a href="index.html" class="nav-logo">
+                    <img src="assets/raipp-logo.svg" alt="Raipp" height="28" width="auto">
+                </a>
                 <div class="links">
                     <a href="index.html" class="underLineLink">Index</a>
                     <a href="approach.html" class="underLineLink">Processo</a>
@@ -41,17 +61,25 @@
             <div id="MyClockDisplay" class="clock" onload="showTime()"></div>
             <h3 class="font16">Localização <br> São Paulo - ZO</h3>
         </nav>
-        <!-- Header -->
+
+        <!-- Header / Hero -->
         <section class="header">
             <div class="wrapper">
-                <img src="assets/profile.jpg" alt="Raipp Profile" class="headerImg" width="auto" height="auto"
-                    data-scroll data-scroll-speed="1">
+                <img src="assets/profile.jpg" alt="Getúlio Lima, fundador da Raipp, Product Designer" class="headerImg"
+                    width="auto" height="auto" data-scroll data-scroll-speed="1">
                 <div class="text">
-                    <p class="font16">Atualmente disponível para projetos e consultoria</p>
+                    <p class="font16">Atualmente disponível para projetos e consultoria · São Paulo, SP</p>
                     <p class="font16">
-                        Product Designer guiado pela diversidade cultural e inovação, operando como um arquiteto digital
-                        para criar experiências únicas e escaláveis.
+                        Design Systems como infraestrutura de produto para a era da IA generativa.
+                        <br><br>
+                        Sou Getúlio Lima. 15+ anos construindo produtos digitais. Fundador da Raipp, consultoria que
+                        prepara produtos para escalar com IA sem virar um Frankenstein visual.
                     </p>
+                    <div class="hero-ctas">
+                        <a href="mailto:getulio@raipp.com.br?subject=Solicitação%20de%20diagnóstico"
+                            class="cta-btn primary">Solicitar diagnóstico</a>
+                        <a href="approach.html" class="cta-btn secondary">Ver processo</a>
+                    </div>
                 </div>
             </div>
 
@@ -59,73 +87,143 @@
             <div class="marquee">
                 <div class="track">
                     <h1 class="content fontLarge">&nbsp;
-                        Product Designer — UX/UI Designer — Design System — Product Designer — UX/UI Designer — Design
-                        System — Product Designer — UX/UI Designer — Design System — Product Designer — UX/UI Designer —
-                        Design System — Product Designer — UX/UI Designer — Design System — Product Designer —
+                        Product Designer · Design Systems · UX/UI · AI-Augmented Design · DesignOps · Product Strategy ·
+                        Generative AI · Design-to-Code · Product Designer · Design Systems · UX/UI · AI-Augmented Design ·
+                        DesignOps · Product Strategy · Generative AI · Design-to-Code —
                     </h1>
                 </div>
             </div>
         </section>
 
-        <!-- About -->
+        <!-- "A janela está abrindo agora" -->
+        <section class="window-section">
+            <div class="window-inner">
+                <div class="window-label">
+                    <p class="font16" style="opacity: 0.5;">A janela está abrindo agora</p>
+                </div>
+                <div class="window-content">
+                    <h2 class="fontMedium">60% das empresas falham ao construir Design Systems internamente.</h2>
+                    <p class="font16">
+                        IA generativa acelerou a produção de interface, mas não resolveu fragmentação. Figma Make,
+                        Cursor, v0 e Claude entregam mais tela em menos tempo, e isso está empilhando inconsistência em
+                        produtos que já estavam frágeis.
+                    </p>
+                    <p class="fontSmall">
+                        A saída não é mais designer. É infraestrutura.
+                    </p>
+                    <p class="font16">
+                        Produtos que vão escalar com IA nos próximos anos precisam de Design Systems estruturados em
+                        tokens, slots e componentes nomeados, porque é nessa camada que a IA opera. Sem isso, cada
+                        feature gerada amplifica o caos.
+                    </p>
+                    <div class="quote-block">
+                        <blockquote>
+                            "Design-to-code coherence is now directly tied to AI output quality."
+                        </blockquote>
+                        <cite>— Figma Schema 2025</cite>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About / Sobre + Serviços -->
         <section class="about">
-            <!-- About -->
+            <!-- Sobre -->
             <div class="reveal">
                 <h1 class="fontLarge">Sobre</h1>
             </div>
 
             <div class="about_text">
                 <p class="font16">
-                    Construo produtos digitais que escalam, do primeiro wireframe ao protótipo que parece produto real.
-                    Com 12 anos atuando de ponta a ponta em produtos digitais, meu trabalho vive na interseção entre
-                    experiência do usuário, sistemas de design e inteligência artificial. Não só projeto telas:
-                    estruturo a arquitetura que permite um produto crescer sem perder consistência.
+                    Sou Getúlio Lima. Product Designer há 15+ anos, fundador da Raipp.
+                    <br><br>
+                    Construo produtos digitais que escalam, do primeiro wireframe ao sistema que permite o produto
+                    evoluir sem perder consistência. Meu trabalho vive na interseção entre experiência do usuário,
+                    Design Systems e IA generativa.
+                    <br><br>
+                    Não projeto apenas telas. Estruturo a arquitetura que permite ao produto crescer sem virar um
+                    Frankenstein.
+                    <br><br>
+                    Atuei em fintechs (Porto Seguro, Dock), plataformas SaaS, healthtechs e e-commerce. Clientes
+                    incluem Grupo ITSS, Zarpo, Sappiens, Doctuz, Mimo e Academia de Expressão.
                 </p>
                 <h2 class="fontMedium">
-                    Product Designer · UX, UI e AI | Design Systems Architect | Prototipagem com IA que vira código
+                    Product Designer · UX, UI e AI · Design Systems Architect · Prototipação com IA que vira código
                 </h2>
             </div>
-            <!-- Tools -->
+
+            <!-- Serviços -->
             <div class="tools" data-textcolor="#e9e9e9" data-bgcolor="#181818">
                 <div class="tools_heading">
                     <p class="font16">Serviços</p>
                 </div>
                 <div class="tools_wrapper">
                     <div>
-                        <h2 class="fontMedium">Produtos digitais</h2>
+                        <h2 class="fontMedium">Diagnóstico estratégico</h2>
                         <p class="font16">
-                            Gerencio o ciclo de vida completo de produtos digitais,
-                            da ideação e discovery ao lançamento e otimização
-                            contínua (growth). Traduzo necessidades complexas em
-                            soluções claras e escaláveis, priorizando decisões de
-                            produto e entregando protótipos e MVPs que geram
-                            valor rapidamente para usuários e negócio.
+                            2 a 3 semanas. Mapeio o estado atual do produto e do Design System, identifico gargalos de
+                            UX, inconsistências visuais, riscos de escala e gaps no roadmap. Você sai com um documento
+                            de prioridades e um roadmap claro de evolução.
+                            <br><br>
+                            Para quem: times que sabem que algo não está funcionando, mas precisam de uma leitura
+                            externa para saber onde intervir primeiro.
                         </p>
                     </div>
                     <div>
-                        <h2 class="fontMedium">Auditoria de DS</h2>
+                        <h2 class="fontMedium">Arquitetura de Design System</h2>
                         <p class="font16">
-                            Analiso o estado atual do Produto e do DS, identifico
-                            falhas, riscos, gargalos de UX/UI e gaps no roadmap.
-                            Entrego diagnóstico com prioridades e roadmap claro de
-                            evolução (evolução, inovação e sustentação).
+                            6 a 10 semanas. Defino a arquitetura em três camadas — tokens primitivos, tokens semânticos
+                            e componentes —, estruturo a taxonomia, documento padrões e desenho a integração com o
+                            código. A base que a engenharia consome e o produto evolui.
+                            <br><br>
+                            Para quem: produtos que estão escalando e precisam de fundação estruturada antes de crescer
+                            mais.
                         </p>
                     </div>
                     <div>
-                        <h2 class="fontMedium">Consultoria em DS</h2>
+                        <h2 class="fontMedium">Construção e governança</h2>
                         <p class="font16">
-                            Defino a arquitetura de Design Systems — tokens,
-                            componentes e guidelines — alinhada à estratégia do
-                            produto. Atuo da visão à implementação, garantindo
-                            consistência visual, flexibilidade e escalabilidade ao
-                            longo do crescimento do produto.
+                            Recorrente, 3 a 6 meses. Implementação do sistema, integração com engenharia, workflows de
+                            DesignOps, processos de contribuição e governança contínua. Deixo o sistema rodando sem
+                            depender de mim.
+                            <br><br>
+                            Para quem: times que precisam de acompanhamento durante a implementação e querem autonomia
+                            no final.
                         </p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Work -->
+        <!-- ICPs -->
+        <section class="icp-section">
+            <div class="reveal">
+                <h1 class="fontLarge">Dois tipos de empresa</h1>
+            </div>
+            <div class="reveal">
+                <h1 class="fontLarge">chegam até aqui.</h1>
+            </div>
+            <div class="icp-grid">
+                <div class="icp-card">
+                    <h3 class="fontSmall">Empresa que cresceu rápido e virou caos.</h3>
+                    <p class="font16">
+                        O produto escalou, o time cresceu, a interface fragmentou. Cada squad resolve do seu jeito. A
+                        velocidade parou de acompanhar o tamanho. Você precisa de diagnóstico e ordem antes de qualquer
+                        coisa nova.
+                    </p>
+                </div>
+                <div class="icp-card">
+                    <h3 class="fontSmall">Startup pós-funding que vai escalar com IA.</h3>
+                    <p class="font16">
+                        Você captou, tem tração, e agora precisa construir para 10x. Sabe que vai usar IA generativa no
+                        fluxo de produto. Precisa de infraestrutura antes, não depois, porque IA sem estrutura amplifica
+                        inconsistência em vez de resolver.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Work / Projetos -->
         <div class="works" data-textcolor="#181818" data-bgcolor="#e9e9e9">
             <!-- Heading -->
             <div class="work_heading">
@@ -139,46 +237,54 @@
                 <!-- paragraph -->
                 <div class="txt">
                     <p class="font16">
-                        Descubra uma seleção de projetos de impacto onde minha expertise em UX/UI e design de produtos
-                        eleva as experiências digitais. Cada trabalho reflete a jornada desde a concepção ágil até a
-                        arquitetura final, demonstrando meu compromisso em criar soluções envolventes e alinhadas ao
-                        negócio que resolvem desafios do mundo real.
+                        Uma seleção de trabalhos onde a tese da Raipp virou produto. Cada projeto é um recorte da
+                        jornada da concepção à arquitetura, demonstrando como Design Systems e pensamento estratégico
+                        sustentam crescimento real.
                     </p>
                 </div>
             </div>
+
             <!-- Project list -->
             <div class="work_container">
                 <div class="work">
                     <!-- Imgs overlays -->
                     <div class="overlay">
                         <div class="prev" id="prev-1">
-                            <img src="assets/work1.png" alt="work" width="auto" height="auto" loading="lazy">
+                            <img src="assets/work1.png"
+                                alt="Case Assistente IA White Label, arquitetura de produto e Design System" width="auto"
+                                height="auto" loading="lazy">
                         </div>
                         <div class="prev" id="prev-2">
-                            <img src="assets/work2.jpg" alt="work" width="auto" height="auto" loading="lazy">
+                            <img src="assets/work2.jpg"
+                                alt="Case Zarpo, plataforma de viagens com Design System escalável" width="auto"
+                                height="auto" loading="lazy">
                         </div>
                         <div class="prev" id="prev-3">
-                            <img src="assets/work3.png" alt="work" width="auto" height="auto" loading="lazy">
+                            <img src="assets/work3.png" alt="Case Sappiens, interface e sistema de componentes"
+                                width="auto" height="auto" loading="lazy">
                         </div>
                         <div class="prev" id="prev-4">
-                            <img src="assets/work4.png" alt="work" width="auto" height="auto" loading="lazy">
+                            <img src="assets/work4.png" alt="Case Mimo, experiência de produto digital" width="auto"
+                                height="auto" loading="lazy">
                         </div>
                     </div>
                     <!-- Projects -->
-                    <div class="work-item" id="w-1">
-                        <div class="work-item-name">
-                            <span>(01)</span>
-                            <h2 class="fontMedium">Assistente IA White label</h2>
-                        </div>
-                        <div class="work-item-icon">
-                            <div class="icon-holder i-1">
-                                <i class="fa-solid fa-arrow-right"></i>
+                    <a href="project-ai.html" class="work-item-link">
+                        <div class="work-item" id="w-1">
+                            <div class="work-item-name">
+                                <span>(01)</span>
+                                <h2 class="fontMedium">Assistente IA White Label</h2>
                             </div>
-                            <div class="icon-holder i-2">
-                                <i class="fa-solid fa-arrow-right"></i>
+                            <div class="work-item-icon">
+                                <div class="icon-holder i-1">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                                <div class="icon-holder i-2">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
 
                     <div class="work-item" id="w-2">
                         <div class="work-item-name">
@@ -198,7 +304,7 @@
                     <div class="work-item" id="w-3">
                         <div class="work-item-name">
                             <span>(03)</span>
-                            <h2 class="fontMedium">Sappie</h2>
+                            <h2 class="fontMedium">Sappiens</h2>
                         </div>
                         <div class="work-item-icon">
                             <div class="icon-holder i-1">
@@ -245,14 +351,14 @@
                 <div class="footer_inner">
                     <p class="font16">Atualmente disponível <br> para projetos e consultoria</p>
                     <div class="footer_col">
-                        <p class="font16">Localização <br> São Paulo - ZO</p>
+                        <p class="font16">Localização <br> São Paulo, SP</p>
                         <h3 class="fontSmall">
-                            Para liderar a estratégia do seu próximo produto ou arquitetar sistemas escaláveis, vamos
-                            conversar.
+                            Se seu produto chegou num ponto onde consistência virou problema, ou se você vai escalar com
+                            IA e sabe que precisa de fundação antes, vamos conversar.
                             <br><br>
                             <a href="mailto:getulio@raipp.com.br" class="underLineLink">getulio@raipp.com.br</a>
                             <br>
-                            <a href="tel:+5511982838497" class="underLineLink">+55 11 982838497</a>
+                            <a href="tel:+5511982838497" class="underLineLink">+55 11 98283 8497</a>
                         </h3>
                     </div>
                     <div class="footer_col2">
