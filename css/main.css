@@ -417,8 +417,9 @@ footer {
   display: flex;
   width: 100%;
   flex-direction: column;
-  gap: 6vw;
-  margin-top: 6vw;
+  gap: 2.5vw;
+  align-self: flex-start;
+  padding-bottom: 13vw;
 }
 .header .wrapper .text p:nth-child(1) {
   width: 100%;
@@ -446,7 +447,7 @@ footer {
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 100%;
+  width: 100vw;
   height: 10vw;
   overflow-x: hidden;
 }
@@ -693,6 +694,7 @@ footer {
   }
   .header .wrapper .text {
     gap: 2vw;
+    padding-bottom: 0;
   }
   .header .photo-wrapper {
     width: 80%;
