@@ -428,8 +428,13 @@ footer {
   width: 100%;
   max-width: 400px;
 }
-.header .wrapper .headerImg {
+.header .photo-wrapper {
+  position: relative;
   width: 48%;
+  flex-shrink: 0;
+}
+.header .wrapper .headerImg {
+  width: 100%;
   height: 64vh;
   object-fit: cover;
   pointer-events: none;
@@ -441,8 +446,7 @@ footer {
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 100vw;
-  max-width: 100%;
+  width: 100%;
   height: 10vw;
   overflow-x: hidden;
 }
@@ -690,15 +694,17 @@ footer {
   .header .wrapper .text {
     gap: 2vw;
   }
-  .header .wrapper .headerImg {
+  .header .photo-wrapper {
     width: 80%;
+  }
+  .header .wrapper .headerImg {
+    width: 100%;
   }
   .header {
     /* Marquee */
   }
   .header .marquee {
     height: 17vw;
-    bottom: 30vw;
   }
   .works .work .work-item {
     padding: 1em 0;
@@ -721,13 +727,13 @@ footer {
   }
   .header .wrapper .headerImg {
     height: 48vh;
+    width: 100%;
   }
   .header {
     /* Marquee */
   }
   .header .marquee {
     height: 25vw;
-    bottom: 20vw;
   }
   .about {
     padding-top: 20vw;
