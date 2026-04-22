@@ -685,7 +685,7 @@ footer {
     padding-top: 200px;
   }
   .header .wrapper {
-    flex-direction: column-reverse;
+    flex-direction: column;
   }
   .header .wrapper .text {
     gap: 2vw;
