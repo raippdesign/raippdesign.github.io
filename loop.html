@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Raipp">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.png">
+    <title>Loop · Workflow de design para a era da IA · Raipp</title>
+    <meta name="description"
+        content="O processo de design redesenhado em torno da gestão de IA. Critério primeiro, geração depois, sistema no fim. Por Getúlio Lima, Raipp.">
+    <link rel="canonical" href="https://www.raipp.com.br/loop.html">
+
+    <!-- Loco -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.css">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Fonte da anotação manuscrita "loopy" (única exceção, monocromática) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+
+    <!--
+      ESTILOS NOVOS DESTA PÁGINA.
+      Ficam aqui para a página ser drop-in. Quando integrar:
+      mova o bloco ".loopLink*" (rabisco do nav) para o css/main.css,
+      porque o nav aparece em todas as páginas. O resto (.loop-*) é só desta página.
+      O bloco de fallback existe só para a página não ficar nua sem o main.css;
+      o seu main.css é carregado depois e vence sempre.
+    -->
+    <style>
+        /* ---------- fallback de base (sobrescrito pelo seu main.css) ---------- */
+        :root { --ink:#181818; --paper:#e9e9e9; }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { background:var(--paper); color:var(--ink);
+               font-family:system-ui,"Helvetica Neue",Arial,sans-serif; line-height:1.4; }
+        img { max-width:100%; display:block; }
+        a { color:inherit; text-decoration:none; }
+        .wrapper { display:flex; align-items:center; justify-content:space-between; gap:24px; }
+        nav { display:flex; align-items:flex-start; justify-content:space-between;
+              gap:24px; padding:24px 28px; }
+        nav .wrapper { flex:1; }
+        nav .links { display:flex; gap:22px; }
+        .clock, nav .font16 { font-size:13px; opacity:.8; text-align:right; }
+        .underLineLink { position:relative; }
+        .underLineLink::after { content:""; position:absolute; left:0; bottom:-2px; width:0; height:1px;
+              background:currentColor; transition:width .3s ease; }
+        .underLineLink:hover::after { width:100%; }
+        .fontLarge { font-size:clamp(64px,13vw,160px); line-height:.9; font-weight:600; letter-spacing:-.04em; }
+        .fontMedium { font-size:clamp(22px,3vw,34px); line-height:1.16; font-weight:500; letter-spacing:-.01em; }
+        .fontSmall { font-size:clamp(16px,2vw,20px); font-weight:500; line-height:1.3; }
+        .font16 { font-size:15px; line-height:1.55; }
+
+        /* ---------- rabisco do nav: "Processo" -> loopy ---------- */
+        .loopLink { display:inline-flex; align-items:center; overflow:visible; }
+        .loopLink-target { position:relative; display:inline-block; }
+        .loopLink-scribble { position:absolute; left:-7%; top:50%; width:114%; height:1.6em;
+              transform:translateY(-50%); pointer-events:none; overflow:visible; }
+        .loopLink-scribble path { fill:none; stroke:currentColor; stroke-width:2.2;
+              stroke-linecap:round; stroke-linejoin:round;
+              stroke-dasharray:1; stroke-dashoffset:1; transition:stroke-dashoffset .5s ease; }
+        .loopLink-scribble path:nth-child(2) { transition-delay:.08s; }
+        .loopLink-note { max-width:0; opacity:0; overflow:hidden; white-space:nowrap;
+              font-family:"Caveat",cursive; font-size:1.3em; line-height:1; transform:rotate(-7deg);
+              transition:max-width .35s ease .12s, opacity .3s ease .12s, margin-left .35s ease .12s; }
+        .loopLink:hover .loopLink-scribble path,
+        .loopLink:focus-visible .loopLink-scribble path { stroke-dashoffset:0; }
+        .loopLink:hover .loopLink-note,
+        .loopLink:focus-visible .loopLink-note { max-width:5em; opacity:1; margin-left:.5em; }
+        .loopLink:hover .underLineLink::after { width:0; } /* o rabisco substitui o sublinhado aqui */
+
+        @media (prefers-reduced-motion:reduce) {
+            .loopLink-scribble path, .loopLink-note { transition:none; }
+        }
+
+        /* ---------- página loop ---------- */
+        .loop-hero { padding:64px 28px 40px; }
+        .loop-eyebrow { font-size:13px; letter-spacing:.04em; opacity:.55; margin-bottom:28px; }
+        .loop-hero h1 { margin:0; }
+        .loop-hero .loop-sub { max-width:24ch; margin-top:18px; }
+        .loop-hero .loop-line { margin-top:14px; opacity:.6; max-width:46ch; }
+
+        .loop-thesis { padding:48px 28px; border-top:1px solid currentColor; }
+        .loop-thesis .loop-claim { font-weight:600; }
+        .loop-thesis .loop-claim b { border-bottom:2px solid currentColor; padding-bottom:1px; }
+        .loop-thesis p { max-width:62ch; margin-top:18px; opacity:.75; }
+
+        /* seção escura: desenhos de linha brancos sobre preto (inversão do sistema) */
+        .loop-stages { background:var(--ink); color:var(--paper); padding:56px 28px 64px; }
+        .loop-stages .loop-head { display:flex; justify-content:space-between; align-items:baseline;
+              gap:16px; margin-bottom:34px; flex-wrap:wrap; }
+        .loop-stages .loop-head h2 { font-size:clamp(22px,4vw,38px); font-weight:600; letter-spacing:-.02em; }
+        .loop-stages .loop-head span { font-size:13px; opacity:.6; }
+
+        .loop-grid { display:grid; grid-template-columns:repeat(5,1fr); border-top:1px solid currentColor;
+              border-left:1px solid currentColor; }
+        .loop-cell { border-right:1px solid currentColor; border-bottom:1px solid currentColor;
+              padding:20px 18px 22px; display:flex; flex-direction:column; min-height:330px; }
+        .loop-cell .loop-top { display:flex; justify-content:space-between; align-items:center; }
+        .loop-num { font-size:13px; letter-spacing:.08em; opacity:.55; }
+        .loop-tag { font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; padding:3px 7px;
+              border:1px solid currentColor; }
+        .loop-tag.is-human { background:currentColor; }
+        .loop-tag.is-human span { color:var(--ink); }            /* texto invertido dentro do selo cheio */
+        .loop-figure { border:1px solid currentColor; margin:18px 0; aspect-ratio:1/1;
+              display:flex; align-items:center; justify-content:center; }
+        .loop-figure svg { width:58%; height:58%; }
+        .loop-cell h3 { font-size:17px; font-weight:600; letter-spacing:-.01em; margin-bottom:12px; line-height:1.12; }
+        .loop-pair { font-size:12px; margin-bottom:9px; opacity:.85; }
+        .loop-pair b { display:block; font-size:9.5px; letter-spacing:.12em; text-transform:uppercase;
+              opacity:.5; margin-bottom:2px; font-weight:500; }
+
+        .loop-back { display:flex; align-items:center; gap:14px; border:1px solid currentColor;
+              border-top:0; padding:14px 18px; font-size:13px; }
+        .loop-back .k { letter-spacing:.08em; white-space:nowrap; }
+        .loop-back .ln { flex:1; height:1px; background:currentColor; opacity:.5; }
+        .loop-back .t { opacity:.7; }
+
+        /* tools */
+        .loop-tools { padding:56px 28px; }
+        .loop-tools h2 { font-size:clamp(22px,4vw,38px); font-weight:600; letter-spacing:-.02em; margin-bottom:30px; }
+        .loop-stack { border-top:1px solid currentColor; }
+        .loop-row { display:grid; grid-template-columns:140px 1fr; gap:24px; padding:18px 0;
+              border-bottom:1px solid currentColor; align-items:start; }
+        .loop-row .lbl { font-size:13px; letter-spacing:.04em; opacity:.55; }
+        .loop-chips { display:flex; flex-wrap:wrap; gap:10px; }
+        .loop-chip { border:1px solid currentColor; padding:7px 13px; font-size:13px; }
+
+        /* refs */
+        .loop-refs { padding:56px 28px 70px; }
+        .loop-refs h2 { font-size:clamp(22px,4vw,38px); font-weight:600; letter-spacing:-.02em; margin-bottom:8px; }
+        .loop-refs .loop-refnote { opacity:.55; max-width:54ch; margin-bottom:30px; }
+        .loop-reflist { border-top:1px solid currentColor; }
+        .loop-ref { display:grid; grid-template-columns:200px 1fr auto; gap:20px; align-items:baseline;
+              padding:18px 0; border-bottom:1px solid currentColor; }
+        .loop-ref .src { font-weight:600; }
+        .loop-ref .desc { opacity:.7; font-size:14px; }
+        .loop-ref .go { font-size:13px; opacity:.55; white-space:nowrap; }
+
+        @media (max-width:900px) {
+            .loop-grid { grid-template-columns:1fr 1fr; }
+            .loop-cell { min-height:0; }
+        }
+        @media (max-width:600px) {
+            nav { flex-direction:column; }
+            .loop-grid { grid-template-columns:1fr; }
+            .loop-row, .loop-ref { grid-template-columns:1fr; gap:8px; }
+            .loop-ref .go { display:none; }
+        }
+    </style>
+
+    <!-- O seu sistema fechado. Carregado depois do fallback, vence sempre. -->
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+    <div id="main" data-textcolor="#181818" data-bgcolor="#e9e9e9">
+
+        <!-- Navbar -->
+        <nav>
+            <div class="wrapper">
+                <a href="index.html" class="nav-logo">
+                    <img src="assets/raipp-logo.svg" alt="Raipp" height="28" width="auto">
+                </a>
+                <div class="links">
+                    <a href="index.html" class="underLineLink">Index</a>
+                    <a href="loop.html" class="underLineLink loopLink" aria-label="Loop">
+                        <span class="loopLink-target">Processo<svg class="loopLink-scribble"
+                                viewBox="0 0 110 26" preserveAspectRatio="none" aria-hidden="true">
+                                <path pathLength="1"
+                                    d="M4,15 C16,3 22,24 34,12 C46,1 52,23 66,13 C80,3 86,22 100,12 C106,9 108,17 107,14" />
+                                <path pathLength="1"
+                                    d="M6,11 C18,21 26,3 40,15 C54,25 60,5 74,16 C86,24 95,6 106,16" />
+                            </svg></span>
+                        <span class="loopLink-note">loopy</span>
+                    </a>
+                </div>
+            </div>
+            <div id="MyClockDisplay" class="clock"></div>
+            <h3 class="font16">Localização <br> São Paulo - ZO</h3>
+        </nav>
+
+        <!-- Hero -->
+        <section class="loop-hero">
+            <p class="loop-eyebrow font16">Workflow · Processo de design redesenhado para a era da IA</p>
+            <h1 class="fontLarge">Loop</h1>
+            <h2 class="loop-sub fontMedium">Como o processo foi redesenhado em torno da gestão de IA.</h2>
+            <p class="loop-line font16">Linear morre. Ciclo fica. Front-carrega risco, não documentação.</p>
+        </section>
+
+        <!-- Tese -->
+        <section class="loop-thesis">
+            <h2 class="loop-claim fontMedium">Julgamento <b>decide</b>. IA <b>executa</b>.</h2>
+            <p class="font16">
+                Fazer ficou barato. O valor migrou da execução para o critério. O processo deixou de ser uma
+                sequência de entregas e virou um ciclo curto: critério primeiro, geração depois, sistema no fim,
+                e de volta ao começo. A IA cobre a produção. A decisão, a leitura e a governança continuam humanas.
+            </p>
+        </section>
+
+        <!-- Os cinco estágios -->
+        <section class="loop-stages" data-textcolor="#e9e9e9" data-bgcolor="#181818">
+            <div class="loop-head">
+                <h2>O ciclo</h2>
+                <span>Selo cheio = humano decide · Selo vazado = IA executa</span>
+            </div>
+
+            <div class="loop-grid">
+                <!-- 01 -->
+                <div class="loop-cell">
+                    <div class="loop-top">
+                        <span class="loop-num">01</span>
+                        <span class="loop-tag is-human"><span>Humano</span></span>
+                    </div>
+                    <div class="loop-figure">
+                        <svg viewBox="0 0 72 72">
+                            <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <rect x="10" y="10" width="52" height="52" />
+                                <path d="M19 47 L53 21" />
+                                <path d="M21 23 l8 8 M29 23 l-8 8" />
+                            </g>
+                        </svg>
+                    </div>
+                    <h3>Conceito e critério</h3>
+                    <p class="loop-pair"><b>Você faz</b>Define intenção, princípio e restrição antes de gerar.</p>
+                    <p class="loop-pair"><b>Saída</b>Frase de direção, três princípios, lista do que rejeitar.</p>
+                </div>
+
+                <!-- 02 -->
+                <div class="loop-cell">
+                    <div class="loop-top">
+                        <span class="loop-num">02</span>
+                        <span class="loop-tag is-human"><span>Humano</span></span>
+                    </div>
+                    <div class="loop-figure">
+                        <svg viewBox="0 0 72 72">
+                            <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <rect x="10" y="10" width="52" height="52" />
+                                <path d="M10 27 H62 M10 44 H62 M27 10 V62 M44 10 V62" />
+                                <path d="M10 10 l17 17 M27 10 l17 17" />
+                            </g>
+                        </svg>
+                    </div>
+                    <h3>Referência estruturada</h3>
+                    <p class="loop-pair"><b>Você faz</b>Extrai da referência o que copiar e o que descartar.</p>
+                    <p class="loop-pair"><b>Saída</b>Mapa de decisão: tokens implícitos, padrões, recusas.</p>
+                </div>
+
+                <!-- 03 -->
+                <div class="loop-cell">
+                    <div class="loop-top">
+                        <span class="loop-num">03</span>
+                        <span class="loop-tag"><span>IA</span></span>
+                    </div>
+                    <div class="loop-figure">
+                        <svg viewBox="0 0 72 72">
+                            <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <circle cx="14" cy="36" r="5" />
+                                <path d="M19 33 C31 24 37 21 44 19 M19 36 H44 M19 39 C31 48 37 51 44 53" />
+                                <rect x="44" y="13" width="18" height="12" />
+                                <rect x="44" y="30" width="18" height="12" />
+                                <rect x="44" y="47" width="18" height="12" />
+                            </g>
+                        </svg>
+                    </div>
+                    <h3>Geração</h3>
+                    <p class="loop-pair"><b>Você faz</b>Prompt, Figma agente e vibecode geram variações, tokens e
+                        componentes codificados.</p>
+                    <p class="loop-pair"><b>Saída</b>Protótipos e componentes, em paralelo.</p>
+                </div>
+
+                <!-- 04 -->
+                <div class="loop-cell">
+                    <div class="loop-top">
+                        <span class="loop-num">04</span>
+                        <span class="loop-tag"><span>IA · loop</span></span>
+                    </div>
+                    <div class="loop-figure">
+                        <svg viewBox="0 0 72 72">
+                            <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M52 26 A20 20 0 1 0 56 44" />
+                                <path d="M52 16 l2 10 l-10 -1" />
+                                <path d="M27 37 l6 7 l13 -15" />
+                            </g>
+                        </svg>
+                    </div>
+                    <h3>Validação curta</h3>
+                    <p class="loop-pair"><b>Você faz</b>Põe o protótipo em contexto real cedo e corrige em loop curto.
+                    </p>
+                    <p class="loop-pair"><b>Saída</b>Evidência, não opinião. Pivô custa horas.</p>
+                </div>
+
+                <!-- 05 -->
+                <div class="loop-cell">
+                    <div class="loop-top">
+                        <span class="loop-num">05</span>
+                        <span class="loop-tag is-human"><span>Humano</span></span>
+                    </div>
+                    <div class="loop-figure">
+                        <svg viewBox="0 0 72 72">
+                            <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <rect x="9" y="14" width="40" height="12" />
+                                <rect x="9" y="30" width="40" height="12" />
+                                <rect x="9" y="46" width="40" height="12" />
+                                <path d="M22 14 V58 M35 14 V58" />
+                                <path d="M58 14 V58 M58 14 h-5 M58 58 h-5" />
+                            </g>
+                        </svg>
+                    </div>
+                    <h3>Sistema e governança</h3>
+                    <p class="loop-pair"><b>Você faz</b>Trava o que funcionou: DS versionado, tokens nomeados, Storybook.
+                    </p>
+                    <p class="loop-pair"><b>Saída</b>Infraestrutura, não telas soltas.</p>
+                </div>
+            </div>
+
+            <div class="loop-back">
+                <span class="k">05 → 01</span>
+                <span class="ln"></span>
+                <span class="t">O sistema vira a restrição do próximo conceito. O processo não termina, gira.</span>
+            </div>
+        </section>
+
+        <!-- Onde a IA entra -->
+        <section class="loop-tools" data-textcolor="#181818" data-bgcolor="#e9e9e9">
+            <h2>Onde a IA entra</h2>
+            <div class="loop-stack">
+                <div class="loop-row">
+                    <span class="lbl">01 · 02 Critério</span>
+                    <div class="loop-chips">
+                        <span class="loop-chip">Leitura humana</span>
+                        <span class="loop-chip">IA como parceira de ideação</span>
+                        <span class="loop-chip">Não decisão</span>
+                    </div>
+                </div>
+                <div class="loop-row">
+                    <span class="lbl">03 Geração</span>
+                    <div class="loop-chips">
+                        <span class="loop-chip">Figma</span>
+                        <span class="loop-chip">Figma Make</span>
+                        <span class="loop-chip">Figma agente</span>
+                        <span class="loop-chip">Vibecode</span>
+                        <span class="loop-chip">Cursor</span>
+                        <span class="loop-chip">v0</span>
+                        <span class="loop-chip">Claude</span>
+                    </div>
+                </div>
+                <div class="loop-row">
+                    <span class="lbl">04 Validação</span>
+                    <div class="loop-chips">
+                        <span class="loop-chip">Protótipo em contexto real</span>
+                        <span class="loop-chip">Loop curto</span>
+                        <span class="loop-chip">Evidência sobre opinião</span>
+                    </div>
+                </div>
+                <div class="loop-row">
+                    <span class="lbl">05 Sistema</span>
+                    <div class="loop-chips">
+                        <span class="loop-chip">Storybook</span>
+                        <span class="loop-chip">Tokens nomeados</span>
+                        <span class="loop-chip">Design-to-code</span>
+                        <span class="loop-chip">Governança</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Referências -->
+        <section class="loop-refs" data-textcolor="#181818" data-bgcolor="#e9e9e9">
+            <h2>Referências</h2>
+            <p class="loop-refnote font16">O que sustenta esse redesenho. Os estúdios e pesquisadores que já moveram o
+                processo na mesma direção.</p>
+            <div class="loop-reflist">
+                <a class="loop-ref underLineLink" href="https://www.ideo.com/ai" target="_blank" rel="noopener">
+                    <span class="src">IDEO, AI Lab</span>
+                    <span class="desc">Design for agency, before agents. Produtos para humanos e seus agentes.</span>
+                    <span class="go">ideo.com/ai ↗</span>
+                </a>
+                <a class="loop-ref underLineLink"
+                    href="https://www.designcouncil.org.uk/our-resources/systemic-design-framework/" target="_blank"
+                    rel="noopener">
+                    <span class="src">Design Council</span>
+                    <span class="desc">Do Double Diamond linear ao Systemic Design Framework.</span>
+                    <span class="go">designcouncil.org.uk ↗</span>
+                </a>
+                <a class="loop-ref underLineLink" href="https://www.nngroup.com/articles/prepare-for-ai/"
+                    target="_blank" rel="noopener">
+                    <span class="src">Nielsen Norman Group</span>
+                    <span class="desc">Manter o estratégico, terceirizar o tático. Projetar para usuários e
+                        agentes.</span>
+                    <span class="go">nngroup.com ↗</span>
+                </a>
+                <a class="loop-ref underLineLink" href="https://www.thefountaininstitute.com/blog/double-diamond-ai"
+                    target="_blank" rel="noopener">
+                    <span class="src">The Fountain Institute</span>
+                    <span class="desc">A economia do fazer mudou. O caro deixou de ser fazer e virou esperar.</span>
+                    <span class="go">thefountaininstitute.com ↗</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Footer (mesmo do index) -->
+        <footer>
+            <div id="footer_details" data-textcolor="#181818" data-bgcolor="#e9e9e9">
+                <div class="footer_heading">
+                    <div class="reveal">
+                        <h1 class="fontLarge">Fale</h1>
+                    </div>
+                    <div class="reveal">
+                        <h1 class="fontLarge">Comigo</h1>
+                    </div>
+                </div>
+                <div class="footer_inner">
+                    <p class="font16">Atualmente disponível <br> para projetos e consultoria</p>
+                    <div class="footer_col">
+                        <p class="font16">Localização <br> São Paulo, SP</p>
+                        <h3 class="fontSmall">
+                            Se seu produto chegou num ponto onde consistência virou problema, ou se você vai escalar com
+                            IA e sabe que precisa de fundação antes, vamos conversar.
+                            <br><br>
+                            <a href="mailto:getulio@raipp.com.br" class="underLineLink">getulio@raipp.com.br</a>
+                            <br>
+                            <a href="tel:+5511982838497" class="underLineLink">+55 11 98283 8497</a>
+                        </h3>
+                    </div>
+                    <div class="footer_col2">
+                        <p class="font16">© Todos os direitos reservados.</p>
+                        <div class="footer_inner_links">
+                            <a href="https://linkedin.com/in/getuliosoueu" target="_blank"
+                                class="underLineLink">LinkedIn</a>
+                            <a href="https://substack.com/@getuliosoueu" target="_blank"
+                                class="underLineLink">Substack</a>
+                            <a href="https://instagram.com/oamanhadodesign" target="_blank"
+                                class="underLineLink">Instagram</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="Footer_Social" data-textcolor="#e9e9e9" data-bgcolor="#181818">
+                <div class="footer_wrapper">
+                    <div class="footer_container" data-scroll data-scroll-speed="-2">
+                        <div><a href="https://instagram.com/oamanhadodesign" target="_blank"
+                                class="footer_text">Instagram</a></div>
+                        <div><a href="https://substack.com/@getuliosoueu" target="_blank"
+                                class="footer_text">Substack</a></div>
+                        <div><a href="https://linkedin.com/in/getuliosoueu" target="_blank"
+                                class="footer_text">LinkedIn</a></div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts (mesmos do index, para a página rodar igual no seu projeto) -->
+    <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="js/main.js" type="module"></script>
+</body>
+
+</html>

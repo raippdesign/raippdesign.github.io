@@ -1,7 +1,6 @@
 import { showTime } from './clock.js';
 import { colorChanger } from './color.js';
 import { projectHover } from './project.js';
-import { footersvg } from './footer.js';
 
 // Initialize all functionalities
 function init() {
@@ -9,7 +8,6 @@ function init() {
     showTime();
     colorChanger();
     projectHover();
-    footersvg();
 }
 
 // Locomotive Scroll setup combined with ScrollTrigger

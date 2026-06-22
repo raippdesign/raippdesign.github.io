@@ -369,6 +369,72 @@ footer .Footer_Social .footer_wrapper .footer_container > div .footer_text:hover
   width: 100%;
 }
 
+/* Loop link — nav "Processo" */
+.loopLink {
+  display: inline-flex;
+  align-items: center;
+  overflow: visible;
+}
+.loopLink-target {
+  position: relative;
+  display: inline-block;
+}
+.loopLink-scribble {
+  position: absolute;
+  left: -7%;
+  top: 50%;
+  width: 114%;
+  height: 1.6em;
+  transform: translateY(-50%);
+  pointer-events: none;
+  overflow: visible;
+}
+.loopLink-scribble path {
+  fill: none;
+  stroke: #ff0000;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 1;
+  transition: stroke-dashoffset 0.5s ease;
+}
+.loopLink-scribble path:nth-child(2) {
+  transition-delay: 0.08s;
+}
+.loopLink-note {
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  font-family: "Caveat", cursive;
+  font-size: 1.3em;
+  line-height: 1;
+  transform: rotate(-7deg);
+  transition: max-width 0.35s ease 0.12s, opacity 0.3s ease 0.12s, margin-left 0.35s ease 0.12s;
+}
+.loopLink:hover .loopLink-scribble path,
+.loopLink:focus-visible .loopLink-scribble path {
+  stroke-dashoffset: 0;
+}
+.loopLink:hover .loopLink-note,
+.loopLink:focus-visible .loopLink-note {
+  max-width: 5em;
+  opacity: 1;
+  margin-left: 0.5em;
+}
+.loopLink.underLineLink:hover::before {
+  background: #ff0000;
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .loopLink-scribble path,
+  .loopLink-note {
+    transition: none;
+  }
+}
+
 /* Section */
 section,
 .work,
