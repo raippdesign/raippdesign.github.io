@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@200;300;400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Inter:wght@200;300;400;500&amp;family=Geist:wght@200;300;400;500&amp;display=swap" rel="stylesheet">
+<style>
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{margin:0;background:#f4f4f4;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  *{box-sizing:border-box;min-width:0}
+  input,select,button,textarea{font:inherit;color:inherit}
+  a{color:#0f62fe;text-decoration:none}
+  a:hover{color:#0043ce}
+  ::selection{background:var(--i,#0f62fe);color:var(--on-i,#ffffff)}
+  ::-moz-selection{background:var(--i,#0f62fe);color:var(--on-i,#ffffff)}
+</style>
+</helmet>
+
+<div ref="{{ raiz }}" style="--i:#0f62fe;--on-i:#ffffff;--r:0px;--d:1;--ff:'IBM Plex Sans';--bg:#f4f4f4;--layer:#ffffff;--layer2:#eeeeec;--line:#dcdcda;--tx:#161616;--tx2:#525252;--tx3:#6f6f6f;background:var(--bg);color:var(--tx);font-family:var(--ff),'IBM Plex Sans',system-ui,sans-serif;font-weight:300;min-height:100svh;transition:background .5s ease,color .5s ease">
+
+  <header style="position:sticky;top:0;z-index:60;background:var(--bg);border-bottom:1px solid var(--line);transition:background .5s ease">
+    <div style="max-width:1360px;margin:0 auto;width:100%;display:flex;flex-wrap:wrap;align-items:center;gap:16px;padding:clamp(14px,1.6vw,20px) clamp(20px,5vw,72px)">
+      <a href="index.html" aria-label="raipp, voltar ao site" style="display:flex;align-items:center;gap:10px;color:var(--tx);transition:color .5s ease" style-hover="color:var(--i)"><span aria-hidden="true" style="font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:1;flex:none">←</span><svg viewBox="0 0 2753 1126" role="img" aria-label="raipp" style="height:clamp(18px,1.7vw,23px);width:auto;display:block;flex:none"><path d="M97.3001 62.8851H345.297C391.178 62.8851 430.731 67.6312 463.955 77.1233C497.971 85.8244 528.426 104.809 555.322 134.076C593.293 173.626 612.278 227.415 612.278 295.441C612.278 367.423 590.524 425.167 547.016 468.672C512.21 501.895 470.284 523.252 421.238 532.744L625.331 854.289H411.745L220.705 542.236L182.734 854.289H0L97.3001 62.8851ZM262.236 205.267L234.944 422.398H280.034C326.707 422.398 362.304 412.906 386.827 393.922C413.723 373.356 427.171 342.506 427.171 301.374C427.171 265.779 414.514 240.071 389.2 224.251C369.424 211.595 336.199 205.267 289.527 205.267H262.236Z" fill="currentColor"></path><path d="M1081.48 389.176L1086.23 325.104H1257.1L1191.83 854.289H1020.96L1034.02 793.777C1011.08 820.671 986.158 840.446 959.262 853.102C931.575 865.758 898.746 872.086 860.776 872.086C792.745 872.086 738.162 850.334 697.027 806.828C649.563 756.204 625.831 691.341 625.831 612.24C625.831 518.901 654.31 442.965 711.266 384.43C761.893 333.014 826.76 307.307 905.866 307.307C947.001 307.307 981.412 314.03 1009.1 327.477C1037.58 340.924 1061.7 361.491 1081.48 389.176ZM942.65 454.434C901.515 454.434 867.895 467.486 841.79 493.589C814.894 520.483 801.446 555.683 801.446 599.189C801.446 634.784 812.917 664.842 835.857 689.364C858.798 713.094 888.858 724.959 926.038 724.959C965.591 724.959 998.024 713.094 1023.34 689.364C1053.4 660.096 1068.43 622.128 1068.43 575.458C1068.43 536.699 1056.17 506.245 1031.64 484.097C1010.29 464.322 980.621 454.434 942.65 454.434Z" fill="currentColor"></path><path d="M1323.14 325.104H1494L1428.74 854.289H1257.87L1323.14 325.104ZM1359.92 170.858C1340.94 151.083 1331.44 127.352 1331.44 99.667C1331.44 71.9817 1340.94 48.647 1359.92 29.6628C1379.7 9.88759 1403.43 0 1431.12 0C1458.8 0 1482.14 9.88759 1501.12 29.6628C1520.9 48.647 1530.79 71.9817 1530.79 99.667C1530.79 127.352 1520.9 151.083 1501.12 170.858C1482.14 189.842 1458.8 199.334 1431.12 199.334C1403.43 199.334 1379.7 189.842 1359.92 170.858Z" fill="currentColor"></path><path d="M1674.8 789.031L1632.08 1126H1461.22L1559.7 325.104H1730.57L1721.08 386.803C1740.06 363.864 1762.21 345.671 1787.53 332.223C1819.96 315.612 1856.35 307.307 1896.69 307.307C1963.14 307.307 2016.54 326.686 2056.88 365.446C2103.55 412.115 2126.89 478.164 2126.89 563.593C2126.89 662.469 2097.23 741.57 2037.9 800.896C1990.43 848.356 1930.71 872.086 1858.72 872.086C1811.26 872.086 1772.89 864.572 1743.62 849.543C1716.73 835.304 1693.79 815.134 1674.8 789.031ZM1830.24 454.434C1790.69 454.434 1757.47 467.881 1730.57 494.776C1702.09 523.252 1687.85 558.847 1687.85 601.562C1687.85 637.157 1698.53 666.029 1719.89 688.177C1742.83 712.698 1772.5 724.959 1808.89 724.959C1846.07 724.959 1877.71 712.698 1903.81 688.177C1918.05 675.521 1929.52 658.514 1938.22 637.157C1946.93 615.009 1951.28 594.047 1951.28 574.272C1951.28 537.094 1939.01 507.432 1914.49 485.283C1892.34 464.717 1864.26 454.434 1830.24 454.434Z" fill="currentColor"></path><path d="M2300.91 789.031L2258.19 1126H2087.33L2185.81 325.104H2356.68L2347.19 386.803C2366.17 363.864 2388.32 345.671 2413.64 332.223C2446.07 315.612 2482.46 307.307 2522.8 307.307C2589.25 307.307 2642.65 326.686 2682.99 365.446C2729.66 412.115 2753 478.164 2753 563.593C2753 662.469 2723.34 741.57 2664.01 800.896C2616.54 848.356 2556.82 872.086 2484.83 872.086C2437.37 872.086 2399 864.572 2369.73 849.543C2342.84 835.304 2319.9 815.134 2300.91 789.031ZM2456.35 454.434C2416.8 454.434 2383.58 467.881 2356.68 494.776C2328.2 523.252 2313.96 558.847 2313.96 601.562C2313.96 637.157 2324.64 666.029 2346 688.177C2368.94 712.698 2398.61 724.959 2435 724.959C2472.17 724.959 2503.82 712.698 2529.92 688.177C2544.16 675.521 2555.63 658.514 2564.33 637.157C2573.03 615.009 2577.39 594.047 2577.39 574.272C2577.39 537.094 2565.12 507.432 2540.6 485.283C2518.45 464.717 2490.37 454.434 2456.35 454.434Z" fill="currentColor"></path></svg></a>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--tx3);padding-left:4px;border-left:1px solid var(--line);padding-block:4px;margin-left:4px;padding-inline-start:14px">Componentes</span>
+    </div>
+  </header>
+
+  <section style="padding:calc(clamp(40px,5vw,72px) * var(--d)) clamp(20px,5vw,72px) 0">
+    <div style="max-width:1360px;margin:0 auto;width:100%;display:flex;flex-wrap:wrap;gap:clamp(28px,4vw,72px);align-items:flex-end">
+      <div style="flex:1 1 min(460px,100%);display:flex;flex-direction:column;gap:clamp(14px,1.6vw,20px)">
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--tx3);margin:0">Biblioteca em execução</p>
+        <h1 style="font-size:clamp(34px,5vw,68px);font-weight:200;letter-spacing:-.045em;line-height:1.02;color:var(--tx);margin:0;max-width:16em;text-wrap:pretty">Trinta componentes lendo os mesmos cinco tokens.</h1>
+      </div>
+      <p style="flex:1 1 min(320px,100%);max-width:46ch;font-size:clamp(15px,1.1vw,17.5px);line-height:1.65;color:var(--tx2);margin:0;text-wrap:pretty">Nada aqui tem cor, raio ou espaçamento escrito dentro. Mude um valor na barra abaixo e a biblioteca inteira se reescreve — é o mesmo contrato que Getúlio implanta no seu produto.</p>
+    </div>
+  </section>
+
+  <div ref="{{ barra }}" style="z-index:50;background:var(--bg);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:calc(clamp(28px,3vw,48px) * var(--d));transition:background .5s ease">
+    <div style="max-width:1360px;margin:0 auto;width:100%;display:flex;flex-wrap:wrap;gap:clamp(18px,2.4vw,36px);align-items:flex-end;padding:clamp(14px,1.6vw,22px) clamp(20px,5vw,72px)">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--tx3)">Cor</span>
+        <div style="display:flex;gap:8px">
+          <button data-g="cor" data-v="#0f62fe" onClick="{{ cor0 }}" aria-label="Azul" style="width:44px;height:44px;background:#0f62fe;border:1px solid var(--line);border-radius:var(--r);cursor:pointer;padding:0;transition:transform .3s cubic-bezier(.16,1,.3,1),border-radius .4s ease" style-hover="transform:translateY(-2px)"></button>
+          <button data-g="cor" data-v="#ff7a5c" onClick="{{ cor1 }}" aria-label="Coral" style="width:44px;height:44px;background:#ff7a5c;border:1px solid var(--line);border-radius:var(--r);cursor:pointer;padding:0;transition:transform .3s cubic-bezier(.16,1,.3,1),border-radius .4s ease" style-hover="transform:translateY(-2px)"></button>
+          <button data-g="cor" data-v="#d02670" onClick="{{ cor2 }}" aria-label="Magenta" style="width:44px;height:44px;background:#d02670;border:1px solid var(--line);border-radius:var(--r);cursor:pointer;padding:0;transition:transform .3s cubic-bezier(.16,1,.3,1),border-radius .4s ease" style-hover="transform:translateY(-2px)"></button>
+          <button data-g="cor" data-v="#198038" onClick="{{ cor3 }}" aria-label="Verde" style="width:44px;height:44px;background:#198038;border:1px solid var(--line);border-radius:var(--r);cursor:pointer;padding:0;transition:transform .3s cubic-bezier(.16,1,.3,1),border-radius .4s ease" style-hover="transform:translateY(-2px)"></button>
+          <button data-g="cor" data-v="#8a3ffc" onClick="{{ cor4 }}" aria-label="Roxo" style="width:44px;height:44px;background:#8a3ffc;border:1px solid var(--line);border-radius:var(--r);cursor:pointer;padding:0;transition:transform .3s cubic-bezier(.16,1,.3,1),border-radius .4s ease" style-hover="transform:translateY(-2px)"></button>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--tx3)">Raio</span>
+        <div style="display:flex;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;transition:border-radius .4s ease">
+          <button data-g="raio" data-v="0px" onClick="{{ raio0 }}" style="width:46px;height:44px;background:transparent;border:0;border-right:1px solid var(--line);font-size:13px;cursor:pointer;transition:background .3s ease,color .3s ease">0</button>
+          <button data-g="raio" data-v="4px" onClick="{{ raio1 }}" style="width:46px;height:44px;background:transparent;border:0;border-right:1px solid var(--line);font-size:13px;cursor:pointer;transition:background .3s ease,color .3s ease">4</button>
+          <button data-g="raio" data-v="8px" onClick="{{ raio2 }}" style="width:46px;height:44px;background:transparent;border:0;border-right:1px solid var(--line);font-size:13px;cursor:pointer;transition:background .3s ease,color .3s ease">8</button>
+          <button data-g="raio" data-v="16px" onClick="{{ raio3 }}" style="width:46px;height:44px;background:transparent;border:0;font-size:13px;cursor:pointer;transition:background .3s ease,color .3s ease">16</button>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--tx3)">Densidade</span>
+        <div style="display:flex;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;transition:border-radius .4s ease">
+          <button data-g="dens" data-v="0.82" onClick="{{ dens0 }}" style="height:44px;padding:0 14px;background:transparent;border:0;border-right:1px solid var(--line);font-size:13px;cursor:pointer;transition:background .3s ease,color .3s ease">Compacta</button>
+          <button data-g="dens" data-v="1" onClick="{{ dens1 }}" style="height:44px;padding:0 14px;background:transparent;border:0;border-right:1px solid var(--line);font-size:13px;cursor:pointer;transition:background .3s ease,color .3s ease">Padrão</button>
+          <button data-g="dens" data-v="1.24" onClick="{{ dens2 }}" style="height:44px;padding:0 14px;background:transparent;border:0;font-size:13px;cursor:pointer;transition:background .3s ease,color .3s ease">Ampla</button>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--tx3)">Tipo</span>
+        <div style="display:flex;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;transition:border-radius .4s ease">
+          <button data-g="tipo" data-v="IBM Plex Sans" onClick="{{ tipo0 }}" style="height:44px;padding:0 14px;background:transparent;border:0;border-right:1px solid var(--line);font-size:13px;cursor:pointer;transition:background .3s ease,color .3s ease">Plex</button>
+          <button data-g="tipo" data-v="Inter" onClick="{{ tipo1 }}" style="height:44px;padding:0 14px;background:transparent;border:0;border-right:1px solid var(--line);font-size:13px;cursor:pointer;transition:background .3s ease,color .3s ease">Inter</button>
+          <button data-g="tipo" data-v="Geist" onClick="{{ tipo2 }}" style="height:44px;padding:0 14px;background:transparent;border:0;font-size:13px;cursor:pointer;transition:background .3s ease,color .3s ease">Geist</button>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--tx3)">Tema</span>
+        <div style="display:flex;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;transition:border-radius .4s ease">
+          <button data-g="tema" data-v="claro" onClick="{{ temaClaro }}" style="height:44px;padding:0 16px;background:transparent;border:0;border-right:1px solid var(--line);font-size:13px;cursor:pointer;transition:background .3s ease,color .3s ease">Claro</button>
+          <button data-g="tema" data-v="escuro" onClick="{{ temaEscuro }}" style="height:44px;padding:0 16px;background:transparent;border:0;font-size:13px;cursor:pointer;transition:background .3s ease,color .3s ease">Escuro</button>
+        </div>
+      </div>
+      <p style="margin-left:auto;display:flex;flex-wrap:wrap;gap:6px 18px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.04em;color:var(--tx3);margin-block:0"><span>brand.interactive <b ref="{{ outHex }}" style="font-weight:500;color:var(--i);transition:color .4s ease">#0f62fe</b></span><span>radius.base <b ref="{{ outRaio }}" style="font-weight:500;color:var(--tx)">0px</b></span><span>density <b ref="{{ outDens }}" style="font-weight:500;color:var(--tx)">1.00</b></span></p>
+    </div>
+  </div>
+
+  <main style="max-width:1360px;margin:0 auto;width:100%;padding:calc(clamp(44px,5vw,88px) * var(--d)) clamp(20px,5vw,72px) calc(clamp(70px,8vw,140px) * var(--d));display:flex;flex-direction:column;gap:calc(clamp(56px,6vw,104px) * var(--d))">
+
+    <section style="display:flex;flex-direction:column;gap:clamp(20px,2.4vw,32px)">
+      <div style="display:flex;flex-wrap:wrap;gap:16px 32px;align-items:baseline;padding-bottom:14px;border-bottom:1px solid var(--line)">
+        <h2 style="font-size:clamp(22px,2.2vw,30px);font-weight:300;letter-spacing:-.03em;color:var(--tx);margin:0">01 · Ação</h2>
+        <p style="font-size:14px;line-height:1.6;color:var(--tx3);margin:0;max-width:52ch">Um botão, cinco variantes. Nenhuma delas conhece o hex da marca.</p>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:calc(14px * var(--d))">
+        <button style="display:flex;align-items:center;gap:16px;min-height:calc(52px * var(--d));padding:0 calc(20px * var(--d));background:var(--i);color:var(--on-i);border:0;border-radius:var(--r);font-size:15px;cursor:pointer;transition:transform .35s cubic-bezier(.16,1,.3,1),filter .3s ease,border-radius .4s ease" style-hover="transform:translateY(-2px);filter:brightness(1.08)">Primário <span style="font-family:'IBM Plex Mono',monospace;font-size:12px">→</span></button>
+        <button style="display:flex;align-items:center;min-height:calc(52px * var(--d));padding:0 calc(20px * var(--d));background:transparent;color:var(--i);border:1px solid var(--i);border-radius:var(--r);font-size:15px;cursor:pointer;transition:background .3s ease,color .3s ease,border-radius .4s ease" style-hover="background:var(--i);color:var(--on-i)">Secundário</button>
+        <button style="display:flex;align-items:center;min-height:calc(52px * var(--d));padding:0 calc(20px * var(--d));background:var(--tx);color:var(--bg);border:0;border-radius:var(--r);font-size:15px;cursor:pointer;transition:transform .35s cubic-bezier(.16,1,.3,1),border-radius .4s ease" style-hover="transform:translateY(-2px)">Neutro</button>
+        <button style="display:flex;align-items:center;min-height:calc(52px * var(--d));padding:0 calc(14px * var(--d));background:transparent;color:var(--tx2);border:0;border-radius:var(--r);font-size:15px;cursor:pointer;transition:color .3s ease" style-hover="color:var(--i)">Fantasma</button>
+        <button disabled="" style="display:flex;align-items:center;min-height:calc(52px * var(--d));padding:0 calc(20px * var(--d));background:var(--layer2);color:var(--tx3);border:0;border-radius:var(--r);font-size:15px;cursor:not-allowed;transition:border-radius .4s ease">Desabilitado</button>
+        <button aria-label="Ícone" style="display:grid;place-items:center;width:calc(52px * var(--d));min-height:calc(52px * var(--d));background:transparent;color:var(--tx);border:1px solid var(--line);border-radius:var(--r);font-family:'IBM Plex Mono',monospace;font-size:16px;cursor:pointer;transition:border-color .3s ease,border-radius .4s ease" style-hover="border-color:var(--tx)">+</button>
+      </div>
+    </section>
+
+    <section style="display:flex;flex-direction:column;gap:clamp(20px,2.4vw,32px)">
+      <div style="display:flex;flex-wrap:wrap;gap:16px 32px;align-items:baseline;padding-bottom:14px;border-bottom:1px solid var(--line)">
+        <h2 style="font-size:clamp(22px,2.2vw,30px);font-weight:300;letter-spacing:-.03em;color:var(--tx);margin:0">02 · Entrada</h2>
+        <p style="font-size:14px;line-height:1.6;color:var(--tx3);margin:0;max-width:52ch">Foco, erro e ajuda são estados nomeados, não improviso de tela.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:calc(24px * var(--d))">
+        <label style="display:flex;flex-direction:column;gap:8px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--tx3)">Nome</span><input placeholder="Getúlio Lima" style="height:calc(54px * var(--d));padding:0 16px;background:var(--layer);border:1px solid var(--line);border-bottom:1px solid var(--tx3);border-radius:var(--r);font-size:15px;outline:none;transition:border-color .3s ease,border-radius .4s ease" style-focus="border-color:var(--i)"><span style="font-size:12.5px;color:var(--tx3)">Como a equipe te chama</span></label>
+        <label style="display:flex;flex-direction:column;gap:8px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--tx3)">Endereço</span><input value="raipp.com.br" style="height:calc(54px * var(--d));padding:0 16px;background:var(--layer);border:1px solid var(--i);border-radius:var(--r);font-size:15px;outline:none;transition:border-color .4s ease,border-radius .4s ease"><span style="font-size:12.5px;color:var(--i);transition:color .4s ease">Estado de foco</span></label>
+        <label style="display:flex;flex-direction:column;gap:8px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--tx3)">E-mail</span><input value="getulio@" style="height:calc(54px * var(--d));padding:0 16px;background:var(--layer);border:1px solid #da1e28;border-radius:var(--r);font-size:15px;outline:none;transition:border-radius .4s ease"><span style="font-size:12.5px;color:#da1e28">Endereço incompleto</span></label>
+        <label style="display:flex;flex-direction:column;gap:8px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--tx3)">O que está doendo</span><select style="height:calc(54px * var(--d));padding:0 16px;background:var(--layer);border:1px solid var(--line);border-radius:var(--r);font-size:15px;outline:none;appearance:none;transition:border-color .3s ease,border-radius .4s ease" style-focus="border-color:var(--i)"><option>Cresceu sem estrutura</option><option>Precisa escalar</option><option>Múltiplas marcas</option></select><span style="font-size:12.5px;color:var(--tx3)">Seleção única</span></label>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:calc(28px * var(--d));align-items:center;padding-top:calc(8px * var(--d))">
+        <button onClick="{{ alterna }}" aria-label="Alternar" style="display:flex;align-items:center;gap:12px;background:transparent;border:0;padding:0;cursor:pointer;color:var(--tx2);font-size:14.5px"><span ref="{{ swTrilha }}" style="width:52px;height:30px;background:var(--i);border-radius:999px;padding:3px;display:flex;transition:background .35s ease"><span ref="{{ swBola }}" style="width:24px;height:24px;background:var(--on-i);border-radius:50%;display:block;transform:translateX(22px);transition:transform .35s cubic-bezier(.16,1,.3,1)"></span></span><span ref="{{ swTexto }}" style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.06em">tokens.linked = true</span></button>
+        <span style="display:flex;align-items:center;gap:10px;font-size:14.5px;color:var(--tx2)"><span style="width:22px;height:22px;background:var(--i);border-radius:calc(var(--r) / 2);display:grid;place-items:center;color:var(--on-i);font-size:13px;transition:background .4s ease">✓</span>Marcado</span>
+        <span style="display:flex;align-items:center;gap:10px;font-size:14.5px;color:var(--tx2)"><span style="width:22px;height:22px;border:1px solid var(--tx3);border-radius:calc(var(--r) / 2);display:block"></span>Vazio</span>
+        <span style="display:flex;align-items:center;gap:10px;font-size:14.5px;color:var(--tx2)"><span style="width:22px;height:22px;border:5px solid var(--i);border-radius:50%;display:block;transition:border-color .4s ease"></span>Rádio ativo</span>
+      </div>
+    </section>
+
+    <section style="display:flex;flex-direction:column;gap:clamp(20px,2.4vw,32px)">
+      <div style="display:flex;flex-wrap:wrap;gap:16px 32px;align-items:baseline;padding-bottom:14px;border-bottom:1px solid var(--line)">
+        <h2 style="font-size:clamp(22px,2.2vw,30px);font-weight:300;letter-spacing:-.03em;color:var(--tx);margin:0">03 · Sinalização</h2>
+        <p style="font-size:14px;line-height:1.6;color:var(--tx3);margin:0;max-width:52ch">Sucesso, atenção e erro ficam fora da paleta de marca — de propósito.</p>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px">
+        <span style="display:flex;align-items:center;gap:8px;padding:7px 12px;background:var(--i);color:var(--on-i);border-radius:var(--r);font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.05em;transition:background .4s ease,border-radius .4s ease">Marca</span>
+        <span style="display:flex;align-items:center;gap:8px;padding:7px 12px;border:1px solid var(--line);color:var(--tx2);border-radius:var(--r);font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.05em">Neutro</span>
+        <span style="display:flex;align-items:center;gap:8px;padding:7px 12px;background:#198038;color:#ffffff;border-radius:var(--r);font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.05em">Publicado</span>
+        <span style="display:flex;align-items:center;gap:8px;padding:7px 12px;background:#f1c21b;color:#161616;border-radius:var(--r);font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.05em">Em revisão</span>
+        <span style="display:flex;align-items:center;gap:8px;padding:7px 12px;background:#da1e28;color:#ffffff;border-radius:var(--r);font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.05em">Depreciado</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:calc(14px * var(--d))">
+        <p style="display:flex;gap:14px;align-items:flex-start;margin:0;padding:calc(16px * var(--d));background:var(--layer);border-left:3px solid var(--i);border-radius:var(--r);font-size:14.5px;line-height:1.6;color:var(--tx2);transition:border-color .4s ease,border-radius .4s ease"><b style="font-weight:500;color:var(--tx);flex:none">Aviso do sistema</b>Trinta e um componentes herdaram esta decisão. Nenhum arquivo foi editado à mão.</p>
+        <div style="display:flex;flex-direction:column;gap:10px;max-width:520px">
+          <span style="display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--tx3)">Adoção da biblioteca<b style="font-weight:500;color:var(--tx)">78%</b></span>
+          <span style="height:6px;background:var(--layer2);border-radius:var(--r);overflow:hidden;display:block"><span style="display:block;height:100%;width:78%;background:var(--i);transition:background .4s ease"></span></span>
+        </div>
+      </div>
+    </section>
+
+    <section style="display:flex;flex-direction:column;gap:clamp(20px,2.4vw,32px)">
+      <div style="display:flex;flex-wrap:wrap;gap:16px 32px;align-items:baseline;padding-bottom:14px;border-bottom:1px solid var(--line)">
+        <h2 style="font-size:clamp(22px,2.2vw,30px);font-weight:300;letter-spacing:-.03em;color:var(--tx);margin:0">04 · Dado denso</h2>
+        <p style="font-size:14px;line-height:1.6;color:var(--tx3);margin:0;max-width:52ch">Onde densidade deixa de ser estética e passa a ser operação.</p>
+      </div>
+      <div style="border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--layer);transition:border-radius .4s ease">
+        <table style="width:100%;border-collapse:collapse;font-size:14px">
+          <thead>
+            <tr style="background:var(--layer2);text-align:left">
+              <th style="padding:calc(14px * var(--d)) 16px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--tx3);font-weight:400">Token</th>
+              <th style="padding:calc(14px * var(--d)) 16px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--tx3);font-weight:400">Camada</th>
+              <th style="padding:calc(14px * var(--d)) 16px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--tx3);font-weight:400">Consumo</th>
+              <th style="padding:calc(14px * var(--d)) 16px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--tx3);font-weight:400">Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-top:1px solid var(--line)"><td style="padding:calc(14px * var(--d)) 16px;font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--tx)">brand.interactive</td><td style="padding:calc(14px * var(--d)) 16px;color:var(--tx2)">Semântica</td><td style="padding:calc(14px * var(--d)) 16px;color:var(--tx2)">31 componentes</td><td style="padding:calc(14px * var(--d)) 16px"><span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--tx2)"><span style="width:8px;height:8px;background:#198038;border-radius:50%;display:block"></span>Ativo</span></td></tr>
+            <tr style="border-top:1px solid var(--line)"><td style="padding:calc(14px * var(--d)) 16px;font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--tx)">radius.base</td><td style="padding:calc(14px * var(--d)) 16px;color:var(--tx2)">Primitiva</td><td style="padding:calc(14px * var(--d)) 16px;color:var(--tx2)">24 componentes</td><td style="padding:calc(14px * var(--d)) 16px"><span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--tx2)"><span style="width:8px;height:8px;background:#198038;border-radius:50%;display:block"></span>Ativo</span></td></tr>
+            <tr style="border-top:1px solid var(--line)"><td style="padding:calc(14px * var(--d)) 16px;font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--tx)">space.density</td><td style="padding:calc(14px * var(--d)) 16px;color:var(--tx2)">Primitiva</td><td style="padding:calc(14px * var(--d)) 16px;color:var(--tx2)">Layout global</td><td style="padding:calc(14px * var(--d)) 16px"><span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--tx2)"><span style="width:8px;height:8px;background:#f1c21b;border-radius:50%;display:block"></span>Em revisão</span></td></tr>
+            <tr style="border-top:1px solid var(--line)"><td style="padding:calc(14px * var(--d)) 16px;font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--tx)">color.blue.600</td><td style="padding:calc(14px * var(--d)) 16px;color:var(--tx2)">Bruta</td><td style="padding:calc(14px * var(--d)) 16px;color:var(--tx2)">0 componentes</td><td style="padding:calc(14px * var(--d)) 16px"><span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--tx2)"><span style="width:8px;height:8px;background:#da1e28;border-radius:50%;display:block"></span>Uso direto proibido</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section style="display:flex;flex-direction:column;gap:clamp(20px,2.4vw,32px)">
+      <div style="display:flex;flex-wrap:wrap;gap:16px 32px;align-items:baseline;padding-bottom:14px;border-bottom:1px solid var(--line)">
+        <h2 style="font-size:clamp(22px,2.2vw,30px);font-weight:300;letter-spacing:-.03em;color:var(--tx);margin:0">05 · Composição</h2>
+        <p style="font-size:14px;line-height:1.6;color:var(--tx3);margin:0;max-width:52ch">Cartão, aba e barra: componentes feitos de componentes, sem exceção nova.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:calc(24px * var(--d))">
+        <article style="display:flex;flex-direction:column;gap:14px;padding:calc(24px * var(--d));background:var(--layer);border:1px solid var(--line);border-radius:var(--r);transition:border-radius .4s ease">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--i);transition:color .4s ease">Diagnóstico</span>
+          <h3 style="font-size:21px;font-weight:400;letter-spacing:-.025em;color:var(--tx);margin:0">Raipp Score</h3>
+          <p style="font-size:14px;line-height:1.6;color:var(--tx2);margin:0">Impacto, Experiência e Criticidade em uma nota de 0 a 10, com a lista do que dói primeiro.</p>
+          <span style="display:flex;align-items:baseline;gap:8px;font-size:38px;font-weight:200;letter-spacing:-.04em;color:var(--i);transition:color .4s ease">5.2<span style="font-size:13px;color:var(--tx3);font-weight:300">média atual</span></span>
+        </article>
+        <article style="display:flex;flex-direction:column;gap:0;background:var(--layer);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;transition:border-radius .4s ease">
+          <div style="display:flex;border-bottom:1px solid var(--line)">
+            <span style="flex:1;padding:calc(14px * var(--d)) 16px;font-size:13.5px;color:var(--tx);border-bottom:2px solid var(--i);transition:border-color .4s ease">Tokens</span>
+            <span style="flex:1;padding:calc(14px * var(--d)) 16px;font-size:13.5px;color:var(--tx3)">Componentes</span>
+            <span style="flex:1;padding:calc(14px * var(--d)) 16px;font-size:13.5px;color:var(--tx3)">Regras</span>
+          </div>
+          <div style="padding:calc(20px * var(--d));display:flex;flex-direction:column;gap:12px">
+            <p style="margin:0;font-size:14px;line-height:1.6;color:var(--tx2)">Três camadas: bruta, semântica e de componente. O produto só consome a segunda.</p>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--tx3)">bruta → semântica → componente</span>
+          </div>
+        </article>
+        <article style="display:flex;flex-direction:column;gap:16px;padding:calc(24px * var(--d));background:var(--tx);color:var(--bg);border-radius:var(--r);transition:border-radius .4s ease,background .5s ease">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;opacity:.6">Inverso</span>
+          <h3 style="font-size:21px;font-weight:400;letter-spacing:-.025em;margin:0">O mesmo token, no escuro</h3>
+          <p style="font-size:14px;line-height:1.6;margin:0;opacity:.75">Tema não é uma segunda biblioteca. É a mesma, lida com outro valor por trás do nome.</p>
+          <a href="index.html#contato" style="display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:calc(50px * var(--d));padding:0 18px;background:var(--i);color:var(--on-i);border-radius:var(--r);font-size:14.5px;transition:filter .3s ease,border-radius .4s ease" style-hover="filter:brightness(1.08);color:var(--on-i)">Solicitar diagnóstico <span style="font-family:'IBM Plex Mono',monospace;font-size:12px">→</span></a>
+        </article>
+      </div>
+    </section>
+
+    <section style="display:flex;flex-wrap:wrap;gap:clamp(24px,3vw,48px);align-items:flex-end;padding-top:calc(clamp(20px,2.4vw,36px) * var(--d));border-top:1px solid var(--line)">
+      <p style="flex:1 1 min(360px,100%);max-width:52ch;font-size:clamp(17px,1.6vw,24px);font-weight:300;line-height:1.45;letter-spacing:-.025em;color:var(--tx);margin:0;text-wrap:pretty">Você acabou de reconfigurar uma biblioteca inteira em cinco cliques. É esse o resultado que Getúlio instala no seu produto.</p>
+      <a href="index.html#contato" style="display:flex;align-items:center;gap:24px;min-height:calc(58px * var(--d));padding:0 22px;background:var(--i);color:var(--on-i);border-radius:var(--r);font-size:15.5px;transition:transform .4s cubic-bezier(.16,1,.3,1),filter .3s ease,border-radius .4s ease" style-hover="transform:translateY(-2px);filter:brightness(1.08);color:var(--on-i)">Solicitar diagnóstico gratuito <span style="font-family:'IBM Plex Mono',monospace;font-size:13px">→</span></a>
+    </section>
+
+  </main>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#0f62fe&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#0f62fe&quot;,&quot;#ff7a5c&quot;,&quot;#d02670&quot;,&quot;#198038&quot;],&quot;section&quot;:&quot;Tokens iniciais&quot;},&quot;tema&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;claro&quot;,&quot;options&quot;:[&quot;claro&quot;,&quot;escuro&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Tokens iniciais&quot;},&quot;raio&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;0px&quot;,&quot;options&quot;:[&quot;0px&quot;,&quot;4px&quot;,&quot;8px&quot;,&quot;16px&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Tokens iniciais&quot;},&quot;densidade&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.82,&quot;max&quot;:1.24,&quot;step&quot;:0.02,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Tokens iniciais&quot;},&quot;tipo&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;IBM Plex Sans&quot;,&quot;options&quot;:[&quot;IBM Plex Sans&quot;,&quot;Inter&quot;,&quot;Geist&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Tokens iniciais&quot;}}">
+const TEMAS = {
+  claro:{'--bg':'#f4f4f4','--layer':'#ffffff','--layer2':'#eeeeec','--line':'#dcdcda','--tx':'#161616','--tx2':'#525252','--tx3':'#6f6f6f'},
+  escuro:{'--bg':'#161616','--layer':'#1f1f1f','--layer2':'#2b2b2b','--line':'#393939','--tx':'#f4f4f4','--tx2':'#c6c6c6','--tx3':'#8d8d8d'}
+};
+const CORES = ['#0f62fe','#ff7a5c','#d02670','#198038','#8a3ffc'];
+const RAIOS = ['0px','4px','8px','16px'];
+const DENS = ['0.82','1','1.24'];
+const TIPOS = ['IBM Plex Sans','Inter','Geist'];
+
+function ehClaro(hex){
+  const c = String(hex).replace('#','');
+  const n = c.length === 3 ? c.split('').map(x => x + x).join('') : c;
+  const f = v => (v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4));
+  const l = 0.2126*f(parseInt(n.slice(0,2),16)/255) + 0.7152*f(parseInt(n.slice(2,4),16)/255) + 0.0722*f(parseInt(n.slice(4,6),16)/255);
+  return l > 0.45;
+}
+
+class Component extends DCLogic {
+  raiz = React.createRef();
+  barra = React.createRef();
+  outHex = React.createRef();
+  outRaio = React.createRef();
+  outDens = React.createRef();
+  swTrilha = React.createRef();
+  swBola = React.createRef();
+  swTexto = React.createRef();
+  ligado = true;
+
+  setCor(hex){
+    const el = this.raiz.current; if(!el) return;
+    el.style.setProperty('--i', hex);
+    el.style.setProperty('--on-i', ehClaro(hex) ? '#161616' : '#ffffff');
+    if(this.outHex.current) this.outHex.current.textContent = hex;
+    this.marca('cor', hex);
+  }
+  setRaio(r){
+    const el = this.raiz.current; if(!el) return;
+    el.style.setProperty('--r', r);
+    if(this.outRaio.current) this.outRaio.current.textContent = r;
+    this.marca('raio', r);
+  }
+  setDens(d){
+    const el = this.raiz.current; if(!el) return;
+    el.style.setProperty('--d', d);
+    if(this.outDens.current) this.outDens.current.textContent = Number(d).toFixed(2);
+    this.marca('dens', d);
+  }
+  setTipo(f){
+    const el = this.raiz.current; if(!el) return;
+    el.style.setProperty('--ff', "'" + f + "'");
+    this.marca('tipo', f);
+  }
+  setTema(nome){
+    const el = this.raiz.current; if(!el) return;
+    const t = TEMAS[nome] || TEMAS.claro;
+    Object.keys(t).forEach(k => el.style.setProperty(k, t[k]));
+    this.marca('tema', nome);
+  }
+  marca(g, v){
+    const raiz = this.raiz.current; if(!raiz) return;
+    raiz.querySelectorAll('[data-g="' + g + '"]').forEach(el => {
+      const on = el.getAttribute('data-v') === String(v);
+      if(g === 'cor'){
+        el.style.outline = on ? '2px solid var(--tx)' : '2px solid transparent';
+        el.style.outlineOffset = '3px';
+      } else {
+        el.style.background = on ? 'var(--tx)' : 'transparent';
+        el.style.color = on ? 'var(--bg)' : 'var(--tx2)';
+      }
+    });
+  }
+  alterna = () => {
+    this.ligado = !this.ligado;
+    if(this.swTrilha.current) this.swTrilha.current.style.background = this.ligado ? 'var(--i)' : 'var(--tx3)';
+    if(this.swBola.current) this.swBola.current.style.transform = this.ligado ? 'translateX(22px)' : 'translateX(0)';
+    if(this.swTexto.current) this.swTexto.current.textContent = 'tokens.linked = ' + this.ligado;
+  };
+
+  mede = () => {
+    const b = this.barra.current; if(!b) return;
+    const grande = window.innerWidth >= 900;
+    b.style.position = grande ? 'sticky' : 'static';
+    b.style.top = grande ? '72px' : 'auto';
+  };
+
+  componentWillUnmount(){ window.removeEventListener('resize', this.mede); }
+
+  componentDidMount(){
+    this.mede();
+    window.addEventListener('resize', this.mede);
+    const p = this.props || {};
+    this.setTema(p.tema || 'claro');
+    this.setCor(p.accent || '#0f62fe');
+    this.setRaio(p.raio || '0px');
+    this.setDens(String(p.densidade != null ? p.densidade : 1));
+    this.setTipo(p.tipo || 'IBM Plex Sans');
+  }
+
+  renderVals(){
+    const v = {
+      raiz:this.raiz, barra:this.barra, outHex:this.outHex, outRaio:this.outRaio, outDens:this.outDens,
+      swTrilha:this.swTrilha, swBola:this.swBola, swTexto:this.swTexto,
+      alterna:this.alterna,
+      temaClaro: () => this.setTema('claro'),
+      temaEscuro: () => this.setTema('escuro')
+    };
+    CORES.forEach((hex,i) => { v['cor'+i] = () => this.setCor(hex); });
+    RAIOS.forEach((r,i) => { v['raio'+i] = () => this.setRaio(r); });
+    DENS.forEach((d,i) => { v['dens'+i] = () => this.setDens(d); });
+    TIPOS.forEach((f,i) => { v['tipo'+i] = () => this.setTipo(f); });
+    return v;
+  }
+}
+
+</script>
+</body>
+</html>
