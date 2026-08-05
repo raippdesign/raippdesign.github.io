@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Virtual Plant · Diagnóstico do Hub</title>
+<meta name="description" content="Diagnóstico, auditoria e dimensionamento do redesign do Hub Virtual Plant.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@200;300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{ --sheet:#ffffff; --paper:#E9E9E9; --ink:#0f0f0f; --ink-2:#333333; --ink-3:#5e5e5e; --line:#bdbdbd; --alerta:#0f0f0f; --alerta-bg:#F2F2F2; --alerta-linha:#0f0f0f; --inv-bg:#0f0f0f; --inv-fg:#ffffff; --inv-fg-2:#a8a8a8; --inv-linha:#4a4a4a; --mono:'IBM Plex Mono',ui-monospace,monospace; --sans:'IBM Plex Sans',system-ui,sans-serif;
+}
+:root[data-tema="escuro"]{ --sheet:#141414; --paper:#080808; --ink:#F4F4F4; --ink-2:#C6C6C6; --ink-3:#949494; --line:#3d3d3d; --alerta:#F4F4F4; --alerta-bg:#1f1f1f; --alerta-linha:#F4F4F4; --inv-bg:#F4F4F4; --inv-fg:#0f0f0f; --inv-fg-2:#5e5e5e; --inv-linha:#b4b4b4;
+} *{box-sizing:border-box;margin:0;padding:0;min-width:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--sheet);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.58;-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background-color 180ms ease,color 180ms ease}
+.folha{max-width:1180px;margin:0 auto}
+.pad{padding-inline:clamp(20px,5vw,64px)}
+.regua{height:1px;background:var(--ink)}
+.eyebrow{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+:focus-visible{outline:1px solid var(--ink);outline-offset:2px} /* carimbo */
+.carimbo{display:flex;flex-wrap:wrap;align-items:stretch;border-bottom:1px solid var(--ink)}
+.carimbo div{flex:1 1 128px;padding:14px 18px 14px 0;border-right:0}
+.carimbo dt{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:5px}
+.carimbo dd{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--ink)}
+.tema{flex:0 0 auto;display:flex;align-items:center;gap:11px;padding:14px 0 14px 20px;margin-left:auto}
+.tema-rot{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);transition:color 140ms ease;user-select:none}
+.tema-rot[data-on="true"]{color:var(--ink)}
+.switch{ width:46px;height:24px;flex:none;padding:0;cursor:pointer;position:relative; background:transparent;border:1.5px solid var(--ink); transition:background-color 180ms ease
+}
+.switch::after{ content:"";position:absolute;top:2px;left:2px;width:17px;height:17px; background:var(--ink);transition:transform 180ms cubic-bezier(.2,0,.38,.9),background-color 180ms ease
+}
+.switch[aria-checked="true"]{background:var(--ink)}
+.switch[aria-checked="true"]::after{transform:translateX(21px);background:var(--sheet)} /* capa */
+.capa{padding-top:clamp(44px,7vw,72px)}
+h1{font-size:clamp(35px,6.2vw,74px);font-weight:200;line-height:1.03;letter-spacing:-.038em;margin:20px 0 0;max-width:18ch;color:var(--ink)}
+h1 b{font-weight:600}
+.tese{margin-top:36px;max-width:62ch}
+.tese p{font-size:clamp(17px,1.75vw,20px);font-weight:300;line-height:1.6;color:var(--ink-2)}
+.tese p+p{margin-top:17px}
+.tese b{color:var(--ink);font-weight:600} /* espelho */
+.espelho{margin-top:48px;border-top:1px solid var(--ink);border-bottom:1px solid var(--line);padding:28px 0;display:grid;gap:26px}
+@media(min-width:860px){.espelho{grid-template-columns:1fr 1fr;gap:52px}}
+.espelho-bloco em{font-style:normal;font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);display:block;margin-bottom:13px}
+.espelho-bloco p{font-size:17.5px;font-weight:300;line-height:1.52;color:var(--ink-2)}
+.espelho-bloco.grave{padding:16px 18px;background:var(--alerta-bg)}
+.espelho-bloco.grave em{color:var(--alerta)}
+.espelho-bloco.grave p{color:var(--ink);font-weight:400} /* propagação */
+.prop{margin-top:54px;border-top:1px solid var(--ink)}
+.prop-topo{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;padding:14px 0;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.prop-grade{display:grid;gap:1px;background:var(--line);border-bottom:1px solid var(--ink)}
+@media(min-width:780px){.prop-grade{grid-template-columns:200px 1fr}}
+.prop-fonte{background:var(--inv-bg);color:var(--inv-fg);padding:26px 20px;display:flex;flex-direction:column;justify-content:center}
+.prop-fonte b{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:500;color:var(--inv-fg-2);margin-bottom:10px}
+.prop-fonte span{font-size:18.5px;font-weight:400;line-height:1.28}
+.prop-saidas{display:grid;gap:1px;background:var(--line)}
+@media(min-width:540px){.prop-saidas{grid-template-columns:1fr 1fr}}
+@media(min-width:1000px){.prop-saidas{grid-template-columns:repeat(4,1fr)}}
+.prop-saida{background:var(--sheet);padding:19px 17px}
+.prop-saida em{font-style:normal;font-family:var(--mono);font-size:10.5px;font-weight:500;color:var(--ink-3);display:block;margin-bottom:8px}
+.prop-saida span{font-size:14.5px;line-height:1.42;color:var(--ink-2)} section{padding:clamp(56px,9vw,92px) 0}
+.sec-cab{max-width:64ch;margin-bottom:44px}
+.sec-cab h2{font-size:clamp(26px,3.6vw,42px);font-weight:200;letter-spacing:-.03em;line-height:1.1;margin:14px 0 16px;color:var(--ink)}
+.sec-cab h2 b{font-weight:600}
+.sec-cab p{font-size:17.5px;font-weight:300;color:var(--ink-2);line-height:1.6}
+.sec-cab p+p{margin-top:14px} /* achados */
+.achados{border-top:1px solid var(--ink)}
+.achado{display:grid;gap:14px;padding:28px 0;border-bottom:1px solid var(--line)}
+@media(min-width:900px){.achado{grid-template-columns:58px 1.05fr 1fr;gap:32px;align-items:start}}
+.achado-id{font-family:var(--mono);font-size:12.5px;font-weight:500;color:var(--ink-3);letter-spacing:.06em;padding-top:4px}
+.achado h3{font-size:19px;font-weight:600;letter-spacing:-.015em;line-height:1.32;margin-bottom:9px;color:var(--ink)}
+.achado .obs{font-size:16px;font-weight:300;color:var(--ink-2);line-height:1.55}
+.achado .custo{font-size:15.5px;font-weight:300;color:var(--ink);line-height:1.55;border-left:2px solid var(--alerta-linha);background:var(--alerta-bg);padding:16px 18px}
+.achado .custo b{display:block;font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;color:var(--alerta);margin-bottom:7px} /* método */
+.fluxo{display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}
+@media(min-width:700px){.fluxo{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1040px){.fluxo{grid-template-columns:repeat(5,1fr)}}
+.etapa{background:var(--sheet);padding:24px 19px 26px}
+.etapa-num{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.09em;color:var(--ink-3);display:flex;align-items:center;gap:9px;margin-bottom:16px}
+.marca{width:10px;height:10px;flex:none;border:1.5px solid var(--ink);background:var(--ink)}
+.marca.vazia{background:transparent}
+.etapa h3{font-size:16.5px;font-weight:600;margin-bottom:9px;color:var(--ink)}
+.etapa p{font-size:14.5px;color:var(--ink-2);line-height:1.5;font-weight:300}
+.legenda{display:flex;flex-wrap:wrap;gap:24px;margin-top:18px;font-family:var(--mono);font-size:11.5px;color:var(--ink-3);align-items:center}
+.legenda span{display:flex;align-items:center;gap:9px} /* fases */
+.fase{border-top:1px solid var(--ink);padding:clamp(34px,5vw,48px) 0}
+.fase:last-of-type{border-bottom:1px solid var(--ink)}
+.fase-grade{display:grid;gap:32px}
+@media(min-width:940px){.fase-grade{grid-template-columns:.95fr 1.05fr;gap:56px}}
+.fase-id{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:16px}
+.fase h3{font-size:clamp(23px,2.8vw,32px);font-weight:400;letter-spacing:-.022em;line-height:1.16;margin-bottom:18px;max-width:21ch;color:var(--ink)}
+.pergunta{font-size:17px;font-weight:400;line-height:1.5;border-left:1px solid var(--ink);padding-left:18px;margin-bottom:20px;color:var(--ink)}
+.pergunta em{font-style:normal;display:block;font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin-bottom:7px}
+.fase p.corpo{font-size:16px;font-weight:300;color:var(--ink-2);line-height:1.6}
+.fase p.corpo+p.corpo{margin-top:14px}
+.fase-meta{display:flex;flex-wrap:wrap;gap:12px 34px;margin-top:24px;padding-top:16px;border-top:1px solid var(--line)}
+.fase-meta div{min-width:96px}
+.fase-meta dt{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin-bottom:5px}
+.fase-meta dd{font-family:var(--mono);font-size:15.5px;font-weight:500;color:var(--ink)}
+.rot{font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin-bottom:11px;display:block}
+.entregas{border-top:1px solid var(--line);margin-bottom:24px}
+.entregas li{list-style:none;display:flex;gap:15px;padding:13px 0;border-bottom:1px solid var(--line);font-size:15.5px;color:var(--ink-2);line-height:1.5;font-weight:300;align-items:baseline}
+.entregas li b{color:var(--ink);font-weight:600}
+.entregas li i{font-style:normal;font-family:var(--mono);font-size:11.5px;font-weight:500;color:var(--ink);flex:none;width:28px}
+.aceite{background:var(--inv-bg);color:var(--inv-fg);padding:18px 20px;margin-bottom:16px}
+.aceite .rot{color:var(--inv-fg-2)}
+.aceite p{font-size:15.5px;line-height:1.5;font-weight:300;color:var(--inv-fg)}
+.risco{background:var(--alerta-bg);padding:16px 18px}
+.risco p{font-size:15px;line-height:1.5;font-weight:300;color:var(--ink)}
+.risco .rot{color:var(--alerta)} /* cronograma */
+.gantt{border:1px solid var(--line);overflow-x:visible;}
+.gantt-in{min-width:600px}
+.gantt-row{display:grid;grid-template-columns:160px 1fr;border-bottom:1px solid var(--line)}
+.gantt-row:last-child{border-bottom:0}
+.gantt-rot{padding:13px 14px;font-family:var(--mono);font-size:12.5px;font-weight:500;color:var(--ink);border-right:1px solid var(--line);display:flex;align-items:center}
+.gantt-trilha{position:relative;height:46px;background:repeating-linear-gradient(90deg,transparent,transparent calc(100%/28 - 1px),var(--line) calc(100%/28 - 1px),var(--line) calc(100%/28))}
+.barra{position:absolute;top:14px;height:18px;background:var(--ink)}
+.barra.leve{background:var(--sheet);border:1px solid var(--ink)}
+.gantt-escala{display:grid;grid-template-columns:160px 1fr;border-bottom:1px solid var(--ink);font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.gantt-escala div:first-child{padding:10px 14px;border-right:1px solid var(--line)}
+.gantt-escala div:last-child{padding:10px 14px;display:flex;justify-content:space-between} /* tabela */
+.tabela-wrap{overflow-x:visible;border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;font-size:15.5px;min-width:560px}
+th{text-align:left;font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);font-weight:500;padding:13px 16px;border-bottom:1px solid var(--ink);white-space:nowrap}
+td{padding:15px 16px;border-bottom:1px solid var(--line);color:var(--ink-2);font-weight:300;vertical-align:top}
+td b{color:var(--ink);font-weight:600}
+td.n{font-family:var(--mono);white-space:nowrap;color:var(--ink);font-weight:500}
+tfoot td{border-top:1px solid var(--ink);border-bottom:0;background:var(--inv-bg);color:var(--inv-fg);font-weight:500}
+tfoot td.n,tfoot td b{color:var(--inv-fg)}
+.nota{font-size:14.5px;color:var(--ink-3);line-height:1.55;margin-top:18px;max-width:72ch;font-weight:300} .duas{display:grid;gap:36px}
+@media(min-width:820px){.duas{grid-template-columns:1fr 1fr;gap:56px}}
+.duas h4{font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:14px}
+.duas li{list-style:none;padding:12px 0;border-bottom:1px solid var(--line);font-size:15.5px;color:var(--ink-2);line-height:1.5;font-weight:300}
+.duas li:first-child{border-top:1px solid var(--ink)} .fecho{background:var(--inv-bg);color:var(--inv-fg);padding:clamp(56px,9vw,88px) 0}
+.fecho .eyebrow{color:var(--inv-fg-2)}
+.fecho h2{font-size:clamp(27px,4.4vw,46px);font-weight:200;letter-spacing:-.033em;line-height:1.09;max-width:23ch;color:var(--inv-fg)}
+.fecho h2 b{font-weight:600}
+.fecho p{margin-top:20px;font-size:17.5px;font-weight:300;line-height:1.6;color:var(--inv-fg-2);max-width:54ch}
+.contatos{display:flex;flex-wrap:wrap;gap:11px 38px;margin-top:38px;padding-top:22px;border-top:1px solid var(--inv-linha);font-family:var(--mono);font-size:14px;font-weight:500}
+.contatos a{color:var(--inv-fg);text-decoration:none;border-bottom:1px solid var(--inv-linha);padding-bottom:3px}
+.contatos a:hover{border-bottom-color:var(--inv-fg)}
+footer{padding:26px 0;font-family:var(--mono);font-size:11.5px;color:var(--ink-3);display:flex;flex-wrap:wrap;gap:8px 26px;justify-content:space-between;border-top:1px solid var(--line)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{.tema{display:none}}
+
+/* Ajustes responsivos da proposta */
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+img, svg, video, canvas, iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+.folha, .pad, section, header, footer,
+.carimbo, .espelho, .prop, .prop-grade, .prop-saidas,
+.fluxo, .fase-grade, .duas, .tabela-wrap, .gantt, .gantt-in {
+  max-width: 100%;
+}
+
+.risco,
+.espelho-bloco.grave,
+.alerta,
+.observacao,
+.obs-box,
+.nota-box {
+  border-left: 0 !important;
+  background: var(--alerta-bg);
+  padding: 16px 18px;
+}
+
+@media (max-width: 720px) {
+  body {
+    font-size: 16px;
+  }
+
+  .folha {
+    width: 100%;
+  }
+
+  .pad {
+    padding-inline: 18px;
+  }
+
+  .carimbo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+
+  .carimbo > div {
+    padding: 12px 10px 12px 0;
+  }
+
+  .tema {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+    margin-left: 0;
+    padding: 12px 0;
+  }
+
+  h1 {
+    font-size: clamp(34px, 12vw, 52px);
+    max-width: none;
+  }
+
+  .tese,
+  .sec-cab {
+    max-width: none;
+  }
+
+  .espelho,
+  .prop-grade,
+  .prop-saidas,
+  .fluxo,
+  .fase-grade,
+  .duas {
+    grid-template-columns: 1fr !important;
+  }
+
+  .prop-fonte,
+  .prop-saida,
+  .etapa,
+  .fase > *,
+  .achado {
+    width: 100%;
+  }
+
+  .achado {
+    grid-template-columns: 1fr !important;
+  }
+
+  .entregas li {
+    align-items: flex-start;
+  }
+
+  .entregas li i {
+    width: 24px;
+  }
+
+  /* Listas de funcionalidades: cards empilhados */
+  .funcionalidades,
+  .lista-funcionalidades,
+  .feature-list,
+  .features,
+  .cards-funcionalidades {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .funcionalidades > *,
+  .lista-funcionalidades > *,
+  .feature-list > *,
+  .features > *,
+  .cards-funcionalidades > * {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  /* Tabelas sem scroll horizontal */
+  .tabela-wrap {
+    border: 0;
+    overflow: visible !important;
+  }
+
+  table, thead, tbody, tfoot, tr, th, td {
+    display: block;
+    width: 100%;
+    min-width: 0 !important;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tr {
+    border: 1px solid var(--line);
+    margin-bottom: 14px;
+    background: var(--sheet);
+  }
+
+  td {
+    border-bottom: 1px solid var(--line);
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+  }
+
+  td:last-child {
+    border-bottom: 0;
+  }
+
+  tfoot tr {
+    background: var(--inv-bg);
+  }
+
+  /* Cronogramas e diagramas também empilham */
+  .gantt,
+  .gantt-in {
+    min-width: 0 !important;
+    overflow: visible !important;
+    border: 0;
+  }
+
+  .gantt-escala {
+    display: none;
+  }
+
+  .gantt-row {
+    display: block;
+    border: 1px solid var(--line);
+    margin-bottom: 12px;
+  }
+
+  .gantt-rot {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .gantt-trilha {
+    width: 100%;
+    background: none;
+  }
+
+  footer {
+    display: block;
+  }
+
+  footer span {
+    display: block;
+    margin-bottom: 6px;
+  }
+}
+
+
+/* Cabeçalho reorganizado */
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  padding-top:18px;
+  padding-bottom:18px;
+  border-bottom:1px solid var(--line);
+}
+.topbar .tema{
+  margin-left:0;
+  padding:0;
+}
+.marca-topo{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  min-width:0;
+}
+.logo-topo{
+  display:block;
+  width:min(150px,28vw);
+  height:auto;
+  max-height:42px;
+  object-fit:contain;
+}
+.carimbo{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  border-bottom:1px solid var(--ink);
+}
+.carimbo div{
+  padding:15px 18px 15px 0;
+}
+.carimbo div:last-child{
+  padding-right:0;
+}
+@media(max-width:720px){
+  .topbar{
+    gap:16px;
+    padding-top:14px;
+    padding-bottom:14px;
+  }
+  .topbar .tema{
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .tema-rot{
+    font-size:9px;
+  }
+  .switch{
+    width:42px;
+    height:22px;
+  }
+  .switch::after{
+    width:15px;
+    height:15px;
+  }
+  .switch[aria-checked="true"]::after{
+    transform:translateX(19px);
+  }
+  .logo-topo{
+    width:min(124px,34vw);
+    max-height:36px;
+  }
+  .carimbo{
+    grid-template-columns:1fr 1fr;
+  }
+  .carimbo div{
+    padding:12px 12px 12px 0;
+  }
+}
+@media(max-width:420px){
+  .topbar{
+    align-items:flex-start;
+  }
+  .topbar .tema{
+    flex-wrap:wrap;
+    max-width:150px;
+  }
+  .logo-topo{
+    width:112px;
+  }
+}
+
+
+/* Correção final do topo */
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.topbar .marca-topo{
+  order:1;
+  justify-content:flex-start;
+}
+.topbar .tema{
+  order:2;
+  margin-left:auto;
+  justify-content:flex-end;
+}
+.logo-topo{
+  width:min(150px,28vw);
+  max-height:42px;
+  display:flex;
+  align-items:center;
+}
+.logo-topo svg{
+  display:block;
+  width:100%;
+  height:auto;
+  max-height:42px;
+}
+@media(max-width:720px){
+  .logo-topo{
+    width:min(124px,34vw);
+    max-height:36px;
+  }
+  .logo-topo svg{
+    max-height:36px;
+  }
+}
+@media(max-width:420px){
+  .logo-topo{
+    width:112px;
+  }
+}
+
+
+/* Abertura de valor do diagnóstico */
+.tese-forca{
+  margin-top:48px;
+  padding:clamp(28px,5vw,46px);
+  background:var(--inv-bg);
+  color:var(--inv-fg);
+}
+.tese-forca .eyebrow{
+  color:var(--inv-fg-2);
+}
+.tese-forca h2{
+  margin-top:13px;
+  max-width:22ch;
+  font-size:clamp(27px,4vw,44px);
+  font-weight:200;
+  line-height:1.08;
+  letter-spacing:-.03em;
+  color:var(--inv-fg);
+}
+.tese-forca h2 b{
+  font-weight:600;
+}
+.tese-forca > p:last-of-type{
+  margin-top:19px;
+  max-width:64ch;
+  color:var(--inv-fg-2);
+  font-size:17px;
+  font-weight:300;
+}
+.valor-grade{
+  margin-top:32px;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  border-top:1px solid var(--inv-linha);
+}
+.valor-grade > div{
+  padding:24px 22px 4px 0;
+}
+.valor-grade > div + div{
+  padding-left:22px;
+  border-left:1px solid var(--inv-linha);
+}
+.valor-grade span{
+  display:block;
+  margin-bottom:18px;
+  font-family:var(--mono);
+  font-size:11px;
+  color:var(--inv-fg-2);
+}
+.valor-grade b{
+  display:block;
+  max-width:18ch;
+  color:var(--inv-fg);
+  font-size:17px;
+  line-height:1.35;
+}
+.valor-grade p{
+  margin-top:10px;
+  color:var(--inv-fg-2);
+  font-size:14.5px;
+  line-height:1.5;
+  font-weight:300;
+}
+.fecho-diagnostico{
+  margin-top:28px;
+  padding:20px 22px;
+  border:1px solid var(--ink);
+}
+.fecho-diagnostico span{
+  display:block;
+  margin-bottom:8px;
+  font-family:var(--mono);
+  font-size:10.5px;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  color:var(--ink-3);
+}
+.fecho-diagnostico p{
+  max-width:68ch;
+  font-size:17px;
+  line-height:1.55;
+  color:var(--ink);
+}
+@media(max-width:760px){
+  .tese-forca{
+    margin-top:36px;
+    padding:26px 20px;
+  }
+  .valor-grade{
+    grid-template-columns:1fr;
+  }
+  .valor-grade > div{
+    padding:22px 0;
+  }
+  .valor-grade > div + div{
+    padding-left:0;
+    border-left:0;
+    border-top:1px solid var(--inv-linha);
+  }
+  .valor-grade b{
+    max-width:none;
+  }
+}
+
+</style>
+</head>
+<body>
+<div class="folha"> 
+
+<div class="topbar pad">
+  <div class="marca-topo" aria-label="Marca">
+    <div class="logo-topo" aria-hidden="true">
+      <svg width="2753" height="1126" viewBox="0 0 2753 1126" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M97.3001 62.8851H345.297C391.178 62.8851 430.731 67.6312 463.955 77.1233C497.971 85.8244 528.426 104.809 555.322 134.076C593.293 173.626 612.278 227.415 612.278 295.441C612.278 367.423 590.524 425.167 547.016 468.672C512.21 501.895 470.284 523.252 421.238 532.744L625.331 854.289H411.745L220.705 542.236L182.734 854.289H0L97.3001 62.8851ZM262.236 205.267L234.944 422.398H280.034C326.707 422.398 362.304 412.906 386.827 393.922C413.723 373.356 427.171 342.506 427.171 301.374C427.171 265.779 414.514 240.071 389.2 224.251C369.424 211.595 336.199 205.267 289.527 205.267H262.236Z" fill="currentColor"/>
+<path d="M1081.48 389.176L1086.23 325.104H1257.1L1191.83 854.289H1020.96L1034.02 793.777C1011.08 820.671 986.158 840.446 959.262 853.102C931.575 865.758 898.746 872.086 860.776 872.086C792.745 872.086 738.162 850.334 697.027 806.828C649.563 756.204 625.831 691.341 625.831 612.24C625.831 518.901 654.31 442.965 711.266 384.43C761.893 333.014 826.76 307.307 905.866 307.307C947.001 307.307 981.412 314.03 1009.1 327.477C1037.58 340.924 1061.7 361.491 1081.48 389.176ZM942.65 454.434C901.515 454.434 867.895 467.486 841.79 493.589C814.894 520.483 801.446 555.683 801.446 599.189C801.446 634.784 812.917 664.842 835.857 689.364C858.798 713.094 888.858 724.959 926.038 724.959C965.591 724.959 998.024 713.094 1023.34 689.364C1053.4 660.096 1068.43 622.128 1068.43 575.458C1068.43 536.699 1056.17 506.245 1031.64 484.097C1010.29 464.322 980.621 454.434 942.65 454.434Z" fill="currentColor"/>
+<path d="M1323.14 325.104H1494L1428.74 854.289H1257.87L1323.14 325.104ZM1359.92 170.858C1340.94 151.083 1331.44 127.352 1331.44 99.667C1331.44 71.9817 1340.94 48.647 1359.92 29.6628C1379.7 9.88759 1403.43 0 1431.12 0C1458.8 0 1482.14 9.88759 1501.12 29.6628C1520.9 48.647 1530.79 71.9817 1530.79 99.667C1530.79 127.352 1520.9 151.083 1501.12 170.858C1482.14 189.842 1458.8 199.334 1431.12 199.334C1403.43 199.334 1379.7 189.842 1359.92 170.858Z" fill="currentColor"/>
+<path d="M1674.8 789.031L1632.08 1126H1461.22L1559.7 325.104H1730.57L1721.08 386.803C1740.06 363.864 1762.21 345.671 1787.53 332.223C1819.96 315.612 1856.35 307.307 1896.69 307.307C1963.14 307.307 2016.54 326.686 2056.88 365.446C2103.55 412.115 2126.89 478.164 2126.89 563.593C2126.89 662.469 2097.23 741.57 2037.9 800.896C1990.43 848.356 1930.71 872.086 1858.72 872.086C1811.26 872.086 1772.89 864.572 1743.62 849.543C1716.73 835.304 1693.79 815.134 1674.8 789.031ZM1830.24 454.434C1790.69 454.434 1757.47 467.881 1730.57 494.776C1702.09 523.252 1687.85 558.847 1687.85 601.562C1687.85 637.157 1698.53 666.029 1719.89 688.177C1742.83 712.698 1772.5 724.959 1808.89 724.959C1846.07 724.959 1877.71 712.698 1903.81 688.177C1918.05 675.521 1929.52 658.514 1938.22 637.157C1946.93 615.009 1951.28 594.047 1951.28 574.272C1951.28 537.094 1939.01 507.432 1914.49 485.283C1892.34 464.717 1864.26 454.434 1830.24 454.434Z" fill="currentColor"/>
+<path d="M2300.91 789.031L2258.19 1126H2087.33L2185.81 325.104H2356.68L2347.19 386.803C2366.17 363.864 2388.32 345.671 2413.64 332.223C2446.07 315.612 2482.46 307.307 2522.8 307.307C2589.25 307.307 2642.65 326.686 2682.99 365.446C2729.66 412.115 2753 478.164 2753 563.593C2753 662.469 2723.34 741.57 2664.01 800.896C2616.54 848.356 2556.82 872.086 2484.83 872.086C2437.37 872.086 2399 864.572 2369.73 849.543C2342.84 835.304 2319.9 815.134 2300.91 789.031ZM2456.35 454.434C2416.8 454.434 2383.58 467.881 2356.68 494.776C2328.2 523.252 2313.96 558.847 2313.96 601.562C2313.96 637.157 2324.64 666.029 2346 688.177C2368.94 712.698 2398.61 724.959 2435 724.959C2472.17 724.959 2503.82 712.698 2529.92 688.177C2544.16 675.521 2555.63 658.514 2564.33 637.157C2573.03 615.009 2577.39 594.047 2577.39 574.272C2577.39 537.094 2565.12 507.432 2540.6 485.283C2518.45 464.717 2490.37 454.434 2456.35 454.434Z" fill="currentColor"/>
+</svg>
+    </div>
+  </div>
+  <div class="tema">
+    <span class="tema-rot" id="rotClaro" data-on="true">Claro</span>
+    <button class="switch" id="btnTema" type="button" role="switch" aria-checked="false" aria-label="Alternar entre tema claro e escuro"></button>
+    <span class="tema-rot" id="rotEscuro" data-on="false">Escuro</span>
+  </div>
+</div>
+
+
+<dl class="carimbo pad">
+  <div><dt>Cliente</dt><dd>Virtual Plant</dd></div>
+  <div><dt>Validade</dt><dd>30 dias</dd></div>
+  <div><dt>Documento</dt><dd>Orçamento</dd></div>
+  <div><dt>Autoria</dt><dd>Lima</dd></div>
+</dl>
+ 
+<header class="capa pad">
+  <p class="eyebrow">Fase 1 · Diagnóstico, auditoria e dimensionamento</p>
+  <h1>Antes de redesenhar o Hub, é preciso saber <b>exatamente o que precisa ser redesenhado.</b></h1>
+
+  <div class="tese">
+    <p>A Virtual Plant já possui um produto digital em operação. O Hub concentra funcionalidades, organiza projetos e sustenta a entrega das aplicações aos clientes.</p>
+    <p>O desafio não é simplesmente modernizar telas. É compreender o produto por inteiro: o que existe, como é utilizado, onde estão os atritos, o que precisa evoluir e qual estrutura será necessária para sustentar as próximas funcionalidades.</p>
+  </div>
+
+  <div class="tese-forca">
+    <p class="eyebrow">Por que esta etapa é indispensável</p>
+    <h2>Redesenhar sem diagnóstico transforma investimento em <b>suposição.</b></h2>
+    <p>Sem um levantamento completo, não existe base segura para definir escopo, prazo, prioridade ou investimento. A Fase 1 reduz esse risco antes que ele chegue ao design e ao desenvolvimento.</p>
+    <div class="valor-grade">
+      <div>
+        <span>01</span>
+        <b>Evita redesenhar o problema errado</b>
+        <p>Separa limitações de interface, falhas de fluxo, necessidades de negócio e novas funcionalidades.</p>
+      </div>
+      <div>
+        <span>02</span>
+        <b>Transforma o Hub em um projeto dimensionável</b>
+        <p>Revela quantos módulos, fluxos, perfis, telas, estados e componentes realmente precisam ser considerados.</p>
+      </div>
+      <div>
+        <span>03</span>
+        <b>Cria uma base real para decisão</b>
+        <p>Entrega prioridades, recomendações e um plano de continuidade com prazo e investimento sustentados por evidências.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="espelho">
+    <div class="espelho-bloco">
+      <em>O que já sabemos</em>
+      <p>O Hub existe, está em uso e participa da criação e distribuição das aplicações entregues pela Virtual Plant. A empresa possui um manual de marca institucional, mas ainda não possui uma fundação específica para interface, styles e componentes digitais.</p>
+    </div>
+    <div class="espelho-bloco grave">
+      <em>O que precisa ser dimensionado</em>
+      <p>O tamanho real da plataforma, os fluxos críticos, os perfis de usuário, as funcionalidades prioritárias, as necessidades futuras e a extensão do sistema visual necessário para o redesign.</p>
+    </div>
+  </div>
+
+  <div class="fecho-diagnostico">
+    <span>Resultado da Fase 1</span>
+    <p>A Virtual Plant deixa de ter uma plataforma conhecida apenas por partes e passa a ter um produto documentado, priorizado e pronto para ser redesenhado com segurança.</p>
+  </div>
+</header>
+ <section class="pad"> <div class="sec-cab"> <p class="eyebrow">Objetivo</p> <h2>Transformar uma plataforma conhecida por partes em <b>um produto compreendido por inteiro.</b></h2> <p>A Fase 1 documenta o estado atual do Hub, identifica necessidades de evolução e define o escopo real do redesign. O resultado não é apenas um diagnóstico: é uma base executiva para decidir o que deve ser redesenhado, em qual ordem, com qual profundidade e com qual investimento.</p> </div> <div class="achados"> <article class="achado"> <div class="achado-id">01</div> <div> <h3>Mapear o que existe hoje</h3> <p class="obs">Levantamento dos módulos, telas, funcionalidades, perfis, permissões, fluxos e pontos de integração que compõem o Hub atual.</p> </div> <div class="custo"><b>Resultado</b>Inventário funcional e visual da plataforma, sem depender de memória individual ou demonstrações pontuais.</div> </article> <article class="achado"> <div class="achado-id">02</div> <div> <h3>Entender como o produto é utilizado</h3> <p class="obs">Análise dos principais caminhos percorridos por usuários internos e clientes, incluindo criação, publicação, distribuição e acompanhamento das aplicações.</p> </div> <div class="custo"><b>Resultado</b>Mapa dos fluxos atuais, com pontos de atrito, dúvidas, dependências, retrabalho e oportunidades de melhoria.</div> </article> <article class="achado"> <div class="achado-id">03</div> <div> <h3>Organizar o que deve existir amanhã</h3> <p class="obs">Levantamento das funcionalidades desejadas para agora, curto prazo e médio prazo, separando necessidade real, oportunidade e ideia ainda não validada.</p> </div> <div class="custo"><b>Resultado</b>Backlog priorizado por impacto, urgência, esforço, risco e dependências.</div> </article> <article class="achado"> <div class="achado-id">04</div> <div> <h3>Dimensionar a nova interface</h3> <p class="obs">Auditoria do que já existe em marca e interface, identificação das lacunas de styles, componentes, estados, padrões e acessibilidade.</p> </div> <div class="custo"><b>Resultado</b>Escopo claro para a fundação visual, o design system e o redesign da plataforma.</div> </article> </div>
+</section> <section class="pad"> <div class="sec-cab"> <p class="eyebrow">Método</p> <h2>Pesquisa, leitura do produto e <b>decisão estruturada.</b></h2> <p>O trabalho combina análise da plataforma, entrevistas, inventário visual, mapeamento funcional e priorização. Ferramentas de automação podem apoiar tarefas repetitivas, mas todas as conclusões, recomendações e decisões são revisadas e conduzidas por .</p> </div> <div class="fluxo"> <article class="etapa"><div class="etapa-num"><span class="marca"></span>01 · Imersão</div><h3>Acesso e contexto</h3><p>Leitura da plataforma, materiais existentes e objetivos de negócio.</p></article> <article class="etapa"><div class="etapa-num"><span class="marca"></span>02 · Levantamento</div><h3>Inventário</h3><p>Mapeamento de telas, funcionalidades, perfis, fluxos e padrões visuais.</p></article> <article class="etapa"><div class="etapa-num"><span class="marca"></span>03 · Escuta</div><h3>Entrevistas</h3><p>Conversas com responsáveis pelo produto, operação e uso da plataforma.</p></article> <article class="etapa"><div class="etapa-num"><span class="marca"></span>04 · Síntese</div><h3>Diagnóstico</h3><p>Organização dos achados, riscos, oportunidades e necessidades futuras.</p></article> <article class="etapa"><div class="etapa-num"><span class="marca"></span>05 · Direção</div><h3>Plano de redesign</h3><p>Definição de prioridades, fases posteriores, prazo e investimento estimado.</p></article> </div>
+</section> <div class="pad"><div class="regua"></div></div> <section class="pad"> <div class="sec-cab"> <p class="eyebrow">Escopo contratado</p> <h2>Fase 1 · <b>Diagnóstico e definição do redesign do Hub.</b></h2> <p>A etapa responde a uma pergunta central: o que o Hub possui hoje, o que precisa evoluir e qual é o escopo real necessário para transformá-lo em um produto digital consistente, intuitivo e preparado para novas funcionalidades?</p> </div> <article class="fase"> <div class="fase-grade"> <div> <p class="fase-id">Fase 1 · Diagnóstico</p> <h3>Levantamento, priorização e dimensionamento</h3> <p class="corpo">A Fase 1 cobre o entendimento completo do produto atual e das expectativas de evolução. Ela não redesenha a plataforma ainda; define com precisão o que deve ser redesenhado.</p> <p class="corpo">Ao final, a Virtual Plant terá uma visão estruturada do estado atual, das necessidades futuras e do caminho recomendado para as próximas etapas.</p> <dl class="fase-meta"> <div><dt>Prazo</dt><dd>3 semanas</dd></div> <div><dt>Investimento</dt><dd>R$ 18.000</dd></div> <div><dt>Envolvimento</dt><dd>4 a 6 entrevistas</dd></div> </dl> </div> <div> <span class="rot">Entregáveis</span> <ul class="entregas"> <li><i>1.1</i><span><b>Inventário funcional do Hub.</b> Módulos, telas, funcionalidades, perfis, permissões e integrações identificadas.</span></li> <li><i>1.2</i><span><b>Mapa da plataforma atual.</b> Estrutura visual de como as áreas e funcionalidades se relacionam.</span></li> <li><i>1.3</i><span><b>Mapa dos fluxos principais.</b> Caminhos prioritários com pontos de atrito, dependências e oportunidades.</span></li> <li><i>1.4</i><span><b>Diagnóstico de experiência.</b> Problemas de navegação, compreensão, feedback, consistência e uso.</span></li> <li><i>1.5</i><span><b>Auditoria visual e de interface.</b> Levantamento de styles, componentes, padrões, lacunas e necessidades de acessibilidade.</span></li> <li><i>1.6</i><span><b>Mapa de usuários e necessidades.</b> Perfis, tarefas, objetivos, permissões e contextos de uso.</span></li> <li><i>1.7</i><span><b>Backlog de evolução.</b> Funcionalidades atuais, desejadas e futuras organizadas por horizonte.</span></li> <li><i>1.8</i><span><b>Matriz de priorização.</b> Classificação por valor, impacto, urgência, risco, esforço e dependências.</span></li> <li><i>1.9</i><span><b>Recomendação de escopo.</b> O que entra na primeira versão do redesign e o que deve ser posterior.</span></li> <li><i>1.10</i><span><b>Plano das próximas fases.</b> Caminho recomendado, prazo e estimativa de investimento.</span></li> </ul> <div class="aceite"><span class="rot">Critério de aceite</span><p>A Virtual Plant recebe uma visão documentada do Hub atual, uma lista priorizada de necessidades e um plano claro para contratar e executar o redesign.</p></div> </div> </div> </article>
+</section> <section class="pad"> <div class="sec-cab"> <p class="eyebrow">Possíveis desdobramentos</p> <h2>As próximas fases serão definidas <b>depois do diagnóstico.</b></h2> <p>Os blocos abaixo representam caminhos possíveis. A necessidade, a ordem, o prazo e o investimento de cada etapa serão definidos somente ao final da Fase 1.</p> </div> <div class="achados"> <article class="achado"><div class="achado-id">02</div><div><h3>Arquitetura da experiência</h3><p class="obs">Reorganização de navegação, hierarquia, fluxos, perfis, permissões, estados e wireframes.</p></div><div class="custo"><b>Poderá incluir</b>Fluxos atuais e novos, estrutura de informação e definição de prioridades para o produto.</div></article> <article class="achado"><div class="achado-id">03</div><div><h3>Fundação visual do produto</h3><p class="obs">Extensão da marca para interface digital, com cores, tipografia, espaçamentos, estados e tokens.</p></div><div class="custo"><b>Poderá incluir</b>Styles, regras de acessibilidade e padrões para dados técnicos e interação.</div></article> <article class="achado"><div class="achado-id">04</div><div><h3>Redesign e sistema de componentes</h3><p class="obs">Criação da nova interface, biblioteca de componentes, protótipo e documentação para engenharia.</p></div><div class="custo"><b>Poderá incluir</b>Telas prioritárias, componentes-base, variações, estados e testes dos fluxos.</div></article> </div>
+</section> <section class="pad"> <div class="sec-cab"> <p class="eyebrow">Amostra do entregável</p> <h2>O diagnóstico será apresentado como <b>um produto consultável.</b></h2> <p>A entrega final poderá ser organizada em uma experiência digital navegável, reunindo mapas, inventários, prioridades e recomendações. A amostra será desenvolvida separadamente para demonstrar o formato e o nível de profundidade da entrega.</p> </div> <div class="prop"> <div class="prop-topo"><span>Estrutura prevista</span><span>Amostra ilustrativa · próxima etapa</span></div> <div class="prop-grade"> <div class="prop-fonte"><b>Entrega</b><span>Diagnóstico navegável</span></div> <div class="prop-saidas"> <div class="prop-saida"><em>Bloco 01</em><span>Visão executiva e maturidade atual</span></div> <div class="prop-saida"><em>Bloco 02</em><span>Mapa da plataforma e dos fluxos</span></div> <div class="prop-saida"><em>Bloco 03</em><span>Backlog e matriz de prioridades</span></div> <div class="prop-saida"><em>Bloco 04</em><span>Recomendação e plano de execução</span></div> </div> </div> </div>
+</section> <section class="pad"> <div class="sec-cab"> <p class="eyebrow">Condições</p> <h2>O que está dentro e <b>o que ainda não está.</b></h2> </div> <div class="duas"> <div> <h4>Incluso</h4> <ul> <li>Condução direta por </li> <li>Análise da plataforma e dos materiais disponibilizados</li> <li>De 4 a 6 entrevistas com pessoas-chave</li> <li>Uma reunião de abertura e uma apresentação final</li> <li>Uma rodada consolidada de ajustes no diagnóstico</li> <li>Arquivos finais do diagnóstico entregues à Virtual Plant</li> </ul> </div> <div> <h4>Não incluso nesta fase</h4> <ul> <li>Redesign completo das telas</li> <li>Criação definitiva da identidade visual do produto</li> <li>Biblioteca de componentes e design system</li> <li>Protótipo de alta fidelidade</li> <li>Desenvolvimento ou implementação técnica</li> <li>Integrações com sistemas de terceiros</li> </ul> </div> </div> <p class="nota">A Virtual Plant deverá indicar uma pessoa com autonomia para centralizar decisões e disponibilizar acesso aos materiais e ambientes necessários. Atrasos de acesso ou validação poderão deslocar o cronograma. Solicitações fora do escopo serão tratadas como mudança de escopo e apresentadas previamente para aprovação.</p> <p class="nota">Informações acessadas durante o projeto serão tratadas de forma confidencial e utilizadas exclusivamente para execução do diagnóstico. Dados pessoais serão tratados conforme a LGPD. Métodos, ferramentas internas e modelos de trabalho da permanecem de sua propriedade; os documentos finais específicos do projeto serão entregues à Virtual Plant.</p>
+</section> <section class="pad"> <div class="sec-cab"> <p class="eyebrow">Investimento</p> <h2>Uma decisão menor antes de <b>um projeto maior.</b></h2> <p>A contratação desta proposta cobre exclusivamente a Fase 1. Nenhuma etapa posterior é obrigatória.</p> </div> <div class="tabela-wrap"> <table> <thead><tr><th>Fase</th><th>Entrega principal</th><th>Prazo</th><th>Investimento</th></tr></thead> <tbody><tr><td><b>01</b> Diagnóstico</td><td>Mapeamento, priorização e plano do redesign</td><td class="n">3 semanas</td><td class="n">R$ 18.000</td></tr></tbody> </table> </div> <p class="nota">Pagamento: 50% na abertura e 50% na apresentação final. O prazo começa após confirmação do pagamento inicial, definição do ponto de contato e liberação dos acessos necessários.</p>
+</section> <section class="fecho"> <div class="pad"> <p class="eyebrow">Próximo passo</p> <h2 style="margin-top:15px">Começar pelo entendimento. <b>Depois, redesenhar com precisão.</b></h2> <p>Ao final de três semanas, a Virtual Plant terá clareza sobre o tamanho do Hub, as prioridades de evolução e o investimento necessário para construir a próxima versão do produto.</p> <div class="contatos"> <a href="mailto:contato@.com.br?subject=Proposta%20Virtual%20Plant%20Fase%201">contato@.com.br</a> <a href="https://wa.me/5511982838497">+55 11 98283 8497</a> <a href="https://www.linkedin.com/in/getuliosoueu/">linkedin.com/in/getuliosoueu</a> </div> </div>
+</section> <footer class="pad"> <span> · São Paulo</span> <span>Proposta técnica Virtual Plant · Fase 1</span>
+</footer> </div> <script>
+(function(){ var raiz = document.documentElement, bt = document.getElementById('btnTema'), rc = document.getElementById('rotClaro'), re = document.getElementById('rotEscuro'); raiz.setAttribute('data-tema','claro'); function sincroniza(){ var e = raiz.getAttribute('data-tema') === 'escuro'; bt.setAttribute('aria-checked', String(e)); rc.setAttribute('data-on', String(!e)); re.setAttribute('data-on', String(e)); } bt.addEventListener('click', function(){ var e = raiz.getAttribute('data-tema') === 'escuro'; raiz.setAttribute('data-tema', e ? 'claro' : 'escuro'); sincroniza(); }); sincroniza();
+})();
+</script>
+</body>
+</html>
