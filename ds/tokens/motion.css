@@ -1,0 +1,46 @@
+/* Indisea motion: direct, intentional, kinetic. Short, precise, no bounce.
+   MD3 emphasized easing.
+
+   THE ONE PROHIBITION: nothing appears, fades, dissolves or types itself.
+   Opacity is never animated. Every entrance is POSITIONAL, an object arriving
+   from somewhere, or a MASK, an object already there being uncovered. That is
+   what makes the brand read as confident rather than tentative. Static opacity
+   for a disabled control is not motion and is fine. */
+:root{
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1); /* @kind other */
+  --ease-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1); /* @kind other */
+  --ease-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15); /* @kind other */
+  --ease-linear: linear; /* @kind other */
+
+  --duration-instant: 80ms; /* @kind other */
+  --duration-fast: 150ms; /* @kind other */
+  --duration-medium: 250ms; /* @kind other */
+  --duration-slow: 400ms; /* @kind other */
+  /* a section or slide sliding over the one beneath it */
+  --duration-cover: 560ms; /* @kind other */
+  /* a connector line drawing along its path */
+  --duration-path: 1200ms; /* @kind other */
+
+  --transition-control: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard), border-color var(--duration-fast) var(--ease-standard);
+  --press-scale: 0.98; /* @kind other */
+
+  /* text reveal: one line at a time, rising through its own mask */
+  --duration-line: 480ms; /* @kind other */
+  --stagger-line: 90ms; /* @kind other */
+  /* how far a photograph travels against its frame across a full scroll pass.
+     Small on purpose: it should read as depth, not as a moving photo. */
+  --parallax-shift: 8%; /* @kind other */
+}
+@media (prefers-reduced-motion: reduce){
+  :root{
+    --duration-instant: 0ms; /* @kind other */
+    --duration-fast: 0ms; /* @kind other */
+    --duration-medium: 0ms; /* @kind other */
+    --duration-slow: 0ms; /* @kind other */
+    --duration-cover: 0ms; /* @kind other */
+    --duration-path: 0ms; /* @kind other */
+    --duration-line: 0ms; /* @kind other */
+    --stagger-line: 0ms; /* @kind other */
+    --parallax-shift: 0%; /* @kind other */
+  }
+}

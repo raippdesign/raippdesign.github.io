@@ -1,0 +1,1771 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="download_date" content="2026-09-20T14:22:43.691Z"/>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-K7Q4HW5C87"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-K7Q4HW5C87');
+  /* Google Ads: cole aqui o ID da conta (Ferramentas > Conversões) e descomente. */
+  // gtag('config', 'AW-XXXXXXXXXX');
+
+  /* Conversões: todo clique em CTA dispara generate_lead (marque como evento-chave no GA4
+     e importe no Google Ads). E-mail e LinkedIn disparam "contact". */
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a');
+    if (!a) return;
+    var cta = a.getAttribute('data-cta');
+    if (cta) { gtag('event', 'generate_lead', { cta_location: cta, link_url: a.href }); return; }
+    var href = a.getAttribute('href') || '';
+    if (href.indexOf('mailto:') === 0) gtag('event', 'contact', { method: 'email' });
+    else if (href.indexOf('linkedin.com') > -1) gtag('event', 'contact', { method: 'linkedin' });
+  }, true);
+</script>
+
+<!-- data-seo-block -->
+<title>Consultoria de Design System · Getúlio Lima | raipp</title>
+<meta name="description" content="Consultoria de design system para produtos complexos: diagnóstico, arquitetura de tokens e governança. Rebranding, multimarca e IA sem retrabalho. 15 anos de experiência.">
+<link rel="canonical" href="https://www.raipp.com.br/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="raipp">
+<meta property="og:url" content="https://www.raipp.com.br/">
+<meta property="og:title" content="Consultoria de Design System · Getúlio Lima">
+<meta property="og:image" content="https://www.raipp.com.br/assets/getulio.png">
+<meta property="og:description" content="Diagnóstico, arquitetura de tokens e governança de design system. Mudança de marca vira configuração, não projeto.">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","name":"raipp · Getúlio Lima","url":"https://www.raipp.com.br/","image":"https://www.raipp.com.br/assets/getulio.png","email":"getulio@raipp.com.br","description":"Consultoria de design system: diagnóstico, arquitetura de tokens e governança para produtos digitais complexos.","areaServed":"BR","address":{"@type":"PostalAddress","addressLocality":"São Paulo","addressCountry":"BR"},"founder":{"@type":"Person","name":"Getúlio Lima","sameAs":["https://www.linkedin.com/in/getuliosoueu/"]},"serviceType":["Design system","Design tokens","Governança de design system","Rebranding de produto digital","Product design","Design ops e automação","Design system pronto para IA"]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Precisamos parar o produto?", "acceptedAnswer": {"@type": "Answer", "text": "Não. O sistema entra em camadas enquanto o time continua entregando. Nada de redesign do zero."}}, {"@type": "Question", "name": "Você trabalha junto com os nossos devs?", "acceptedAnswer": {"@type": "Answer", "text": "Sim. Tokens e componentes só se pagam quando design e código leem da mesma fonte. Eu cuido do sistema; Produto e Engenharia cuidam do produto."}}, {"@type": "Question", "name": "O que significa \"pronto para IA\"?", "acceptedAnswer": {"@type": "Answer", "text": "Tokens nomeados, componentes com contrato claro e arquivos de contexto que Cursor, Copilot, Claude e Figma Make conseguem ler. Assim eles reutilizam o seu sistema em vez de inventar estilo a cada sprint."}}, {"@type": "Question", "name": "Para que tipo de produto?", "acceptedAnswer": {"@type": "Answer", "text": "Produtos com muito dado e muita regra: fintech, seguros, saúde e SaaS corporativo."}}, {"@type": "Question", "name": "Como funciona a contratação?", "acceptedAnswer": {"@type": "Answer", "text": "Por escopo, com atendimento remoto a partir de São Paulo. Tudo começa pelo diagnóstico, que mostra o que vale construir."}}]}</script>
+<meta property="og:locale" content="pt_BR">
+<meta name="theme-color" content="#F0EDEA">
+<link rel="stylesheet" href="ds/tokens/fonts.css">
+<link rel="stylesheet" href="ds/tokens/colors.css">
+<link rel="stylesheet" href="ds/tokens/modes.css">
+<link rel="stylesheet" href="ds/tokens/gradients.css">
+<link rel="stylesheet" href="ds/tokens/pattern.css">
+<link rel="stylesheet" href="ds/tokens/typography.css">
+<link rel="stylesheet" href="ds/tokens/spacing.css">
+<link rel="stylesheet" href="ds/tokens/shape.css">
+<link rel="stylesheet" href="ds/tokens/overlays.css">
+<link rel="stylesheet" href="ds/tokens/motion.css">
+<link rel="stylesheet" href="ds/tokens/icons.css">
+<link rel="stylesheet" href="ds/tokens/base.css">
+<link rel="stylesheet" href="ds/styles.css">
+<script src="ds/ds_bundle.js"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
+<script src="cursor.js"></script>
+<script src="field.js"></script>
+<script src="links.js"></script>
+<style>
+  *{box-sizing:border-box;}
+  /* Paleta reduzida: lima, lilás e tinta. Os tokens vívidos do DS são remapeados
+     nesses três valores para que o site inteiro fale a mesma língua. */
+  :root{
+    --indisea-sky-blue:#D5BAFC;
+    --indisea-signal-yellow:#BEFF8B;
+    --indisea-link-green:#BEFF8B;
+    --indisea-node-red:#D5BAFC;
+    --indisea-blue-800:#262626;
+    --indisea-yellow-800:#262626;
+    --indisea-green-800:#262626;
+  }
+  html{background:var(--surface-canvas);scrollbar-gutter:stable;scroll-behavior:smooth;}
+  body{margin:0;padding:0;background:var(--surface-canvas);overflow-x:hidden;}
+  a{color:var(--text-link);text-decoration:none;}
+  a:hover{color:var(--text-link-hover);}
+  /* Grifo do herói: lilás -> lima, texto sempre tinta. */
+  [data-verb]{transition:background-color 640ms cubic-bezier(.22,1,.36,1);}
+  :focus-visible{outline:3px solid var(--indisea-sky-blue);outline-offset:2px;}
+  /* Full-bleed 12-column grid. No max width: the page margin is the only inset. */
+  [data-wrap]{padding-inline:var(--margin);}
+  [data-g]{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gutter);}
+  /* Cards sit ABOVE the connector spine: the line only ever crosses background layers. */
+  [data-spine-under]{position:relative;z-index:6;}
+  [data-spine-front]{position:relative;z-index:6;}
+  [data-col="rail"]{grid-column:1 / span 3;}
+  [data-col="main"]{grid-column:5 / span 8;}
+  [data-col="wide"]{grid-column:1 / -1;}
+  [data-col="half"]{grid-column:span 6;}
+  [data-col="third"]{grid-column:span 4;}
+  [data-col="quarter"]{grid-column:span 3;}
+  [data-col="fine"]{grid-column:9 / span 4;}
+  [data-col="brand"]{grid-column:1 / span 6;}
+  [data-col="foot"]{grid-column:span 2;}
+  [data-col="foot"]:nth-of-type(2){grid-column:7 / span 2;}
+  @media (max-width:1024px){
+    [data-g]{grid-template-columns:repeat(8,minmax(0,1fr));}
+    [data-col="rail"],[data-col="main"],[data-col="wide"],[data-col="half"],[data-col="fine"],[data-col="brand"]{grid-column:1 / -1;}
+    [data-col="foot"],[data-col="foot"]:nth-of-type(2){grid-column:span 4;}
+    [data-col="third"],[data-col="quarter"]{grid-column:span 4;}
+    [data-menu-cols]{grid-template-columns:1fr !important;}
+    [data-menu-field]{display:none !important;}
+  }
+  @media (max-width:640px){
+    [data-g]{grid-template-columns:repeat(4,minmax(0,1fr));}
+    [data-col]{grid-column:1 / -1 !important;}
+    [data-scroll-cue]{display:none !important;}
+    /* Bio: no mobile a fotinha sobe para cima do texto, senão sobram 22 caracteres por linha. */
+    [data-bio]{flex-direction:column;gap:20px !important;}
+    [data-quote]{grid-template-columns:1fr !important;align-items:start !important;}
+    /* The illustration's labels are centered on rings near the card edges, so at
+       mobile widths they need room to wrap and the card needs deeper side padding. */
+    [data-conn]{padding-left:clamp(24px,7vw,40px) !important;padding-right:clamp(24px,7vw,40px) !important;}
+    [data-conn] [data-node] + span{white-space:normal !important;max-width:11ch;line-height:1.3;}
+    /* Keep the sticky stack on mobile: the panels slide over one another exactly as
+       on desktop. Only the internal two-column split collapses, to rows. */
+    [data-panel-inner]{grid-template-columns:1fr !important;grid-template-rows:auto minmax(0,1fr) !important;}
+    [data-panel-number]{display:flex !important;align-items:center !important;justify-content:center !important;min-height:0 !important;}
+    [data-panel-number] > span{position:relative !important;top:auto !important;left:auto !important;right:auto !important;font-size:94cqh !important;}
+    [data-manifesto]{height:220vh !important;}
+    /* On mobile the spine passes behind the whole block, dark background included,
+       so the section paints above it rather than only its type doing so. */
+    [data-manifesto]{position:relative;z-index:6;}
+    [data-manifesto] [data-spine-front]{z-index:auto !important;}
+    /* Section 09's statement copy needs room off the right edge at this width. */
+    [data-screen-label^="09"] [data-col="main"]{padding-right:clamp(24px,9vw,56px);}
+  }
+  [data-theme="dark"] [data-partner-mark]{filter:invert(1) hue-rotate(180deg);}
+  /* Scoped to the FOOTER's own theme, not an ancestor: the page root also carries
+     data-theme, and in dark mode its value would win and invert this. */
+  [data-wordmark]{--wordmark-fill:var(--indisea-charcoal);opacity:0.2;}
+  [data-footer] [data-wordmark]{--wordmark-fill:#FAFAF9;opacity:0.14;}
+  [data-footer][data-theme="light"] [data-wordmark]{--wordmark-fill:var(--indisea-charcoal);}
+  [data-footer][data-theme="dark"] [data-wordmark]{--wordmark-fill:var(--indisea-stone);}
+
+  /* Botão com bolinha que troca de ponta + rolagem do rótulo.
+     Mesmo mecanismo do curso, com as cores deste sistema. */
+  .g-btn{--g-size:56px;--g-ease:cubic-bezier(.22,1,.36,1);position:relative;display:inline-flex;align-items:center;gap:8px;width:max-content;max-width:100%;min-height:var(--g-size);text-decoration:none;cursor:pointer;}
+  .g-btn-body{order:2;flex:0 1 auto;min-width:0;min-height:var(--g-size);display:flex;align-items:center;padding:0 26px;border-radius:999px;background:var(--action-primary);color:var(--action-primary-text);font-family:var(--font-sans);font-size:17px;font-weight:600;letter-spacing:-0.01em;line-height:1.25;white-space:nowrap;overflow:hidden;transition:background-color 300ms linear;}
+  .g-btn:hover .g-btn-body{background:var(--action-primary-hover);}
+  .g-btn-dot{flex:0 0 var(--g-size);width:var(--g-size);height:var(--g-size);border-radius:999px;display:grid;place-items:center;overflow:hidden;transition:flex-basis 550ms var(--g-ease),width 550ms var(--g-ease),transform 550ms var(--g-ease),opacity 340ms ease;}
+  .g-btn-dot svg{width:22px;height:22px;flex:none;fill:none;stroke:#262626;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;transition:transform 550ms var(--g-ease),opacity 300ms ease;}
+  .g-btn-before{order:3;background:#BEFF8B;transform:scale(1) rotate(0);opacity:1;}
+  .g-btn-after{order:1;background:#D5BAFC;flex:0 0 0;width:0;min-width:0;transform:scale(0.2) rotate(-120deg);opacity:0;}
+  .g-btn-after svg{opacity:0;transform:rotate(-45deg);}
+  .g-btn:hover .g-btn-after,.g-btn:focus-visible .g-btn-after{flex:0 0 var(--g-size);width:var(--g-size);transform:scale(1) rotate(0);opacity:1;}
+  .g-btn:hover .g-btn-after svg,.g-btn:focus-visible .g-btn-after svg{opacity:1;transform:none;}
+  .g-btn:hover .g-btn-before,.g-btn:focus-visible .g-btn-before{flex:0 0 0;width:0;min-width:0;transform:scale(0.2) rotate(120deg);opacity:0;}
+  .g-btn:hover .g-btn-before svg,.g-btn:focus-visible .g-btn-before svg{opacity:0;transform:rotate(45deg);}
+  .g-btn-roll{display:block;overflow:hidden;height:1.25em;}
+  .g-btn-roll i{display:block;font-style:normal;transition:transform 460ms var(--g-ease);}
+  .g-btn:hover .g-btn-roll i,.g-btn:focus-visible .g-btn-roll i{transform:translateY(-100%);}
+  .g-btn:focus-visible{outline:3px solid var(--border-focus);outline-offset:6px;border-radius:999px;}
+  @media (max-width:640px){.g-btn{width:100%;}.g-btn-body{flex:1 1 auto;justify-content:center;}}
+  @media (prefers-reduced-motion: reduce){*{animation-duration:0.001ms !important;transition-duration:0.001ms !important;}html{scroll-behavior:auto;}}
+  /* Serviços, processo e FAQ */
+  section[id]{scroll-margin-top:24px;}
+  [data-faq] details{border-top:2px solid var(--border-hairline);}
+  [data-faq] details:last-child{border-bottom:2px solid var(--border-hairline);}
+  [data-faq] summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:24px;padding:24px 0;font-size:clamp(19px,1.7vw,28px);font-weight:var(--weight-heading);letter-spacing:var(--tracking-heading);line-height:1.25;color:var(--text-heading);}
+  [data-faq] summary::-webkit-details-marker{display:none;}
+  [data-faq] summary i{flex:none;font-size:20px;color:var(--text-muted);transition:transform 320ms cubic-bezier(.22,1,.36,1);}
+  [data-faq] details[open] summary i{transform:rotate(45deg);}
+  [data-faq] details p{margin:0 0 28px 0;max-width:62ch;font-size:clamp(16px,1.2vw,19px);line-height:1.6;color:var(--text-muted);}
+  @media (max-width:1024px){[data-col="quarter"]{grid-column:span 4;}}
+</style>
+
+<script src="support.js"></script>
+</head>
+<body>
+
+
+<x-dc>
+
+<div data-indisea-home="" data-theme="{{ theme }}" style="position:relative;background:var(--surface-canvas);color:var(--text-body);font-family:var(--font-sans);letter-spacing:var(--tracking-body);--margin:clamp(20px,4vw,64px);--gutter:clamp(16px,1.7vw,24px);--section:clamp(152px,19vh,320px);--section-half:clamp(76px,9.5vh,160px);">
+
+  <div data-loader="" style="position:fixed;inset:0;z-index:200;background:var(--surface-canvas);display:flex;align-items:flex-end;padding:var(--margin);pointer-events:none;">
+    <div style="display:flex;align-items:baseline;gap:12px;">
+      <span data-loader-count="" class="indisea-mono" style="font-size:clamp(40px,7vw,88px);font-weight:600;letter-spacing:-0.03em;color:var(--text-heading);line-height:1;">000</span>
+      <span class="indisea-eyebrow">raipp</span>
+    </div>
+  </div>
+
+  <svg data-spine="" aria-hidden="true" style="position:absolute;left:0;top:0;width:100%;z-index:5;overflow:visible;pointer-events:none;"></svg>
+
+  <header style="position:fixed;top:0;left:0;right:0;z-index:130;background:transparent;">
+    <div data-wrap="" style="display:flex;align-items:center;justify-content:space-between;padding-top:20px;padding-bottom:20px;">
+      <a data-logo-slot="" href="index.html" aria-label="raipp, início" style="display:flex;align-items:center;transition:transform 420ms cubic-bezier(0.16,1,0.3,1), opacity 260ms linear;">
+        <svg data-logo-light="" viewBox="0 0 2753 1126" role="img" aria-label="raipp" style="height:32px;width:auto;display:block;color:var(--indisea-charcoal);"><path d="M97.3001 62.8851H345.297C391.178 62.8851 430.731 67.6312 463.955 77.1233C497.971 85.8244 528.426 104.809 555.322 134.076C593.293 173.626 612.278 227.415 612.278 295.441C612.278 367.423 590.524 425.167 547.016 468.672C512.21 501.895 470.284 523.252 421.238 532.744L625.331 854.289H411.745L220.705 542.236L182.734 854.289H0L97.3001 62.8851ZM262.236 205.267L234.944 422.398H280.034C326.707 422.398 362.304 412.906 386.827 393.922C413.723 373.356 427.171 342.506 427.171 301.374C427.171 265.779 414.514 240.071 389.2 224.251C369.424 211.595 336.199 205.267 289.527 205.267H262.236Z" fill="currentColor"></path><path d="M1081.48 389.176L1086.23 325.104H1257.1L1191.83 854.289H1020.96L1034.02 793.777C1011.08 820.671 986.158 840.446 959.262 853.102C931.575 865.758 898.746 872.086 860.776 872.086C792.745 872.086 738.162 850.334 697.027 806.828C649.563 756.204 625.831 691.341 625.831 612.24C625.831 518.901 654.31 442.965 711.266 384.43C761.893 333.014 826.76 307.307 905.866 307.307C947.001 307.307 981.412 314.03 1009.1 327.477C1037.58 340.924 1061.7 361.491 1081.48 389.176ZM942.65 454.434C901.515 454.434 867.895 467.486 841.79 493.589C814.894 520.483 801.446 555.683 801.446 599.189C801.446 634.784 812.917 664.842 835.857 689.364C858.798 713.094 888.858 724.959 926.038 724.959C965.591 724.959 998.024 713.094 1023.34 689.364C1053.4 660.096 1068.43 622.128 1068.43 575.458C1068.43 536.699 1056.17 506.245 1031.64 484.097C1010.29 464.322 980.621 454.434 942.65 454.434Z" fill="currentColor"></path><path d="M1323.14 325.104H1494L1428.74 854.289H1257.87L1323.14 325.104ZM1359.92 170.858C1340.94 151.083 1331.44 127.352 1331.44 99.667C1331.44 71.9817 1340.94 48.647 1359.92 29.6628C1379.7 9.88759 1403.43 0 1431.12 0C1458.8 0 1482.14 9.88759 1501.12 29.6628C1520.9 48.647 1530.79 71.9817 1530.79 99.667C1530.79 127.352 1520.9 151.083 1501.12 170.858C1482.14 189.842 1458.8 199.334 1431.12 199.334C1403.43 199.334 1379.7 189.842 1359.92 170.858Z" fill="currentColor"></path><path d="M1674.8 789.031L1632.08 1126H1461.22L1559.7 325.104H1730.57L1721.08 386.803C1740.06 363.864 1762.21 345.671 1787.53 332.223C1819.96 315.612 1856.35 307.307 1896.69 307.307C1963.14 307.307 2016.54 326.686 2056.88 365.446C2103.55 412.115 2126.89 478.164 2126.89 563.593C2126.89 662.469 2097.23 741.57 2037.9 800.896C1990.43 848.356 1930.71 872.086 1858.72 872.086C1811.26 872.086 1772.89 864.572 1743.62 849.543C1716.73 835.304 1693.79 815.134 1674.8 789.031ZM1830.24 454.434C1790.69 454.434 1757.47 467.881 1730.57 494.776C1702.09 523.252 1687.85 558.847 1687.85 601.562C1687.85 637.157 1698.53 666.029 1719.89 688.177C1742.83 712.698 1772.5 724.959 1808.89 724.959C1846.07 724.959 1877.71 712.698 1903.81 688.177C1918.05 675.521 1929.52 658.514 1938.22 637.157C1946.93 615.009 1951.28 594.047 1951.28 574.272C1951.28 537.094 1939.01 507.432 1914.49 485.283C1892.34 464.717 1864.26 454.434 1830.24 454.434Z" fill="currentColor"></path><path d="M2300.91 789.031L2258.19 1126H2087.33L2185.81 325.104H2356.68L2347.19 386.803C2366.17 363.864 2388.32 345.671 2413.64 332.223C2446.07 315.612 2482.46 307.307 2522.8 307.307C2589.25 307.307 2642.65 326.686 2682.99 365.446C2729.66 412.115 2753 478.164 2753 563.593C2753 662.469 2723.34 741.57 2664.01 800.896C2616.54 848.356 2556.82 872.086 2484.83 872.086C2437.37 872.086 2399 864.572 2369.73 849.543C2342.84 835.304 2319.9 815.134 2300.91 789.031ZM2456.35 454.434C2416.8 454.434 2383.58 467.881 2356.68 494.776C2328.2 523.252 2313.96 558.847 2313.96 601.562C2313.96 637.157 2324.64 666.029 2346 688.177C2368.94 712.698 2398.61 724.959 2435 724.959C2472.17 724.959 2503.82 712.698 2529.92 688.177C2544.16 675.521 2555.63 658.514 2564.33 637.157C2573.03 615.009 2577.39 594.047 2577.39 574.272C2577.39 537.094 2565.12 507.432 2540.6 485.283C2518.45 464.717 2490.37 454.434 2456.35 454.434Z" fill="currentColor"></path></svg>
+        <svg data-logo-dark="" viewBox="0 0 2753 1126" role="img" aria-label="raipp" style="height:32px;width:auto;display:none;color:var(--indisea-stone);"><path d="M97.3001 62.8851H345.297C391.178 62.8851 430.731 67.6312 463.955 77.1233C497.971 85.8244 528.426 104.809 555.322 134.076C593.293 173.626 612.278 227.415 612.278 295.441C612.278 367.423 590.524 425.167 547.016 468.672C512.21 501.895 470.284 523.252 421.238 532.744L625.331 854.289H411.745L220.705 542.236L182.734 854.289H0L97.3001 62.8851ZM262.236 205.267L234.944 422.398H280.034C326.707 422.398 362.304 412.906 386.827 393.922C413.723 373.356 427.171 342.506 427.171 301.374C427.171 265.779 414.514 240.071 389.2 224.251C369.424 211.595 336.199 205.267 289.527 205.267H262.236Z" fill="currentColor"></path><path d="M1081.48 389.176L1086.23 325.104H1257.1L1191.83 854.289H1020.96L1034.02 793.777C1011.08 820.671 986.158 840.446 959.262 853.102C931.575 865.758 898.746 872.086 860.776 872.086C792.745 872.086 738.162 850.334 697.027 806.828C649.563 756.204 625.831 691.341 625.831 612.24C625.831 518.901 654.31 442.965 711.266 384.43C761.893 333.014 826.76 307.307 905.866 307.307C947.001 307.307 981.412 314.03 1009.1 327.477C1037.58 340.924 1061.7 361.491 1081.48 389.176ZM942.65 454.434C901.515 454.434 867.895 467.486 841.79 493.589C814.894 520.483 801.446 555.683 801.446 599.189C801.446 634.784 812.917 664.842 835.857 689.364C858.798 713.094 888.858 724.959 926.038 724.959C965.591 724.959 998.024 713.094 1023.34 689.364C1053.4 660.096 1068.43 622.128 1068.43 575.458C1068.43 536.699 1056.17 506.245 1031.64 484.097C1010.29 464.322 980.621 454.434 942.65 454.434Z" fill="currentColor"></path><path d="M1323.14 325.104H1494L1428.74 854.289H1257.87L1323.14 325.104ZM1359.92 170.858C1340.94 151.083 1331.44 127.352 1331.44 99.667C1331.44 71.9817 1340.94 48.647 1359.92 29.6628C1379.7 9.88759 1403.43 0 1431.12 0C1458.8 0 1482.14 9.88759 1501.12 29.6628C1520.9 48.647 1530.79 71.9817 1530.79 99.667C1530.79 127.352 1520.9 151.083 1501.12 170.858C1482.14 189.842 1458.8 199.334 1431.12 199.334C1403.43 199.334 1379.7 189.842 1359.92 170.858Z" fill="currentColor"></path><path d="M1674.8 789.031L1632.08 1126H1461.22L1559.7 325.104H1730.57L1721.08 386.803C1740.06 363.864 1762.21 345.671 1787.53 332.223C1819.96 315.612 1856.35 307.307 1896.69 307.307C1963.14 307.307 2016.54 326.686 2056.88 365.446C2103.55 412.115 2126.89 478.164 2126.89 563.593C2126.89 662.469 2097.23 741.57 2037.9 800.896C1990.43 848.356 1930.71 872.086 1858.72 872.086C1811.26 872.086 1772.89 864.572 1743.62 849.543C1716.73 835.304 1693.79 815.134 1674.8 789.031ZM1830.24 454.434C1790.69 454.434 1757.47 467.881 1730.57 494.776C1702.09 523.252 1687.85 558.847 1687.85 601.562C1687.85 637.157 1698.53 666.029 1719.89 688.177C1742.83 712.698 1772.5 724.959 1808.89 724.959C1846.07 724.959 1877.71 712.698 1903.81 688.177C1918.05 675.521 1929.52 658.514 1938.22 637.157C1946.93 615.009 1951.28 594.047 1951.28 574.272C1951.28 537.094 1939.01 507.432 1914.49 485.283C1892.34 464.717 1864.26 454.434 1830.24 454.434Z" fill="currentColor"></path><path d="M2300.91 789.031L2258.19 1126H2087.33L2185.81 325.104H2356.68L2347.19 386.803C2366.17 363.864 2388.32 345.671 2413.64 332.223C2446.07 315.612 2482.46 307.307 2522.8 307.307C2589.25 307.307 2642.65 326.686 2682.99 365.446C2729.66 412.115 2753 478.164 2753 563.593C2753 662.469 2723.34 741.57 2664.01 800.896C2616.54 848.356 2556.82 872.086 2484.83 872.086C2437.37 872.086 2399 864.572 2369.73 849.543C2342.84 835.304 2319.9 815.134 2300.91 789.031ZM2456.35 454.434C2416.8 454.434 2383.58 467.881 2356.68 494.776C2328.2 523.252 2313.96 558.847 2313.96 601.562C2313.96 637.157 2324.64 666.029 2346 688.177C2368.94 712.698 2398.61 724.959 2435 724.959C2472.17 724.959 2503.82 712.698 2529.92 688.177C2544.16 675.521 2555.63 658.514 2564.33 637.157C2573.03 615.009 2577.39 594.047 2577.39 574.272C2577.39 537.094 2565.12 507.432 2540.6 485.283C2518.45 464.717 2490.37 454.434 2456.35 454.434Z" fill="currentColor"></path></svg>
+      </a>
+      <button data-menu-toggle="" onclick="{{ toggleMenu }}" aria-label="Abrir menu" style="position:relative;flex:none;width:48px;height:48px;border-radius:999px;border:2px solid currentColor;background:var(--menu-fill,var(--surface-canvas));color:var(--text-heading);cursor:pointer;display:flex;align-items:center;justify-content:center;">
+        <span data-bar="1" style="position:absolute;width:18px;height:2px;border-radius:999px;background:currentColor;transform:translateY(-4px) rotate(0deg);transition:transform 320ms cubic-bezier(0.16,1,0.3,1);"></span>
+        <span data-bar="2" style="position:absolute;width:18px;height:2px;border-radius:999px;background:currentColor;transform:translateY(4px) rotate(0deg);transition:transform 320ms cubic-bezier(0.16,1,0.3,1);"></span>
+      </button>
+    </div>
+  </header>
+
+  <div data-menu="" data-theme="{{ alt }}" role="dialog" aria-modal="true" aria-label="Menu do site" style="position:fixed;inset:0;z-index:110;background:var(--surface-canvas);color:var(--text-body);transform:translateY(-100%);visibility:hidden;display:flex;flex-direction:column;">
+    <div data-menu-cols="" style="flex:1;display:grid;grid-template-columns:1.2fr 1fr;min-height:0;">
+      <nav data-menu-list="" style="display:flex;flex-direction:column;justify-content:safe center;gap:4px;padding:112px var(--margin) 24px var(--margin);min-height:0;overflow-y:auto;">
+        <a data-menu-item="" data-field="blue" href="#topo" style="display:flex;align-items:baseline;gap:24px;padding:8px 0;color:var(--text-heading);transition:color 200ms linear;">
+          <span data-menu-num="" style="font-size:12px;font-weight:600;letter-spacing:0.07em;color:var(--accent-type-blue);">01</span>
+          <span style="font-size:clamp(28px,min(6vw,7.6vh),80px);font-weight:var(--weight-display);letter-spacing:var(--tracking-display);line-height:1.02;">Index</span>
+        </a>
+        <a data-menu-item="" data-field="yellow" href="#servicos" style="display:flex;align-items:baseline;gap:24px;padding:8px 0;color:var(--text-heading);transition:color 200ms linear;">
+          <span data-menu-num="" style="font-size:12px;font-weight:600;letter-spacing:0.07em;color:var(--accent-type-yellow);">02</span>
+          <span style="font-size:clamp(28px,min(6vw,7.6vh),80px);font-weight:var(--weight-display);letter-spacing:var(--tracking-display);line-height:1.02;">Serviços</span>
+        </a>
+        <a data-menu-item="" data-field="blue" href="#processo" style="display:flex;align-items:baseline;gap:24px;padding:8px 0;color:var(--text-heading);transition:color 200ms linear;">
+          <span data-menu-num="" style="font-size:12px;font-weight:600;letter-spacing:0.07em;color:var(--accent-type-blue);">03</span>
+          <span style="font-size:clamp(28px,min(6vw,7.6vh),80px);font-weight:var(--weight-display);letter-spacing:var(--tracking-display);line-height:1.02;">Processo</span>
+        </a>
+        <span data-menu-item="" data-menu-locked="" aria-disabled="true" style="display:flex;align-items:baseline;gap:24px;padding:8px 0;color:var(--text-heading);opacity:0.38;cursor:default;transition:color 200ms linear;">
+          <span data-menu-num="" style="font-size:12px;font-weight:600;letter-spacing:0.07em;color:var(--accent-type-yellow);">04</span>
+          <span style="display:inline-flex;align-items:center;gap:0.28em;font-size:clamp(28px,min(6vw,7.6vh),80px);font-weight:var(--weight-display);letter-spacing:var(--tracking-display);line-height:1.02;">Interactive Craft<i class="ph-fill ph-lock-simple" aria-hidden="true" style="font-size:0.42em;line-height:1;transform:translateY(-0.22em);"></i></span>
+        </span>
+        <a data-menu-item="" data-field="green" href="https://www.uxforcreators.com" target="_blank" rel="noopener" style="display:flex;align-items:baseline;gap:24px;padding:8px 0;color:var(--text-heading);transition:color 200ms linear;">
+          <span data-menu-num="" style="font-size:12px;font-weight:600;letter-spacing:0.07em;color:var(--accent-type-green);">05</span>
+          <span style="font-size:clamp(28px,min(6vw,7.6vh),80px);font-weight:var(--weight-display);letter-spacing:var(--tracking-display);line-height:1.02;">UX for Creators</span>
+        </a>
+        <a data-menu-item="" data-field="red" href="#contato" style="display:flex;align-items:baseline;gap:24px;padding:8px 0;color:var(--text-heading);transition:color 200ms linear;">
+          <span data-menu-num="" style="font-size:12px;font-weight:600;letter-spacing:0.07em;color:var(--indisea-node-red);">06</span>
+          <span style="font-size:clamp(28px,min(6vw,7.6vh),80px);font-weight:var(--weight-display);letter-spacing:var(--tracking-display);line-height:1.02;">Contatos</span>
+        </a>
+      </nav>
+      <div data-menu-field="" style="background:var(--surface-card);transition:background 220ms linear;"></div>
+    </div>
+    <div data-wrap="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:24px;padding-top:32px;padding-bottom:32px;">
+      <div>
+        <div class="indisea-eyebrow">E-mail</div>
+        <a href="mailto:getulio@raipp.com.br" style="display:block;margin-top:8px;font-size:15px;color:var(--text-body);">getulio@raipp.com.br</a>
+      </div>
+      <div>
+        <div class="indisea-eyebrow">LinkedIn</div>
+        <a href="https://www.linkedin.com/in/getuliosoueu/" target="_blank" rel="noopener" style="display:block;margin-top:8px;font-size:15px;color:var(--text-body);">/in/getuliosoueu</a>
+      </div>
+      <div>
+        <div class="indisea-eyebrow">Onde</div>
+        <p style="margin:8px 0 0 0;font-size:15px;line-height:1.5;color:var(--text-body);">São Paulo, Brasil<br>Atendimento remoto</p>
+      </div>
+      <div style="display:flex;align-items:flex-end;">
+        <button data-theme-toggle="" onclick="{{ toggleTheme }}" aria-label="Mudar para o modo escuro" style="display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;padding:0;border:2px solid var(--border-strong);border-radius:999px;background:transparent;color:var(--text-body);cursor:pointer;">
+          <i data-theme-icon="" class="ph-fill ph-moon" style="font-size:20px;"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <main style="position:relative;">
+
+    <section id="topo" data-screen-label="01 Hero" style="position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:140px 0 40px 0;overflow:hidden;">
+      <div data-wrap="" style="position:relative;">
+        <div data-g="" style="margin-bottom:clamp(20px,3vh,40px);">
+          <div data-spine-front="" data-col="wide"><span class="indisea-eyebrow">01 / consultoria de design system</span></div>
+        </div>
+        <div data-g="">
+          <h1 data-spine-front="" data-col="wide" style="margin:0;font-size:clamp(46px,9.4vw,190px);font-weight:var(--weight-display);letter-spacing:var(--tracking-display);line-height:0.92;color:var(--text-heading);">
+            <span style="display:block;overflow:hidden;"><span data-hline="" style="display:block;padding-bottom:0.06em;"><span data-verb="" style="display:inline-block;padding:0 0.08em;margin:0 -0.08em;border-radius:var(--radius-xs);">Design system</span></span></span>
+            <span style="display:block;overflow:hidden;"><span data-hline="" style="display:block;padding-bottom:0.06em;">que <span data-verb="" style="display:inline-block;padding:0 0.08em;margin:0 -0.08em;border-radius:var(--radius-xs);">corta</span> o custo</span></span>
+            <span style="display:block;overflow:hidden;"><span data-hline="" style="display:block;padding-bottom:0.06em;">de cada <span data-verb="" style="display:inline-block;padding:0 0.08em;margin:0 -0.08em;border-radius:var(--radius-xs);">mudança</span></span></span>
+            <span style="display:block;overflow:hidden;"><span data-hline="" style="display:block;padding-bottom:0.12em;">no seu produto</span></span>
+          </h1>
+        </div>
+        <div data-spine-front="" data-g="" style="margin-top:clamp(24px,4vh,48px);">
+          <p data-col="half" style="margin:0;font-size:clamp(17px,1.4vw,22px);line-height:1.5;color:var(--text-body);max-width:52ch;">Diagnóstico, tokens e governança para produtos com muito dado e muita regra. Rebranding, segunda marca e telas geradas por IA, sem retrabalho.</p>
+        </div>
+        <div data-spine-front="" data-g="" style="margin-top:clamp(24px,4vh,40px);align-items:end;">
+          <div data-col="half" style="display:flex;align-items:center;gap:24px;flex-wrap:wrap;">
+            <a class="g-btn" data-cta="hero" href="{{ bookACall }}" target="_blank" rel="noopener">
+              <span class="g-btn-dot g-btn-after" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"></path></svg></span>
+              <span class="g-btn-body"><span class="g-btn-roll"><i>Solicitar diagnóstico</i><i>Solicitar diagnóstico</i></span></span>
+              <span class="g-btn-dot g-btn-before" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"></path></svg></span>
+            </a>
+            <span style="font-size:13px;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;color:var(--text-muted);">15 anos · Porto Seguro, Dock, UOL</span>
+            <a href="#ia" data-hero-ai="" style="display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:500;color:var(--text-heading);border-bottom:2px solid var(--indisea-sky-blue);padding-bottom:3px;">Seu sistema está pronto para IA?<i class="ph-fill ph-arrow-right" aria-hidden="true" style="font-size:14px;"></i></a>
+          </div>
+          <div data-col="half" style="display:flex;justify-content:flex-end;align-items:flex-end;">
+            <a data-scroll-cue="" href="#problema" style="display:inline-flex;align-items:center;gap:10px;color:var(--text-muted);font-size:13px;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;">
+              <i class="ph-fill ph-arrow-down" style="font-size:16px;"></i>Role
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section data-screen-label="03 Quem assina" style="padding:var(--section) 0 var(--section-half) 0;">
+      <div data-wrap="">
+        <div data-g="" style="align-items:start;row-gap:32px;">
+          <div data-col="rail">
+            <span class="indisea-eyebrow">02 / quem sou</span>
+          </div>
+          <div data-bio="" data-col="main" data-reveal="" style="display:flex;align-items:flex-start;gap:clamp(18px,1.8vw,28px);">
+            <img src="assets/getulio.png" alt="Getúlio Lima" style="flex:none;width:clamp(88px,8vw,124px);height:clamp(88px,8vw,124px);object-fit:cover;border-radius:var(--radius-card);display:block;margin-top:0.12em;">
+            <p style="margin:0;font-size:clamp(20px,2.1vw,34px);font-weight:var(--weight-heading);letter-spacing:var(--tracking-heading);line-height:1.32;color:var(--text-heading);">Sou o Getúlio Lima. Quinze anos em produto digital e três times de design montados do zero como Head. Hoje construo e mantenho design systems para empresas que não podem parar o produto para refazer tudo.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section data-manifesto="" data-theme="{{ alt }}" id="problema" data-screen-label="04 O problema" class="indisea-block" style="position:relative;height:300vh;">
+      <div style="position:sticky;top:0;height:100svh;display:flex;flex-direction:column;justify-content:center;overflow:hidden;">
+        <div data-mesh="" data-mesh-line="#3BBFF7" data-mesh-glow="#3BBFF7" data-mesh-grain="light" data-mesh-amp="44" data-mesh-step="88" data-mesh-horizon="0.3" aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;"></div>
+        <div data-spine-front="" data-wrap="" style="position:absolute;top:96px;left:0;right:0;">
+          <span class="indisea-eyebrow">03 / o problema</span>
+        </div>
+        <div data-spine-front="" data-wrap="">
+          <h2 style="margin:0;font-size:clamp(40px,7.4vw,158px);font-weight:var(--weight-display);letter-spacing:var(--tracking-display);line-height:0.94;color:var(--text-heading);">
+            <span style="display:block;overflow:hidden;"><span data-mline="" style="display:block;padding-bottom:0.06em;">Design system</span></span>
+            <span style="display:block;overflow:hidden;"><span data-mline="" style="display:block;padding-bottom:0.16em;">não é projeto</span></span>
+            <span style="display:block;overflow:hidden;"><span data-mline="" style="display:block;padding-bottom:0.16em;">de estética.</span></span>
+          </h2>
+        </div>
+        <div data-spine-front="" data-wrap="" style="position:absolute;left:0;right:0;bottom:56px;">
+          <div data-g="">
+            <div data-mfine="" data-col="fine" style="display:flex;flex-direction:column;gap:16px;">
+              <span aria-hidden="true" style="display:block;width:72px;height:4px;border-radius:999px;background:var(--indisea-signal-yellow);"></span>
+              <p style="margin:0;font-size:15px;line-height:1.6;color:var(--text-muted);">É o que define quanto custa cada mudança no seu produto. Sem ele, trocar uma cor de marca atravessa doze telas, dois times e duas semanas.</p>
+              <p style="margin:0;font-size:15px;line-height:1.6;color:var(--text-muted);">Ele decide a velocidade com que você entrega.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section data-screen-label="05 O que muda" style="padding:var(--section) 0;">
+      <div data-wrap="">
+        <div data-g="" style="margin-bottom:var(--section-half);">
+          <div data-col="wide"><span class="indisea-eyebrow">04 / o que eu faço</span></div>
+        </div>
+        <div data-g="" style="align-items:center;row-gap:var(--section-half);">
+          <div data-col="half" style="display:flex;flex-direction:column;gap:32px;padding-right:clamp(0px,3vw,64px);">
+            <h2 data-reveal="" style="margin:0;font-size:clamp(32px,4.4vw,76px);font-weight:var(--weight-display);letter-spacing:var(--tracking-display);line-height:0.98;color:var(--text-heading);">Uma decisão de marca, valendo em todas as telas.</h2>
+            <p data-reveal="" style="margin:0;font-size:clamp(17px,1.3vw,20px);line-height:1.6;color:var(--text-muted);max-width:62ch;">Figma, código, tema escuro, multimarca e as telas que a IA gera, todos lendo da mesma fonte. Eu construo essa camada, documento e mantenho.</p>
+            <p data-reveal="" style="margin:0;font-size:clamp(17px,1.3vw,20px);line-height:1.6;color:var(--text-muted);max-width:62ch;">Mudança vira configuração. O time volta a cuidar do produto.</p>
+            <div style="display:flex;flex-wrap:wrap;gap:12px;">
+<span data-reveal="" style="display:inline-flex;align-items:center;gap:10px;background:var(--surface-card);border-radius:999px;padding:12px 20px;font-size:15px;font-weight:500;color:var(--text-heading);"><span style="width:8px;height:8px;border-radius:999px;background:var(--indisea-sky-blue);"></span>Diagnóstico</span>
+<span data-reveal="" style="display:inline-flex;align-items:center;gap:10px;background:var(--surface-card);border-radius:999px;padding:12px 20px;font-size:15px;font-weight:500;color:var(--text-heading);"><span style="width:8px;height:8px;border-radius:999px;background:var(--indisea-sky-blue);"></span>Arquitetura</span>
+<span data-reveal="" style="display:inline-flex;align-items:center;gap:10px;background:var(--surface-card);border-radius:999px;padding:12px 20px;font-size:15px;font-weight:500;color:var(--text-heading);"><span style="width:8px;height:8px;border-radius:999px;background:var(--indisea-sky-blue);"></span>Governança</span>
+            </div>
+          </div>
+        <div data-conn="" data-spine-wp="illo" data-spine-under="" data-col="half" style="position:relative;z-index:6;padding:clamp(28px,3vw,56px) clamp(32px,3.4vw,56px);background:var(--surface-card);border-radius:var(--radius-card-lg);">
+          <svg data-conn-svg="" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;"></svg>
+          <div style="position:relative;display:grid;grid-template-columns:auto minmax(24px,1fr) auto minmax(24px,1fr) auto;gap:0;align-items:center;width:100%;">
+            <div style="position:relative;display:flex;align-items:center;justify-content:center;">
+              <div data-node="source" style="width:clamp(56px,5vw,84px);height:clamp(56px,5vw,84px);border-radius:999px;border:4px solid var(--text-heading);background:var(--surface-card);display:flex;align-items:center;justify-content:center;color:var(--text-heading);">
+                <i class="ph-fill ph-monitor" style="font-size:clamp(24px,2.2vw,34px);"></i>
+              </div>
+              <span style="position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%);font-size:11px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:var(--text-muted);text-align:center;white-space:nowrap;">Sua marca</span>
+            </div>
+            <div aria-hidden="true"></div>
+            <div data-node="hub" style="width:clamp(56px,5vw,84px);height:clamp(56px,5vw,84px);border-radius:999px;border:4px solid var(--text-heading);background:var(--surface-card);display:flex;align-items:center;justify-content:center;padding:clamp(13px,1.1vw,19px);">
+              <i class="ph-fill ph-graph" style="font-size:clamp(24px,2.2vw,34px);color:var(--text-heading);"></i>
+            </div>
+            <div aria-hidden="true"></div>
+            <div style="display:flex;flex-direction:column;gap:clamp(38px,4.4vw,62px);align-items:center;padding-bottom:26px;">
+              <div style="position:relative;display:flex;align-items:center;justify-content:center;">
+                <div data-node="t0" style="flex:none;width:clamp(56px,5vw,84px);height:clamp(56px,5vw,84px);border-radius:999px;border:4px solid var(--text-heading);background:var(--surface-card);display:flex;align-items:center;justify-content:center;padding:clamp(13px,1.1vw,19px);">
+                  <i class="ph-fill ph-pen-nib" style="font-size:clamp(22px,1.9vw,30px);color:var(--text-heading);"></i>
+                </div>
+                <span style="position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%);font-size:11px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:var(--text-muted);text-align:center;white-space:nowrap;">Figma</span>
+              </div>
+              <div style="position:relative;display:flex;align-items:center;justify-content:center;">
+                <div data-node="t1" style="flex:none;width:clamp(56px,5vw,84px);height:clamp(56px,5vw,84px);border-radius:999px;border:4px solid var(--text-heading);background:var(--surface-card);display:flex;align-items:center;justify-content:center;padding:clamp(13px,1.1vw,19px);">
+                  <i class="ph-fill ph-code" style="font-size:clamp(22px,1.9vw,30px);color:var(--text-heading);"></i>
+                </div>
+                <span style="position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%);font-size:11px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:var(--text-muted);text-align:center;white-space:nowrap;">Código</span>
+              </div>
+              <div style="position:relative;display:flex;align-items:center;justify-content:center;">
+                <div data-node="t2" style="flex:none;width:clamp(56px,5vw,84px);height:clamp(56px,5vw,84px);border-radius:999px;border:4px solid var(--text-heading);background:var(--surface-card);display:flex;align-items:center;justify-content:center;padding:clamp(13px,1.1vw,19px);">
+                  <i class="ph-fill ph-robot" style="font-size:clamp(22px,1.9vw,30px);color:var(--text-heading);"></i>
+                </div>
+                <span style="position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%);font-size:11px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:var(--text-muted);text-align:center;white-space:nowrap;">Agentes de IA</span>
+              </div>
+              <div style="position:relative;display:flex;align-items:center;justify-content:center;">
+                <div data-node="t3" style="flex:none;width:clamp(56px,5vw,84px);height:clamp(56px,5vw,84px);border-radius:999px;border:4px solid var(--text-heading);background:var(--surface-card);display:flex;align-items:center;justify-content:center;padding:clamp(13px,1.1vw,19px);">
+                  <i class="ph-fill ph-palette" style="font-size:clamp(22px,1.9vw,30px);color:var(--text-heading);"></i>
+                </div>
+                <span style="position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%);font-size:11px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:var(--text-muted);text-align:center;white-space:nowrap;">Multimarca</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div></section>
+
+    <section data-stack="" data-screen-label="07 Por que me chamam" style="position:relative;">
+      <div data-spine-wp="reasons" style="height:var(--section);"></div>
+
+      <div data-panel="" style="position:sticky;top:0px;height:100svh;padding:0 var(--margin);">
+        <div data-panel-inner="" data-mode="blue" style="height:100%;background:var(--indisea-sky-blue);border-radius:var(--radius-card-lg);display:grid;grid-template-columns:1fr 0.95fr;overflow:hidden;">
+          <div style="background:var(--indisea-blue-800);color:#FAFAF9;padding:clamp(28px,5vh,80px);display:flex;flex-direction:column;gap:clamp(20px,3vh,32px);min-width:0;">
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <span style="font-size:11px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;">05 / quando me chamam</span>
+              <span style="font-size:11px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;">Motivo 1</span>
+            </div>
+            <h3 style="margin:0;font-size:clamp(30px,5vw,92px);font-weight:var(--weight-display);letter-spacing:var(--tracking-display);line-height:0.94;color:#FAFAF9;">Rebranding<br>aprovado</h3>
+            <p style="margin:0;font-size:clamp(15px,1.4vw,22px);line-height:1.5;max-width:52ch;color:#FAFAF9;">Ninguém sabe dizer quanto custa aplicar a marca nova. Enquanto a resposta for "depende", o cronograma não anda.</p>
+          </div>
+          <div data-panel-number="" data-spine-under="" style="position:relative;overflow:hidden;container-type:size;">
+            <div data-mesh="" data-mesh-line="#262626" data-mesh-glow="#3BBFF7" data-mesh-grain="dark" data-mesh-mix="multiply" aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;"></div>
+            <span aria-hidden="true" style="position:absolute;left:-0.02em;top:-0.05em;font-size:156cqh;font-weight:var(--weight-display);letter-spacing:var(--tracking-display);line-height:0.78;color:#FFFFFF;">1</span>
+          </div>
+        </div>
+      </div>
+
+      <div data-panel="" style="position:sticky;top:28px;height:100svh;padding:0 var(--margin);">
+        <div data-panel-inner="" data-mode="yellow" style="height:100%;background:var(--indisea-signal-yellow);border-radius:var(--radius-card-lg);display:grid;grid-template-columns:1fr 0.95fr;overflow:hidden;">
+          <div style="background:var(--indisea-yellow-800);color:#FAFAF9;padding:clamp(28px,5vh,80px);display:flex;flex-direction:column;gap:clamp(20px,3vh,32px);min-width:0;">
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <span style="font-size:11px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;">05 / quando me chamam</span>
+              <span style="font-size:11px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;">Motivo 2</span>
+            </div>
+            <h3 style="margin:0;font-size:clamp(30px,5vw,92px);font-weight:var(--weight-display);letter-spacing:var(--tracking-display);line-height:0.94;color:#FAFAF9;">O time gera tela<br>com IA</h3>
+            <p style="margin:0;font-size:clamp(15px,1.4vw,22px);line-height:1.5;max-width:52ch;color:#FAFAF9;">Cursor, Copilot e Figma Make copiam o que encontram. Sem tokens e componentes bem definidos, copiam improviso a cada sprint.</p>
+          </div>
+          <div data-panel-number="" data-spine-under="" style="position:relative;overflow:hidden;container-type:size;">
+            <div data-mesh="" data-mesh-line="#262626" data-mesh-glow="#3BBFF7" data-mesh-grain="dark" data-mesh-mix="multiply" aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;"></div>
+            <span aria-hidden="true" style="position:absolute;left:-0.02em;top:-0.05em;font-size:156cqh;font-weight:var(--weight-display);letter-spacing:var(--tracking-display);line-height:0.78;color:#FFFFFF;">2</span>
+          </div>
+        </div>
+      </div>
+
+      <div data-panel="" style="position:sticky;top:56px;height:100svh;padding:0 var(--margin);">
+        <div data-panel-inner="" data-mode="ink" style="height:100%;background:#262626;border-radius:var(--radius-card-lg);display:grid;grid-template-columns:1fr 0.95fr;overflow:hidden;">
+          <div style="background:#FFFFFF;color:#262626;padding:clamp(28px,5vh,80px);display:flex;flex-direction:column;gap:clamp(20px,3vh,32px);min-width:0;">
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <span style="font-size:11px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;">05 / quando me chamam</span>
+              <span style="font-size:11px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;">Motivo 3</span>
+            </div>
+            <h3 style="margin:0;font-size:clamp(30px,5vw,92px);font-weight:var(--weight-display);letter-spacing:var(--tracking-display);line-height:0.94;color:#262626;">Uma segunda marca<br>no mesmo produto</h3>
+            <p style="margin:0;font-size:clamp(15px,1.4vw,22px);line-height:1.5;max-width:52ch;color:#262626;">White label exige camada semântica. Se há cor fixa dentro do componente, cada marca nova vira retrabalho.</p>
+          </div>
+          <div data-panel-number="" data-spine-under="" style="position:relative;overflow:hidden;container-type:size;">
+            <div data-mesh="" data-mesh-line="#3BBFF7" data-mesh-glow="#3BBFF7" data-mesh-grain="light" aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;"></div>
+            <span aria-hidden="true" style="position:absolute;left:-0.02em;top:-0.05em;font-size:156cqh;font-weight:var(--weight-display);letter-spacing:var(--tracking-display);line-height:0.78;color:var(--indisea-stone);">3</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="servicos" data-screen-label="12 Serviços" style="position:relative;padding:var(--section) 0 var(--section-half) 0;">
+      <div data-wrap="">
+        <div data-spine-front="" data-g="" style="align-items:start;row-gap:24px;margin-bottom:clamp(40px,6vh,72px);">
+          <div data-col="rail"><span class="indisea-eyebrow">06 / serviços</span></div>
+          <div data-col="main" style="display:flex;flex-direction:column;gap:20px;">
+            <h2 data-reveal="" style="margin:0;font-size:clamp(32px,4.4vw,76px);font-weight:var(--weight-display);letter-spacing:var(--tracking-display);line-height:0.98;color:var(--text-heading);">Todo trabalho começa com um diagnóstico.</h2>
+            <p data-reveal="" style="margin:0;font-size:clamp(17px,1.3vw,20px);line-height:1.6;color:var(--text-muted);max-width:62ch;">A partir dele, construo só o que o seu produto precisa: sistema, produto, automação e IA lendo da mesma fonte.</p>
+          </div>
+        </div>
+        <div data-quote="" data-spine-under="" data-reveal="" style="position:relative;z-index:6;background:#BEFF8B;color:#262626;border-radius:var(--radius-card-lg);padding:clamp(28px,4vw,72px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:clamp(24px,4vw,64px);align-items:end;margin-bottom:var(--gutter);">
+          <div>
+            <span style="font-size:11px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:inherit;">Porta de entrada</span>
+            <h3 style="margin:16px 0 0 0;font-size:clamp(30px,3.6vw,64px);font-weight:var(--weight-heading);letter-spacing:var(--tracking-heading);line-height:1;color:inherit;">Diagnóstico de<br>design system</h3>
+            <p style="margin:20px 0 0 0;font-size:clamp(17px,1.3vw,20px);line-height:1.5;color:inherit;max-width:40ch;">Saiba quanto custa cada mudança antes de gastar com ela. Para quem está diante de um rebranding, de uma segunda marca ou de telas geradas por IA sem padrão.</p>
+          </div>
+          <div>
+            <span style="font-size:11px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:inherit;">Você recebe</span>
+            <ul style="list-style:none;margin:12px 0 0 0;padding:0;"><li style="padding:14px 0;border-top:2px solid rgba(38,38,38,0.18);font-size:clamp(15px,1.1vw,18px);line-height:1.4;">Auditoria de tokens e componentes</li><li style="padding:14px 0;border-top:2px solid rgba(38,38,38,0.18);font-size:clamp(15px,1.1vw,18px);line-height:1.4;">Mapa do custo de mudança</li><li style="padding:14px 0;border-top:2px solid rgba(38,38,38,0.18);font-size:clamp(15px,1.1vw,18px);line-height:1.4;">Nota de prontidão para IA</li><li style="padding:14px 0;border-top:2px solid rgba(38,38,38,0.18);font-size:clamp(15px,1.1vw,18px);line-height:1.4;">Roadmap priorizado de 90 dias</li></ul>
+          </div>
+        </div>
+        <div data-g="" style="row-gap:var(--gutter);">
+          <div data-col="half" data-reveal="" data-spine-under="" style="position:relative;z-index:6;background:var(--surface-card);border-radius:var(--radius-card-lg);padding:clamp(28px,3vw,48px);display:flex;flex-direction:column;justify-content:space-between;gap:clamp(40px,6vw,96px);scroll-margin-top:96px;" style-hover="background:#BEFF8B;color:#262626;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;">
+              <span style="display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:999px;border:2px solid currentColor;font-size:15px;font-weight:600;flex:none;">01</span>
+              <span style="font-size:11px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:inherit;text-align:right;">Design Systems</span>
+            </div>
+            <div>
+              <h3 style="margin:0;font-size:clamp(26px,2.5vw,42px);font-weight:var(--weight-heading);letter-spacing:var(--tracking-heading);line-height:1.04;color:inherit;">Uma fonte única para marca, Figma e código.</h3>
+              <p style="margin:16px 0 0 0;font-size:clamp(15px,1.1vw,18px);line-height:1.55;color:inherit;max-width:52ch;">Desenho a arquitetura de tokens (primitivos, semânticos e de componente), construo a biblioteca no Figma com variáveis e modos e alinho com a engenharia para que os componentes saiam com contrato claro.</p>
+              <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:24px;"><span style="display:inline-flex;align-items:center;padding:7px 14px;border-radius:999px;border:1.5px solid currentColor;font-size:13px;font-weight:500;line-height:1.2;">Arquitetura de tokens</span><span style="display:inline-flex;align-items:center;padding:7px 14px;border-radius:999px;border:1.5px solid currentColor;font-size:13px;font-weight:500;line-height:1.2;">Biblioteca Figma</span><span style="display:inline-flex;align-items:center;padding:7px 14px;border-radius:999px;border:1.5px solid currentColor;font-size:13px;font-weight:500;line-height:1.2;">Tema escuro e multimarca</span><span style="display:inline-flex;align-items:center;padding:7px 14px;border-radius:999px;border:1.5px solid currentColor;font-size:13px;font-weight:500;line-height:1.2;">Documentação</span><span style="display:inline-flex;align-items:center;padding:7px 14px;border-radius:999px;border:1.5px solid currentColor;font-size:13px;font-weight:500;line-height:1.2;">Governança</span></div>
+            </div>
+          </div>
+          <div data-col="half" data-reveal="" data-spine-under="" style="position:relative;z-index:6;background:var(--surface-card);border-radius:var(--radius-card-lg);padding:clamp(28px,3vw,48px);display:flex;flex-direction:column;justify-content:space-between;gap:clamp(40px,6vw,96px);scroll-margin-top:96px;" style-hover="background:#D5BAFC;color:#262626;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;">
+              <span style="display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:999px;border:2px solid currentColor;font-size:15px;font-weight:600;flex:none;">02</span>
+              <span style="font-size:11px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:inherit;text-align:right;">Product Design</span>
+            </div>
+            <div>
+              <h3 style="margin:0;font-size:clamp(26px,2.5vw,42px);font-weight:var(--weight-heading);letter-spacing:var(--tracking-heading);line-height:1.04;color:inherit;">Fluxos complexos, claros, construídos sobre o sistema.</h3>
+              <p style="margin:16px 0 0 0;font-size:clamp(15px,1.1vw,18px);line-height:1.55;color:inherit;max-width:52ch;">Para produtos com muito dado e muita regra, desenho os fluxos em que erro custa dinheiro: onboarding, dashboards, formulários e aprovações.</p>
+              <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:24px;"><span style="display:inline-flex;align-items:center;padding:7px 14px;border-radius:999px;border:1.5px solid currentColor;font-size:13px;font-weight:500;line-height:1.2;">Discovery</span><span style="display:inline-flex;align-items:center;padding:7px 14px;border-radius:999px;border:1.5px solid currentColor;font-size:13px;font-weight:500;line-height:1.2;">Mapa de fluxos</span><span style="display:inline-flex;align-items:center;padding:7px 14px;border-radius:999px;border:1.5px solid currentColor;font-size:13px;font-weight:500;line-height:1.2;">Protótipos</span><span style="display:inline-flex;align-items:center;padding:7px 14px;border-radius:999px;border:1.5px solid currentColor;font-size:13px;font-weight:500;line-height:1.2;">Telas prontas para handoff</span></div>
+            </div>
+          </div>
+          <div data-col="half" data-reveal="" data-spine-under="" style="position:relative;z-index:6;background:var(--surface-card);border-radius:var(--radius-card-lg);padding:clamp(28px,3vw,48px);display:flex;flex-direction:column;justify-content:space-between;gap:clamp(40px,6vw,96px);scroll-margin-top:96px;" style-hover="background:#BEFF8B;color:#262626;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;">
+              <span style="display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:999px;border:2px solid currentColor;font-size:15px;font-weight:600;flex:none;">03</span>
+              <span style="font-size:11px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:inherit;text-align:right;">Design Ops &amp; Automação</span>
+            </div>
+            <div>
+              <h3 style="margin:0;font-size:clamp(26px,2.5vw,42px);font-weight:var(--weight-heading);letter-spacing:var(--tracking-heading);line-height:1.04;color:inherit;">Menos trabalho manual entre design e código.</h3>
+              <p style="margin:16px 0 0 0;font-size:clamp(15px,1.1vw,18px);line-height:1.55;color:inherit;max-width:52ch;">Automatizo as partes repetitivas: sincronização de tokens do Figma para o código, acompanhamento de uso da biblioteca, alerta de estilos desvinculados e notas de versão do sistema.</p>
+              <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:24px;"><span style="display:inline-flex;align-items:center;padding:7px 14px;border-radius:999px;border:1.5px solid currentColor;font-size:13px;font-weight:500;line-height:1.2;">Pipeline de tokens</span><span style="display:inline-flex;align-items:center;padding:7px 14px;border-radius:999px;border:1.5px solid currentColor;font-size:13px;font-weight:500;line-height:1.2;">Dashboard de adoção</span><span style="display:inline-flex;align-items:center;padding:7px 14px;border-radius:999px;border:1.5px solid currentColor;font-size:13px;font-weight:500;line-height:1.2;">Versionamento</span><span style="display:inline-flex;align-items:center;padding:7px 14px;border-radius:999px;border:1.5px solid currentColor;font-size:13px;font-weight:500;line-height:1.2;">Changelog</span></div>
+            </div>
+          </div>
+          <div id="ia" data-col="half" data-reveal="" data-spine-under="" style="position:relative;z-index:6;background:var(--surface-card);border-radius:var(--radius-card-lg);padding:clamp(28px,3vw,48px);display:flex;flex-direction:column;justify-content:space-between;gap:clamp(40px,6vw,96px);scroll-margin-top:96px;" style-hover="background:#262626;color:#FAFAF9;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;">
+              <span style="display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:999px;border:2px solid currentColor;font-size:15px;font-weight:600;flex:none;">04</span>
+              <span style="font-size:11px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:inherit;text-align:right;">Design system pronto para IA</span>
+            </div>
+            <div>
+              <h3 style="margin:0;font-size:clamp(26px,2.5vw,42px);font-weight:var(--weight-heading);letter-spacing:var(--tracking-heading);line-height:1.04;color:inherit;">O sistema que a sua IA lê antes de desenhar.</h3>
+              <p style="margin:16px 0 0 0;font-size:clamp(15px,1.1vw,18px);line-height:1.55;color:inherit;max-width:52ch;">Ferramentas de IA copiam o que encontram. Sem contexto, trabalham a partir de um print. Estruturo tokens, componentes, Code Connect e instruções para agentes, para que Cursor, Copilot, Claude e Figma Make gerem dentro da marca.</p>
+              <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:24px;"><span style="display:inline-flex;align-items:center;padding:7px 14px;border-radius:999px;border:1.5px solid currentColor;font-size:13px;font-weight:500;line-height:1.2;">Auditoria de prontidão para IA</span><span style="display:inline-flex;align-items:center;padding:7px 14px;border-radius:999px;border:1.5px solid currentColor;font-size:13px;font-weight:500;line-height:1.2;">Code Connect e MCP</span><span style="display:inline-flex;align-items:center;padding:7px 14px;border-radius:999px;border:1.5px solid currentColor;font-size:13px;font-weight:500;line-height:1.2;">Regras para agentes</span><span style="display:inline-flex;align-items:center;padding:7px 14px;border-radius:999px;border:1.5px solid currentColor;font-size:13px;font-weight:500;line-height:1.2;">Treinamento do time</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="processo" data-screen-label="13 Processo" style="position:relative;padding:var(--section) 0 var(--section-half) 0;">
+      <div data-wrap="">
+        <div data-spine-front="" data-g="" style="align-items:start;row-gap:24px;margin-bottom:clamp(40px,6vh,72px);">
+          <div data-col="rail"><span class="indisea-eyebrow">07 / como eu trabalho</span></div>
+          <div data-col="main" style="display:flex;flex-direction:column;gap:20px;">
+            <h2 data-reveal="" style="margin:0;font-size:clamp(32px,4.4vw,76px);font-weight:var(--weight-display);letter-spacing:var(--tracking-display);line-height:0.98;color:var(--text-heading);">Sem redesign do zero.</h2>
+            <p data-reveal="" style="margin:0;font-size:clamp(17px,1.3vw,20px);line-height:1.6;color:var(--text-muted);max-width:62ch;">A gente mede, arruma a base e o produto continua sendo entregue. Quatro etapas, e no fim medimos de novo.</p>
+          </div>
+        </div>
+        <div data-g="" style="row-gap:var(--gutter);">
+          <div data-col="quarter" data-reveal="" data-spine-under="" style="position:relative;z-index:6;background:var(--surface-card);border-radius:var(--radius-card-lg);padding:clamp(28px,3vw,48px);display:flex;flex-direction:column;justify-content:space-between;gap:clamp(40px,5vw,88px);min-height:clamp(260px,24vw,400px);" style-hover="background:#BEFF8B;color:#262626;">
+            <span style="display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:999px;border:2px solid currentColor;font-size:15px;font-weight:600;flex:none;">01</span>
+            <div>
+              <h3 style="margin:0;font-size:clamp(24px,2.1vw,36px);font-weight:var(--weight-heading);letter-spacing:var(--tracking-heading);line-height:1.04;color:inherit;">Diagnosticar</h3>
+              <p style="margin:14px 0 0 0;font-size:clamp(15px,1.05vw,17px);line-height:1.55;color:inherit;">Audito Figma e código, mapeio os valores fixos e mostro quanto custa hoje uma mudança de marca ou de tema. Números, não opiniões.</p>
+            </div>
+          </div>
+          <div data-col="quarter" data-reveal="" data-spine-under="" style="position:relative;z-index:6;background:var(--surface-card);border-radius:var(--radius-card-lg);padding:clamp(28px,3vw,48px);display:flex;flex-direction:column;justify-content:space-between;gap:clamp(40px,5vw,88px);min-height:clamp(260px,24vw,400px);" style-hover="background:#D5BAFC;color:#262626;">
+            <span style="display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:999px;border:2px solid currentColor;font-size:15px;font-weight:600;flex:none;">02</span>
+            <div>
+              <h3 style="margin:0;font-size:clamp(24px,2.1vw,36px);font-weight:var(--weight-heading);letter-spacing:var(--tracking-heading);line-height:1.04;color:inherit;">Arquitetar</h3>
+              <p style="margin:14px 0 0 0;font-size:clamp(15px,1.05vw,17px);line-height:1.55;color:inherit;">Desenho as camadas de tokens (primitiva, semântica e de componente) e as regras de nomes que marcas, temas e agentes de IA vão ler.</p>
+            </div>
+          </div>
+          <div data-col="quarter" data-reveal="" data-spine-under="" style="position:relative;z-index:6;background:var(--surface-card);border-radius:var(--radius-card-lg);padding:clamp(28px,3vw,48px);display:flex;flex-direction:column;justify-content:space-between;gap:clamp(40px,5vw,88px);min-height:clamp(260px,24vw,400px);" style-hover="background:#BEFF8B;color:#262626;">
+            <span style="display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:999px;border:2px solid currentColor;font-size:15px;font-weight:600;flex:none;">03</span>
+            <div>
+              <h3 style="margin:0;font-size:clamp(24px,2.1vw,36px);font-weight:var(--weight-heading);letter-spacing:var(--tracking-heading);line-height:1.04;color:inherit;">Construir</h3>
+              <p style="margin:14px 0 0 0;font-size:clamp(15px,1.05vw,17px);line-height:1.55;color:inherit;">Biblioteca no Figma com variáveis e modos, componentes mapeados para o código, documentação e o contexto que a IA precisa.</p>
+            </div>
+          </div>
+          <div data-col="quarter" data-reveal="" data-spine-under="" style="position:relative;z-index:6;background:var(--surface-card);border-radius:var(--radius-card-lg);padding:clamp(28px,3vw,48px);display:flex;flex-direction:column;justify-content:space-between;gap:clamp(40px,5vw,88px);min-height:clamp(260px,24vw,400px);" style-hover="background:#262626;color:#FAFAF9;">
+            <span style="display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:999px;border:2px solid currentColor;font-size:15px;font-weight:600;flex:none;">04</span>
+            <div>
+              <h3 style="margin:0;font-size:clamp(24px,2.1vw,36px);font-weight:var(--weight-heading);letter-spacing:var(--tracking-heading);line-height:1.04;color:inherit;">Governar</h3>
+              <p style="margin:14px 0 0 0;font-size:clamp(15px,1.05vw,17px);line-height:1.55;color:inherit;">Fluxo de contribuição, versionamento, adoção e notas de versão. O sistema continua vivo depois que eu saio.</p>
+            </div>
+          </div>
+        </div>
+        <p data-spine-front="" data-reveal="" style="display:flex;align-items:center;gap:12px;margin:clamp(24px,4vh,40px) 0 0 0;font-size:clamp(17px,1.3vw,20px);line-height:1.5;color:var(--text-heading);"><i class="ph-fill ph-arrow-counter-clockwise" aria-hidden="true" style="flex:none;font-size:22px;color:var(--indisea-sky-blue);"></i>Depois, medimos de novo. Cada release deve deixar a próxima mudança mais barata.</p>
+        <div data-quote="" data-spine-under="" data-reveal="" style="position:relative;z-index:6;background:var(--surface-card);border-radius:var(--radius-card-lg);padding:clamp(28px,4vw,72px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,280px);gap:clamp(24px,4vw,64px);align-items:end;margin-top:clamp(40px,6vh,72px);" style-hover="background:#D5BAFC;color:#262626;">
+          <blockquote style="margin:0;font-size:clamp(22px,2.8vw,50px);font-weight:var(--weight-heading);letter-spacing:var(--tracking-heading);line-height:1.1;color:inherit;">Uso IA como parte do processo, não como atalho: para auditar arquivos, documentar tokens, prototipar e testar variações. Todo resultado é revisado contra o sistema.</blockquote>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <span style="font-size:11px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:inherit;">IA no processo</span>
+            <span style="font-size:11px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:inherit;">Velocidade sem perder o contrato</span>
+          </div>
+        </div>
+        <div data-spine-front="" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:clamp(32px,5vh,56px);">
+<span data-reveal="" style="display:inline-flex;align-items:center;gap:10px;background:var(--surface-card);border-radius:999px;padding:12px 20px;font-size:15px;font-weight:500;color:var(--text-heading);"><span style="width:8px;height:8px;border-radius:999px;background:var(--indisea-sky-blue);"></span>Meça antes de redesenhar</span>
+<span data-reveal="" style="display:inline-flex;align-items:center;gap:10px;background:var(--surface-card);border-radius:999px;padding:12px 20px;font-size:15px;font-weight:500;color:var(--text-heading);"><span style="width:8px;height:8px;border-radius:999px;background:var(--indisea-sky-blue);"></span>Mude a fonte, não a tela</span>
+<span data-reveal="" style="display:inline-flex;align-items:center;gap:10px;background:var(--surface-card);border-radius:999px;padding:12px 20px;font-size:15px;font-weight:500;color:var(--text-heading);"><span style="width:8px;height:8px;border-radius:999px;background:var(--indisea-sky-blue);"></span>A IA também é usuária do seu sistema</span>
+        </div>
+        <div data-spine-front="" style="display:flex;flex-wrap:wrap;align-items:center;gap:24px;margin-top:clamp(32px,5vh,56px);">
+          <a class="g-btn" data-cta="processo" href="{{ bookACall }}" target="_blank" rel="noopener">
+            <span class="g-btn-dot g-btn-after" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"></path></svg></span>
+            <span class="g-btn-body"><span class="g-btn-roll"><i>Comece com um diagnóstico</i><i>Comece com um diagnóstico</i></span></span>
+            <span class="g-btn-dot g-btn-before" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"></path></svg></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="recebe" data-screen-label="08 O que você recebe" style="position:relative;background:var(--surface-canvas);padding:var(--section) 0 var(--section-half) 0;">
+      <div data-wrap="">
+        <div data-g="" style="margin-bottom:40px;">
+          <div data-col="wide"><span class="indisea-eyebrow">08 / o que você ganha</span></div>
+        </div>
+        <div data-g="">
+          <div data-col="third" data-reveal="" style="background:#FFFFFF;border-radius:var(--radius-card-lg);padding:clamp(28px,3vw,48px);display:flex;flex-direction:column;justify-content:space-between;gap:clamp(48px,8vw,140px);min-height:clamp(300px,30vw,520px);" style-hover="background:#BEFF8B;color:#262626;">
+            <span style="display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:999px;border:2px solid currentColor;font-size:15px;font-weight:600;">01</span>
+            <div>
+              <h3 style="margin:0;font-size:clamp(26px,2.7vw,46px);font-weight:var(--weight-heading);letter-spacing:var(--tracking-heading);line-height:1;color:inherit;">Mudança vira<br>configuração</h3>
+              <p style="margin:16px 0 0 0;font-size:clamp(15px,1.1vw,18px);line-height:1.55;color:inherit;">Cor, densidade e tema mudam em um lugar e valem no produto inteiro.</p>
+            </div>
+          </div>
+          <div data-col="third" data-reveal="" style="background:#FFFFFF;border-radius:var(--radius-card-lg);padding:clamp(28px,3vw,48px);display:flex;flex-direction:column;justify-content:space-between;gap:clamp(48px,8vw,140px);min-height:clamp(300px,30vw,520px);" style-hover="background:#D5BAFC;color:#262626;">
+            <span style="display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:999px;border:2px solid currentColor;font-size:15px;font-weight:600;">02</span>
+            <div>
+              <h3 style="margin:0;font-size:clamp(26px,2.7vw,46px);font-weight:var(--weight-heading);letter-spacing:var(--tracking-heading);line-height:1;color:inherit;">Sênior desde<br>o primeiro dia</h3>
+              <p style="margin:16px 0 0 0;font-size:clamp(15px,1.1vw,18px);line-height:1.55;color:inherit;">Quinze anos em produto complexo, contratados por escopo. Sem processo seletivo de 90 dias.</p>
+            </div>
+          </div>
+          <div data-col="third" data-reveal="" style="background:#FFFFFF;border-radius:var(--radius-card-lg);padding:clamp(28px,3vw,48px);display:flex;flex-direction:column;justify-content:space-between;gap:clamp(48px,8vw,140px);min-height:clamp(300px,30vw,520px);" style-hover="background:#262626;color:#FAFAF9;">
+            <span style="display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:999px;border:2px solid currentColor;font-size:15px;font-weight:600;">03</span>
+            <div>
+              <h3 style="margin:0;font-size:clamp(26px,2.7vw,46px);font-weight:var(--weight-heading);letter-spacing:var(--tracking-heading);line-height:1;color:inherit;">Um sistema que<br>a IA respeita</h3>
+              <p style="margin:16px 0 0 0;font-size:clamp(15px,1.1vw,18px);line-height:1.55;color:inherit;">Tokens nomeados e componentes com contrato: é o que o agente lê antes de gerar tela.</p>
+            </div>
+          </div>
+        </div>
+        <div data-spine-front="" style="display:flex;flex-wrap:wrap;align-items:center;gap:24px;margin-top:clamp(40px,6vh,72px);">
+          <a class="g-btn" data-cta="beneficios" href="{{ bookACall }}" target="_blank" rel="noopener">
+            <span class="g-btn-dot g-btn-after" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"></path></svg></span>
+            <span class="g-btn-body"><span class="g-btn-roll"><i>Quero um diagnóstico</i><i>Quero um diagnóstico</i></span></span>
+            <span class="g-btn-dot g-btn-before" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"></path></svg></span>
+          </a>
+          <span style="font-size:15px;color:var(--text-muted);">Atendimento remoto, de São Paulo para o Brasil.</span>
+        </div>
+      </div>
+    </section>
+
+    <section data-screen-label="09 Com quem eu trabalho" style="position:relative;background:var(--surface-canvas);padding:var(--section) 0 var(--section) 0;">
+      <div data-wrap="">
+        <div data-spine-front="" data-g="" style="align-items:start;row-gap:32px;">
+          <div data-col="rail"><span class="indisea-eyebrow">09 / para quem</span></div>
+          <p data-col="main" data-reveal="" style="margin:0;font-size:clamp(22px,2.9vw,46px);font-weight:var(--weight-heading);letter-spacing:var(--tracking-heading);line-height:1.36;color:var(--text-heading);">Para <span data-mark="" style="background:#D5BAFC;color:#262626;padding:0.02em 0.16em;margin:0 -0.04em;border-radius:var(--radius-xs);box-decoration-break:clone;-webkit-box-decoration-break:clone;">produtos com muito dado e muita regra</span>: fintech, seguros, saúde e SaaS corporativo. Eu cuido do sistema; Produto e Engenharia cuidam do produto.</p>
+        </div>
+        <div data-spine-wp="clients" data-g="" style="margin-top:var(--section-half);">
+          <sc-for list="{{ clients }}" as="c" hint-placeholder-count="5">
+            <div data-col="quarter" data-reveal="" style="background:var(--surface-card);border-radius:var(--radius-card);padding:clamp(20px,2vw,32px);min-height:clamp(130px,12vw,190px);display:flex;flex-direction:column;justify-content:flex-end;gap:8px;">
+              <span style="font-size:clamp(18px,2vw,30px);font-weight:var(--weight-heading);letter-spacing:var(--tracking-heading);line-height:1.08;color:var(--text-heading);">{{ c.name }}</span>
+              <span class="indisea-eyebrow">{{ c.sector }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section id="onde" data-screen-label="02 Onde já rodou" style="position:relative;padding:var(--section) 0;overflow:hidden;">
+      <div data-wrap="" style="padding-bottom:40px;">
+        <span class="indisea-eyebrow">10 / onde já rodou</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div style="overflow:hidden;">
+          <div data-marquee="0" style="display:flex;gap:16px;width:max-content;will-change:transform;">
+            <sc-for list="{{ rowA }}" as="c" hint-placeholder-count="24">
+              <div data-logo-cell="" data-spine-under="" style="position:relative;flex:none;width:clamp(190px,15vw,280px);height:clamp(112px,13vh,150px);display:flex;align-items:center;justify-content:center;padding:20px;background:var(--surface-card);border-radius:var(--radius-card);transition:opacity 180ms linear;">
+                <span style="max-width:80%;text-align:center;font-size:clamp(17px,1.5vw,24px);font-weight:var(--weight-heading);letter-spacing:var(--tracking-heading);line-height:1.1;color:var(--text-heading);">{{ c.name }}</span>
+                <span data-cell-caption="" class="indisea-eyebrow" style="position:absolute;left:0;right:0;bottom:14px;text-align:center;opacity:0;transition:opacity 160ms linear;white-space:nowrap;">{{ c.caption }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="overflow:hidden;">
+          <div data-marquee="1" style="display:flex;gap:16px;width:max-content;will-change:transform;">
+            <sc-for list="{{ rowB }}" as="c" hint-placeholder-count="24">
+              <div data-logo-cell="" data-spine-under="" style="position:relative;flex:none;width:clamp(190px,15vw,280px);height:clamp(112px,13vh,150px);display:flex;align-items:center;justify-content:center;padding:20px;background:var(--surface-card);border-radius:var(--radius-card);transition:opacity 180ms linear;">
+                <span style="max-width:80%;text-align:center;font-size:clamp(17px,1.5vw,24px);font-weight:var(--weight-heading);letter-spacing:var(--tracking-heading);line-height:1.1;color:var(--text-heading);">{{ c.name }}</span>
+                <span data-cell-caption="" class="indisea-eyebrow" style="position:absolute;left:0;right:0;bottom:14px;text-align:center;opacity:0;transition:opacity 160ms linear;white-space:nowrap;">{{ c.caption }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section data-theme="{{ alt }}" data-screen-label="10 Credenciais" class="indisea-block" style="position:relative;padding:var(--section) 0;">
+      <div data-wrap="">
+        <div data-g="" style="row-gap:24px;margin-bottom:clamp(40px,6vh,72px);">
+          <div data-col="half">
+            <span class="indisea-eyebrow">11 / credenciais</span>
+            <h2 data-reveal="" style="margin:20px 0 0 0;font-size:clamp(32px,5vw,88px);font-weight:var(--weight-display);letter-spacing:var(--tracking-display);line-height:0.96;color:var(--text-heading);">Por que<br>confiar</h2>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div data-quote="" data-spine-under="" style="position:relative;z-index:6;background:var(--surface-card);border-radius:var(--radius-card-lg);padding:clamp(28px,4vw,72px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,280px);gap:clamp(24px,4vw,64px);align-items:end;" style-hover="background:#BEFF8B;color:#262626;">
+            <blockquote style="margin:0;font-size:clamp(22px,3.2vw,58px);font-weight:var(--weight-heading);letter-spacing:var(--tracking-heading);line-height:1.08;color:inherit;">15 anos em produto digital complexo. Três times de design montados do zero como Head.</blockquote>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <span style="font-size:11px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:inherit;">Trajetória</span>
+              <span style="font-size:11px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:inherit;">Porto Seguro · Dock · UOL</span>
+            </div>
+          </div>
+          <div data-quote="" data-spine-under="" style="position:relative;z-index:6;background:var(--surface-card);border-radius:var(--radius-card-lg);padding:clamp(28px,4vw,72px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,280px);gap:clamp(24px,4vw,64px);align-items:end;" style-hover="background:#D5BAFC;color:#262626;">
+            <blockquote style="margin:0;font-size:clamp(22px,3.2vw,58px);font-weight:var(--weight-heading);letter-spacing:var(--tracking-heading);line-height:1.08;color:inherit;">4 milhões de usuários no maior produto entregue.</blockquote>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <span style="font-size:11px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:inherit;">Escala</span>
+              <span style="font-size:11px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:inherit;">Produto em produção</span>
+            </div>
+          </div>
+          <div data-quote="" data-spine-under="" style="position:relative;z-index:6;background:var(--surface-card);border-radius:var(--radius-card-lg);padding:clamp(28px,4vw,72px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,280px);gap:clamp(24px,4vw,64px);align-items:end;" style-hover="background:#262626;color:#FAFAF9;">
+            <blockquote style="margin:0;font-size:clamp(22px,3.2vw,58px);font-weight:var(--weight-heading);letter-spacing:var(--tracking-heading);line-height:1.08;color:inherit;">Stanford HCI, MBA em gestão estratégica pela FGV e certificação AI Fluency pela Anthropic.</blockquote>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <span style="font-size:11px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:inherit;">Formação</span>
+              <span style="font-size:11px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:inherit;">Finalista ITU com a Samsung</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" data-screen-label="14 FAQ" style="position:relative;padding:var(--section) 0;">
+      <div data-wrap="">
+        <div data-spine-front="" data-g="" style="align-items:start;row-gap:24px;">
+          <div data-col="rail"><span class="indisea-eyebrow">12 / perguntas frequentes</span></div>
+          <div data-col="main">
+            <h2 data-reveal="" style="margin:0;font-size:clamp(32px,4.4vw,76px);font-weight:var(--weight-display);letter-spacing:var(--tracking-display);line-height:0.98;color:var(--text-heading);margin-bottom:clamp(32px,5vh,56px);">Antes de conversar</h2>
+            <div data-faq="" data-reveal="">
+            <details>
+              <summary>Precisamos parar o produto?<i class="ph-fill ph-plus" aria-hidden="true"></i></summary>
+              <p>Não. O sistema entra em camadas enquanto o time continua entregando. Nada de redesign do zero.</p>
+            </details>
+            <details>
+              <summary>Você trabalha junto com os nossos devs?<i class="ph-fill ph-plus" aria-hidden="true"></i></summary>
+              <p>Sim. Tokens e componentes só se pagam quando design e código leem da mesma fonte. Eu cuido do sistema; Produto e Engenharia cuidam do produto.</p>
+            </details>
+            <details>
+              <summary>O que significa “pronto para IA”?<i class="ph-fill ph-plus" aria-hidden="true"></i></summary>
+              <p>Tokens nomeados, componentes com contrato claro e arquivos de contexto que Cursor, Copilot, Claude e Figma Make conseguem ler. Assim eles reutilizam o seu sistema em vez de inventar estilo a cada sprint.</p>
+            </details>
+            <details>
+              <summary>Para que tipo de produto?<i class="ph-fill ph-plus" aria-hidden="true"></i></summary>
+              <p>Produtos com muito dado e muita regra: fintech, seguros, saúde e SaaS corporativo.</p>
+            </details>
+            <details>
+              <summary>Como funciona a contratação?<i class="ph-fill ph-plus" aria-hidden="true"></i></summary>
+              <p>Por escopo, com atendimento remoto a partir de São Paulo. Tudo começa pelo diagnóstico, que mostra o que vale construir.</p>
+            </details>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contato" data-screen-label="11 Contato" class="indisea-block" style="position:relative;padding:var(--section) 0 var(--section-half) 0;overflow:hidden;background:var(--indisea-stone-200);--surface-canvas:var(--indisea-stone-200);">
+      <div data-wrap="" style="position:relative;z-index:1;">
+        <span class="indisea-eyebrow" style="color:#262626;">13 / próximo passo</span>
+        <h2 style="margin:clamp(24px,4vh,48px) 0 0 0;font-size:clamp(50px,10.2vw,210px);font-weight:var(--weight-display);letter-spacing:var(--tracking-display);line-height:0.94;color:#262626;">
+          <span style="display:block;overflow:hidden;"><span data-cline="" style="display:block;padding-bottom:0.06em;">Comece</span></span>
+          <span style="display:block;overflow:hidden;"><span data-cline="" style="display:block;padding-bottom:0.16em;">medindo,</span></span>
+          <span style="display:block;overflow:hidden;"><span data-cline="" style="display:block;padding-bottom:0.16em;">não redesenhando.</span></span>
+        </h2>
+        <p style="margin:clamp(20px,3vh,32px) 0 0 0;max-width:48ch;font-size:clamp(17px,1.4vw,22px);line-height:1.5;color:#262626;">O diagnóstico mostra quanto custa mudar o seu produto hoje e por onde começar.</p>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:24px;margin-top:clamp(28px,4vh,48px);">
+          <a class="g-btn g-btn-on-blue" data-cta="contato" href="{{ bookACall }}" target="_blank" rel="noopener">
+              <span class="g-btn-dot g-btn-after" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"></path></svg></span>
+              <span class="g-btn-body"><span class="g-btn-roll"><i>Solicitar diagnóstico</i><i>Solicitar diagnóstico</i></span></span>
+              <span class="g-btn-dot g-btn-before" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"></path></svg></span>
+            </a>
+          <a href="mailto:getulio@raipp.com.br" style="font-size:16px;font-weight:500;color:#262626;border-bottom:2px solid rgba(38,38,38,0.4);padding-bottom:3px;">getulio@raipp.com.br</a>
+          <a href="https://www.linkedin.com/in/getuliosoueu/" target="_blank" rel="noopener" style="font-size:16px;font-weight:500;color:#262626;border-bottom:2px solid rgba(38,38,38,0.4);padding-bottom:3px;">LinkedIn</a>
+        </div>
+      </div>
+    </section>
+
+    <footer data-footer="" data-mode="blue" class="indisea-block" style="position:relative;padding:var(--section) 0 24px 0;background:#3BBFF7;--surface-canvas:#3BBFF7;">
+      <div data-wrap="">
+        <div data-g="" style="row-gap:32px;padding-bottom:clamp(40px,6vh,72px);">
+          <div data-col="brand">
+            <svg data-alt-logo="dark" viewBox="0 0 2753 1126" role="img" aria-label="raipp" style="height:22px;width:auto;display:block;color:currentColor;"><path d="M97.3001 62.8851H345.297C391.178 62.8851 430.731 67.6312 463.955 77.1233C497.971 85.8244 528.426 104.809 555.322 134.076C593.293 173.626 612.278 227.415 612.278 295.441C612.278 367.423 590.524 425.167 547.016 468.672C512.21 501.895 470.284 523.252 421.238 532.744L625.331 854.289H411.745L220.705 542.236L182.734 854.289H0L97.3001 62.8851ZM262.236 205.267L234.944 422.398H280.034C326.707 422.398 362.304 412.906 386.827 393.922C413.723 373.356 427.171 342.506 427.171 301.374C427.171 265.779 414.514 240.071 389.2 224.251C369.424 211.595 336.199 205.267 289.527 205.267H262.236Z" fill="currentColor"></path><path d="M1081.48 389.176L1086.23 325.104H1257.1L1191.83 854.289H1020.96L1034.02 793.777C1011.08 820.671 986.158 840.446 959.262 853.102C931.575 865.758 898.746 872.086 860.776 872.086C792.745 872.086 738.162 850.334 697.027 806.828C649.563 756.204 625.831 691.341 625.831 612.24C625.831 518.901 654.31 442.965 711.266 384.43C761.893 333.014 826.76 307.307 905.866 307.307C947.001 307.307 981.412 314.03 1009.1 327.477C1037.58 340.924 1061.7 361.491 1081.48 389.176ZM942.65 454.434C901.515 454.434 867.895 467.486 841.79 493.589C814.894 520.483 801.446 555.683 801.446 599.189C801.446 634.784 812.917 664.842 835.857 689.364C858.798 713.094 888.858 724.959 926.038 724.959C965.591 724.959 998.024 713.094 1023.34 689.364C1053.4 660.096 1068.43 622.128 1068.43 575.458C1068.43 536.699 1056.17 506.245 1031.64 484.097C1010.29 464.322 980.621 454.434 942.65 454.434Z" fill="currentColor"></path><path d="M1323.14 325.104H1494L1428.74 854.289H1257.87L1323.14 325.104ZM1359.92 170.858C1340.94 151.083 1331.44 127.352 1331.44 99.667C1331.44 71.9817 1340.94 48.647 1359.92 29.6628C1379.7 9.88759 1403.43 0 1431.12 0C1458.8 0 1482.14 9.88759 1501.12 29.6628C1520.9 48.647 1530.79 71.9817 1530.79 99.667C1530.79 127.352 1520.9 151.083 1501.12 170.858C1482.14 189.842 1458.8 199.334 1431.12 199.334C1403.43 199.334 1379.7 189.842 1359.92 170.858Z" fill="currentColor"></path><path d="M1674.8 789.031L1632.08 1126H1461.22L1559.7 325.104H1730.57L1721.08 386.803C1740.06 363.864 1762.21 345.671 1787.53 332.223C1819.96 315.612 1856.35 307.307 1896.69 307.307C1963.14 307.307 2016.54 326.686 2056.88 365.446C2103.55 412.115 2126.89 478.164 2126.89 563.593C2126.89 662.469 2097.23 741.57 2037.9 800.896C1990.43 848.356 1930.71 872.086 1858.72 872.086C1811.26 872.086 1772.89 864.572 1743.62 849.543C1716.73 835.304 1693.79 815.134 1674.8 789.031ZM1830.24 454.434C1790.69 454.434 1757.47 467.881 1730.57 494.776C1702.09 523.252 1687.85 558.847 1687.85 601.562C1687.85 637.157 1698.53 666.029 1719.89 688.177C1742.83 712.698 1772.5 724.959 1808.89 724.959C1846.07 724.959 1877.71 712.698 1903.81 688.177C1918.05 675.521 1929.52 658.514 1938.22 637.157C1946.93 615.009 1951.28 594.047 1951.28 574.272C1951.28 537.094 1939.01 507.432 1914.49 485.283C1892.34 464.717 1864.26 454.434 1830.24 454.434Z" fill="currentColor"></path><path d="M2300.91 789.031L2258.19 1126H2087.33L2185.81 325.104H2356.68L2347.19 386.803C2366.17 363.864 2388.32 345.671 2413.64 332.223C2446.07 315.612 2482.46 307.307 2522.8 307.307C2589.25 307.307 2642.65 326.686 2682.99 365.446C2729.66 412.115 2753 478.164 2753 563.593C2753 662.469 2723.34 741.57 2664.01 800.896C2616.54 848.356 2556.82 872.086 2484.83 872.086C2437.37 872.086 2399 864.572 2369.73 849.543C2342.84 835.304 2319.9 815.134 2300.91 789.031ZM2456.35 454.434C2416.8 454.434 2383.58 467.881 2356.68 494.776C2328.2 523.252 2313.96 558.847 2313.96 601.562C2313.96 637.157 2324.64 666.029 2346 688.177C2368.94 712.698 2398.61 724.959 2435 724.959C2472.17 724.959 2503.82 712.698 2529.92 688.177C2544.16 675.521 2555.63 658.514 2564.33 637.157C2573.03 615.009 2577.39 594.047 2577.39 574.272C2577.39 537.094 2565.12 507.432 2540.6 485.283C2518.45 464.717 2490.37 454.434 2456.35 454.434Z" fill="currentColor"></path></svg>
+            <svg data-alt-logo="light" viewBox="0 0 2753 1126" role="img" aria-label="raipp" style="height:22px;width:auto;display:none;color:currentColor;"><path d="M97.3001 62.8851H345.297C391.178 62.8851 430.731 67.6312 463.955 77.1233C497.971 85.8244 528.426 104.809 555.322 134.076C593.293 173.626 612.278 227.415 612.278 295.441C612.278 367.423 590.524 425.167 547.016 468.672C512.21 501.895 470.284 523.252 421.238 532.744L625.331 854.289H411.745L220.705 542.236L182.734 854.289H0L97.3001 62.8851ZM262.236 205.267L234.944 422.398H280.034C326.707 422.398 362.304 412.906 386.827 393.922C413.723 373.356 427.171 342.506 427.171 301.374C427.171 265.779 414.514 240.071 389.2 224.251C369.424 211.595 336.199 205.267 289.527 205.267H262.236Z" fill="currentColor"></path><path d="M1081.48 389.176L1086.23 325.104H1257.1L1191.83 854.289H1020.96L1034.02 793.777C1011.08 820.671 986.158 840.446 959.262 853.102C931.575 865.758 898.746 872.086 860.776 872.086C792.745 872.086 738.162 850.334 697.027 806.828C649.563 756.204 625.831 691.341 625.831 612.24C625.831 518.901 654.31 442.965 711.266 384.43C761.893 333.014 826.76 307.307 905.866 307.307C947.001 307.307 981.412 314.03 1009.1 327.477C1037.58 340.924 1061.7 361.491 1081.48 389.176ZM942.65 454.434C901.515 454.434 867.895 467.486 841.79 493.589C814.894 520.483 801.446 555.683 801.446 599.189C801.446 634.784 812.917 664.842 835.857 689.364C858.798 713.094 888.858 724.959 926.038 724.959C965.591 724.959 998.024 713.094 1023.34 689.364C1053.4 660.096 1068.43 622.128 1068.43 575.458C1068.43 536.699 1056.17 506.245 1031.64 484.097C1010.29 464.322 980.621 454.434 942.65 454.434Z" fill="currentColor"></path><path d="M1323.14 325.104H1494L1428.74 854.289H1257.87L1323.14 325.104ZM1359.92 170.858C1340.94 151.083 1331.44 127.352 1331.44 99.667C1331.44 71.9817 1340.94 48.647 1359.92 29.6628C1379.7 9.88759 1403.43 0 1431.12 0C1458.8 0 1482.14 9.88759 1501.12 29.6628C1520.9 48.647 1530.79 71.9817 1530.79 99.667C1530.79 127.352 1520.9 151.083 1501.12 170.858C1482.14 189.842 1458.8 199.334 1431.12 199.334C1403.43 199.334 1379.7 189.842 1359.92 170.858Z" fill="currentColor"></path><path d="M1674.8 789.031L1632.08 1126H1461.22L1559.7 325.104H1730.57L1721.08 386.803C1740.06 363.864 1762.21 345.671 1787.53 332.223C1819.96 315.612 1856.35 307.307 1896.69 307.307C1963.14 307.307 2016.54 326.686 2056.88 365.446C2103.55 412.115 2126.89 478.164 2126.89 563.593C2126.89 662.469 2097.23 741.57 2037.9 800.896C1990.43 848.356 1930.71 872.086 1858.72 872.086C1811.26 872.086 1772.89 864.572 1743.62 849.543C1716.73 835.304 1693.79 815.134 1674.8 789.031ZM1830.24 454.434C1790.69 454.434 1757.47 467.881 1730.57 494.776C1702.09 523.252 1687.85 558.847 1687.85 601.562C1687.85 637.157 1698.53 666.029 1719.89 688.177C1742.83 712.698 1772.5 724.959 1808.89 724.959C1846.07 724.959 1877.71 712.698 1903.81 688.177C1918.05 675.521 1929.52 658.514 1938.22 637.157C1946.93 615.009 1951.28 594.047 1951.28 574.272C1951.28 537.094 1939.01 507.432 1914.49 485.283C1892.34 464.717 1864.26 454.434 1830.24 454.434Z" fill="currentColor"></path><path d="M2300.91 789.031L2258.19 1126H2087.33L2185.81 325.104H2356.68L2347.19 386.803C2366.17 363.864 2388.32 345.671 2413.64 332.223C2446.07 315.612 2482.46 307.307 2522.8 307.307C2589.25 307.307 2642.65 326.686 2682.99 365.446C2729.66 412.115 2753 478.164 2753 563.593C2753 662.469 2723.34 741.57 2664.01 800.896C2616.54 848.356 2556.82 872.086 2484.83 872.086C2437.37 872.086 2399 864.572 2369.73 849.543C2342.84 835.304 2319.9 815.134 2300.91 789.031ZM2456.35 454.434C2416.8 454.434 2383.58 467.881 2356.68 494.776C2328.2 523.252 2313.96 558.847 2313.96 601.562C2313.96 637.157 2324.64 666.029 2346 688.177C2368.94 712.698 2398.61 724.959 2435 724.959C2472.17 724.959 2503.82 712.698 2529.92 688.177C2544.16 675.521 2555.63 658.514 2564.33 637.157C2573.03 615.009 2577.39 594.047 2577.39 574.272C2577.39 537.094 2565.12 507.432 2540.6 485.283C2518.45 464.717 2490.37 454.434 2456.35 454.434Z" fill="currentColor"></path></svg>
+            <p style="margin:20px 0 0 0;font-size:15px;line-height:1.55;color:var(--text-muted);max-width:28ch;">Consultoria de design system e produto digital. São Paulo, Brasil.</p>
+          </div>
+          <div data-col="foot" style="display:flex;flex-direction:column;gap:12px;">
+            <span class="indisea-eyebrow">Navegação</span>
+            <a href="#topo" style="font-size:15px;color:var(--text-body);">Início</a>
+            <a href="#problema" style="font-size:15px;color:var(--text-body);">O problema</a>
+            <a href="#servicos" style="font-size:15px;color:var(--text-body);">Serviços</a>
+            <a href="#processo" style="font-size:15px;color:var(--text-body);">Processo</a>
+            <a href="#faq" style="font-size:15px;color:var(--text-body);">Perguntas frequentes</a>
+            <a href="#contato" style="font-size:15px;color:var(--text-body);">Contato</a>
+          </div>
+          <div data-col="foot" style="display:flex;flex-direction:column;gap:12px;">
+            <span class="indisea-eyebrow">Perfil</span>
+            <a href="https://www.raipp.com.br/cv26/" target="_blank" rel="noopener" style="font-size:15px;color:var(--text-body);">Currículo</a>
+            <a href="https://substack.com/@getuliosoueu" target="_blank" rel="noopener" style="font-size:15px;color:var(--text-body);">Substack</a>
+            <a href="https://www.youtube.com/@getuliosoueu" target="_blank" rel="noopener" style="font-size:15px;color:var(--text-body);">YouTube</a>
+            <span class="indisea-mono" style="color:var(--text-muted);margin-top:4px;">SAO-PAULO-BR</span>
+          </div>
+          <div data-col="foot" style="display:flex;flex-direction:column;gap:12px;">
+            <span class="indisea-eyebrow">Contato</span>
+            <button data-copy-mail="" onclick="{{ copyMail }}" style="display:inline-flex;align-items:center;gap:8px;background:transparent;border:0;padding:0;color:var(--text-body);font-family:var(--font-sans);font-size:15px;cursor:pointer;text-align:left;">
+              <span data-copy-label="">getulio@raipp.com.br</span>
+              <i class="ph-fill ph-copy" style="font-size:15px;color:var(--indisea-sky-blue);"></i>
+            </button>
+            <a href="https://www.linkedin.com/in/getuliosoueu/" target="_blank" rel="noopener" style="font-size:15px;color:var(--text-body);">LinkedIn</a>
+            <p style="margin:0;font-size:15px;line-height:1.55;color:var(--text-muted);">São Paulo, Brasil<br>Atendimento remoto</p>
+          </div>
+        </div>
+
+        <div data-wordmark-stage="" style="position:relative;padding-bottom:clamp(32px,5vh,64px);">
+          <div data-mesh="" data-mesh-mode="dither" data-mesh-clip="[data-wordmark]" data-mesh-line="#FAFAF9" data-mesh-cell="13" data-mesh-amp="34" aria-hidden="true" style="position:absolute;left:0;top:0;right:0;bottom:clamp(32px,5vh,64px);pointer-events:none;"></div>
+          <svg data-wordmark="" viewBox="0 0 2753 1126" role="img" aria-label="raipp" style="width:100%;height:auto;display:block;color:var(--wordmark-fill);"><path d="M97.3001 62.8851H345.297C391.178 62.8851 430.731 67.6312 463.955 77.1233C497.971 85.8244 528.426 104.809 555.322 134.076C593.293 173.626 612.278 227.415 612.278 295.441C612.278 367.423 590.524 425.167 547.016 468.672C512.21 501.895 470.284 523.252 421.238 532.744L625.331 854.289H411.745L220.705 542.236L182.734 854.289H0L97.3001 62.8851ZM262.236 205.267L234.944 422.398H280.034C326.707 422.398 362.304 412.906 386.827 393.922C413.723 373.356 427.171 342.506 427.171 301.374C427.171 265.779 414.514 240.071 389.2 224.251C369.424 211.595 336.199 205.267 289.527 205.267H262.236Z" fill="currentColor"></path><path d="M1081.48 389.176L1086.23 325.104H1257.1L1191.83 854.289H1020.96L1034.02 793.777C1011.08 820.671 986.158 840.446 959.262 853.102C931.575 865.758 898.746 872.086 860.776 872.086C792.745 872.086 738.162 850.334 697.027 806.828C649.563 756.204 625.831 691.341 625.831 612.24C625.831 518.901 654.31 442.965 711.266 384.43C761.893 333.014 826.76 307.307 905.866 307.307C947.001 307.307 981.412 314.03 1009.1 327.477C1037.58 340.924 1061.7 361.491 1081.48 389.176ZM942.65 454.434C901.515 454.434 867.895 467.486 841.79 493.589C814.894 520.483 801.446 555.683 801.446 599.189C801.446 634.784 812.917 664.842 835.857 689.364C858.798 713.094 888.858 724.959 926.038 724.959C965.591 724.959 998.024 713.094 1023.34 689.364C1053.4 660.096 1068.43 622.128 1068.43 575.458C1068.43 536.699 1056.17 506.245 1031.64 484.097C1010.29 464.322 980.621 454.434 942.65 454.434Z" fill="currentColor"></path><path d="M1323.14 325.104H1494L1428.74 854.289H1257.87L1323.14 325.104ZM1359.92 170.858C1340.94 151.083 1331.44 127.352 1331.44 99.667C1331.44 71.9817 1340.94 48.647 1359.92 29.6628C1379.7 9.88759 1403.43 0 1431.12 0C1458.8 0 1482.14 9.88759 1501.12 29.6628C1520.9 48.647 1530.79 71.9817 1530.79 99.667C1530.79 127.352 1520.9 151.083 1501.12 170.858C1482.14 189.842 1458.8 199.334 1431.12 199.334C1403.43 199.334 1379.7 189.842 1359.92 170.858Z" fill="currentColor"></path><path d="M1674.8 789.031L1632.08 1126H1461.22L1559.7 325.104H1730.57L1721.08 386.803C1740.06 363.864 1762.21 345.671 1787.53 332.223C1819.96 315.612 1856.35 307.307 1896.69 307.307C1963.14 307.307 2016.54 326.686 2056.88 365.446C2103.55 412.115 2126.89 478.164 2126.89 563.593C2126.89 662.469 2097.23 741.57 2037.9 800.896C1990.43 848.356 1930.71 872.086 1858.72 872.086C1811.26 872.086 1772.89 864.572 1743.62 849.543C1716.73 835.304 1693.79 815.134 1674.8 789.031ZM1830.24 454.434C1790.69 454.434 1757.47 467.881 1730.57 494.776C1702.09 523.252 1687.85 558.847 1687.85 601.562C1687.85 637.157 1698.53 666.029 1719.89 688.177C1742.83 712.698 1772.5 724.959 1808.89 724.959C1846.07 724.959 1877.71 712.698 1903.81 688.177C1918.05 675.521 1929.52 658.514 1938.22 637.157C1946.93 615.009 1951.28 594.047 1951.28 574.272C1951.28 537.094 1939.01 507.432 1914.49 485.283C1892.34 464.717 1864.26 454.434 1830.24 454.434Z" fill="currentColor"></path><path d="M2300.91 789.031L2258.19 1126H2087.33L2185.81 325.104H2356.68L2347.19 386.803C2366.17 363.864 2388.32 345.671 2413.64 332.223C2446.07 315.612 2482.46 307.307 2522.8 307.307C2589.25 307.307 2642.65 326.686 2682.99 365.446C2729.66 412.115 2753 478.164 2753 563.593C2753 662.469 2723.34 741.57 2664.01 800.896C2616.54 848.356 2556.82 872.086 2484.83 872.086C2437.37 872.086 2399 864.572 2369.73 849.543C2342.84 835.304 2319.9 815.134 2300.91 789.031ZM2456.35 454.434C2416.8 454.434 2383.58 467.881 2356.68 494.776C2328.2 523.252 2313.96 558.847 2313.96 601.562C2313.96 637.157 2324.64 666.029 2346 688.177C2368.94 712.698 2398.61 724.959 2435 724.959C2472.17 724.959 2503.82 712.698 2529.92 688.177C2544.16 675.521 2555.63 658.514 2564.33 637.157C2573.03 615.009 2577.39 594.047 2577.39 574.272C2577.39 537.094 2565.12 507.432 2540.6 485.283C2518.45 464.717 2490.37 454.434 2456.35 454.434Z" fill="currentColor"></path></svg>
+        </div>
+
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:24px;padding-top:24px;border-top:2px solid var(--border-hairline);">
+          <div style="display:flex;flex-wrap:wrap;gap:8px 24px;align-items:center;">
+            <span style="font-size:13px;color:var(--text-muted);">Copyright 2026 Getúlio Lima</span>
+            <span style="font-size:13px;color:var(--text-muted);">raipp · São Paulo</span>
+          </div>
+          <button onclick="{{ backToTop }}" style="flex:none;white-space:nowrap;display:inline-flex;align-items:center;gap:8px;background:transparent;border:0;padding:0;color:var(--text-body);font-family:var(--font-sans);font-size:13px;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;cursor:pointer;">Voltar ao topo<i class="ph-fill ph-arrow-up" style="font-size:14px;"></i></button>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script="" data-props="{}">
+if (window.__indiseaDriver) clearInterval(window.__indiseaDriver);
+window.__indiseaDriver = setInterval(() => {
+  const a = window.__indiseaActive;
+  if (a && a.root) { try { a.update(performance.now()); } catch (e) {} }
+}, 100);
+
+const CONNECTORS = [
+  { name: "Porto Seguro", sector: "Seguros" },
+  { name: "Dock", sector: "Fintech" },
+  { name: "UOL", sector: "Mídia" },
+  { name: "Grupo ITSS", sector: "SaaS corporativo" },
+  { name: "Zarpo", sector: "Viagem" },
+  { name: "Sappiens", sector: "Educação" },
+  { name: "Doctuz", sector: "Saúde" },
+  { name: "Mimo", sector: "Varejo" },
+  { name: "Lebes", sector: "Varejo" },
+  { name: "Samsung", sector: "Acessibilidade" }
+];
+
+const CLIENTS = [
+  { name: "Fintech", sector: "Meios de pagamento" },
+  { name: "Seguro e saúde", sector: "Ambiente regulado" },
+  { name: "SaaS corporativo", sector: "Multiproduto" },
+  { name: "Varejo e governo", sector: "Alto volume" }
+];
+
+const ONGOING = ["A marca muda", "Entra tema escuro", "Entra segunda marca", "O agente gera tela", "Suporte contínuo"];
+
+const decorate = (list) => list.map(c => ({
+  name: c.name,
+  sector: c.sector,
+  caption: c.name + " · " + c.sector
+}));
+
+/* Orthogonal routing with the design system's derived corner radius: axis-aligned
+   runs only, each corner clamped to half the shorter adjacent run. */
+function route(points, radius) {
+  if (!points.length) return "";
+  let d = "M " + points[0][0] + " " + points[0][1];
+  for (let i = 1; i < points.length - 1; i++) {
+    const p = points[i - 1], c = points[i], n = points[i + 1];
+    const inD = [Math.sign(c[0] - p[0]), Math.sign(c[1] - p[1])];
+    const outD = [Math.sign(n[0] - c[0]), Math.sign(n[1] - c[1])];
+    const runIn = Math.abs(c[0] - p[0]) + Math.abs(c[1] - p[1]);
+    const runOut = Math.abs(n[0] - c[0]) + Math.abs(n[1] - c[1]);
+    const r = Math.min(radius, runIn / 2, runOut / 2);
+    d += " L " + (c[0] - inD[0] * r) + " " + (c[1] - inD[1] * r);
+    d += " Q " + c[0] + " " + c[1] + " " + (c[0] + outD[0] * r) + " " + (c[1] + outD[1] * r);
+  }
+  const last = points[points.length - 1];
+  return d + " L " + last[0] + " " + last[1];
+}
+
+class Component extends DCLogic {
+  state = { theme: "light", menuOpen: false };
+
+  get root() { return document.querySelector("[data-indisea-home]"); }
+  set root(v) {}
+
+  componentDidMount() {
+    try {
+      const saved = localStorage.getItem("raipp-theme");
+      if (saved === "dark" || saved === "light") this.setState({ theme: saved });
+    } catch (e) {}
+    this.reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    this.boot(0);
+  }
+
+  boot(attempt) {
+    if (this.booted) return;
+    if (!this.root) { if (attempt < 120) setTimeout(() => this.boot(attempt + 1), 50); return; }
+    this.booted = true;
+    document.documentElement.lang = "pt-BR";
+    window.__indiseaActive = this;
+    if (this.raf) cancelAnimationFrame(this.raf);
+    if (this.onScroll) { window.removeEventListener("scroll", this.onScroll); window.removeEventListener("resize", this.onResize); }
+    this.markCards();
+    this.syncChrome();
+    this.runLoader();
+    this.setupReveals();
+    this.setupWall();
+    this.setupVerbs();
+    this.setupMenuField();
+    this.onScroll = () => { this.update(performance.now()); };
+    this.onResize = () => { this.conn = null; this.update(performance.now()); };
+    window.addEventListener("scroll", this.onScroll, { passive: true });
+    window.addEventListener("resize", this.onResize);
+    this.loop = (t) => { this.update(t); this.raf = requestAnimationFrame(this.loop); };
+    this.update(performance.now());
+    if (!this.reduced) this.raf = requestAnimationFrame(this.loop);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => this.syncHeaderPolarity());
+    requestAnimationFrame(() => this.syncHeaderPolarity());
+    this.onKey = (e) => { if (e.key === "Escape" && this.state.menuOpen) { this.setState({ menuOpen: false }); this.syncMenu(false); } };
+    window.addEventListener("keydown", this.onKey);
+
+    /* The route is measured, so it has to be measured against the SETTLED page.
+       Web fonts are the trap: with IBM Plex uncached the first pass runs on
+       fallback metrics, which moves every section offset and every ink rect, and
+       total page height can land close enough that the size check never fires.
+       Re-route once fonts and subresources are in. */
+    const reroute = () => { this.spine = null; this.obsKey = null; };
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(reroute).catch(() => {});
+    if (document.readyState !== "complete") window.addEventListener("load", reroute, { once: true });
+    [400, 1400, 2600].forEach(ms => setTimeout(reroute, ms));
+  }
+
+  componentDidUpdate() { this.hydrateLogos(); this.syncChrome(); }
+
+  componentWillUnmount() {
+    this.booted = false;
+    document.body.style.overflow = "";
+    window.removeEventListener("scroll", this.onScroll);
+    window.removeEventListener("resize", this.onResize);
+    window.removeEventListener("keydown", this.onKey);
+    if (this.raf) cancelAnimationFrame(this.raf);
+    if (this.loaderTimer) clearInterval(this.loaderTimer);
+    if (this.loaderFallback) clearTimeout(this.loaderFallback);
+    if (this.revealSafety) clearTimeout(this.revealSafety);
+    if (this.verbTimer) clearInterval(this.verbTimer);
+  }
+
+  syncChrome(force) {
+    const root = this.root;
+    if (!root) return;
+    const theme = force || this.state.theme;
+    document.documentElement.setAttribute("data-theme", theme);
+    const dark = theme === "dark";
+    /* The header lockup is owned solely by syncHeaderPolarity: it tracks the
+       block under the header, not the base canvas. Do not set it here. */
+    /* Alt blocks carry the opposite polarity, so any lockup inside one follows
+       the ALT canvas, not the base. The hub mark sits on the base canvas. */
+    root.querySelectorAll("[data-alt-logo]").forEach(el => {
+      el.style.display = (el.getAttribute("data-alt-logo") === (dark ? "light" : "dark")) ? "block" : "none";
+    });
+    this.syncHeaderPolarity();
+    root.querySelectorAll("[data-hub-mark]").forEach(el => {
+      el.style.display = (el.getAttribute("data-hub-mark") === theme) ? "block" : "none";
+    });
+    const icon = root.querySelector("[data-theme-icon]");
+    if (icon) icon.className = "ph-fill " + (dark ? "ph-sun" : "ph-moon");
+    const tbtn = root.querySelector("[data-theme-toggle]");
+    if (tbtn) tbtn.setAttribute("aria-label", dark ? "Mudar para o modo claro" : "Mudar para o modo escuro");
+  }
+
+  /* The header paints above the menu overlay, so while the menu is open its
+     backdrop is the ALT canvas. Scope the header to that polarity and let the
+     toggle inherit --text-heading from it rather than from the base. */
+  /* The header is transparent, so its lockup and toggle must resolve against
+     whatever block is currently passing under it: an alt-polarity section, a
+     vivid color block, or the base canvas. */
+  blockPolarityUnderHeader(header) {
+    const root = this.root;
+    if (!root) return null;
+    const hb = header.getBoundingClientRect();
+    const probeY = hb.top + hb.height / 2;
+    const VIVID = { blue: "light", yellow: "light", green: "light", red: "light", ink: "dark" };
+    let found = null;
+    root.querySelectorAll("main [data-theme], main [data-mode]").forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.top > probeY || r.bottom < probeY) return;
+      const t = el.getAttribute("data-theme");
+      if (t === "dark" || t === "light") { found = t; return; }
+      const m = el.getAttribute("data-mode");
+      if (!m) return;
+      found = m.indexOf("-deep") > -1 ? (this.state.theme === "dark" ? "light" : "dark") : (VIVID[m] || null) || found;
+    });
+    return found;
+  }
+
+  syncHeaderPolarity(forceOpen) {
+    const root = this.root;
+    if (!root) return;
+    const header = root.querySelector("header");
+    if (!header) return;
+    const base = this.state.theme;
+    const alt = base === "dark" ? "light" : "dark";
+    const open = typeof forceOpen === "boolean" ? forceOpen : this.state.menuOpen;
+    const scope = open ? alt : (this.blockPolarityUnderHeader(header) || base);
+    const hb = header.getBoundingClientRect();
+    if (header.getAttribute("data-theme") !== scope) header.setAttribute("data-theme", scope);
+    /* The button is opaque so scrolling content never shows through it. The fill is
+       stored as a TOKEN, never a resolved rgb(): a literal cannot follow a theme
+       change and would freeze to the mode it was captured in. var(--surface-canvas)
+       re-resolves in whatever scope the header is in, and a vivid block contributes
+       its own fill variable. Skipped while the menu is mid-transition, when layout
+       is shifted by the scroll lock and any measurement is unreliable. */
+    if (!this.menuBusy) {
+      let fill = "var(--surface-canvas)";
+      if (!open) {
+        const probe = hb.top + hb.height / 2;
+        const VIVID_FILL = {
+          blue: "var(--indisea-sky-blue)", yellow: "var(--indisea-signal-yellow)",
+          green: "var(--indisea-link-green)", red: "var(--indisea-node-red)", ink: "#262626"
+        };
+        root.querySelectorAll("main [data-theme], main [data-mode]").forEach(el => {
+          const r = el.getBoundingClientRect();
+          if (r.top > probe || r.bottom < probe) return;
+          const t = el.getAttribute("data-theme");
+          if (t === "dark" || t === "light") { fill = "var(--surface-canvas)"; return; }
+          const m = el.getAttribute("data-mode");
+          if (m) fill = VIVID_FILL[m] || "var(--surface-canvas)";
+        });
+      }
+      header.style.setProperty("--menu-fill", fill);
+    }
+    const ll = header.querySelector("[data-logo-light]");
+    const ld = header.querySelector("[data-logo-dark]");
+    if (ll) ll.style.display = scope === "dark" ? "none" : "block";
+    if (ld) ld.style.display = scope === "dark" ? "block" : "none";
+  }
+
+  syncMenu(force) {
+    const root = this.root;
+    if (!root) return;
+    const m = root.querySelector("[data-menu]");
+    if (!m) return;
+    const open = typeof force === "boolean" ? force : this.state.menuOpen;
+    m.style.visibility = "visible";
+    m.style.transition = this.reduced ? "none" : "transform 900ms cubic-bezier(0.16,1,0.3,1)";
+    m.style.transform = open ? "translateY(0)" : "translateY(-100%)";
+    document.body.style.overflow = open ? "hidden" : "";
+    m.querySelectorAll("[data-menu-item]").forEach((el, i) => {
+      el.style.transition = this.reduced ? "none" : "opacity 500ms ease, transform 500ms cubic-bezier(0.16,1,0.3,1)";
+      el.style.transitionDelay = open ? (260 + i * 60) + "ms" : "0ms";
+      el.style.opacity = open ? "1" : "0";
+      el.style.transform = open ? "translateY(0)" : "translateY(28px)";
+    });
+    const b1 = root.querySelector('[data-bar="1"]');
+    const b2 = root.querySelector('[data-bar="2"]');
+    if (b1) b1.style.transform = open ? "translateY(0px) rotate(45deg)" : "translateY(-4px) rotate(0deg)";
+    if (b2) b2.style.transform = open ? "translateY(0px) rotate(-45deg)" : "translateY(4px) rotate(0deg)";
+    const btn = root.querySelector("[data-menu-toggle]");
+    if (btn) {
+      btn.style.color = "";
+      btn.setAttribute("aria-label", open ? "Fechar menu" : "Abrir menu");
+    }
+    this.syncHeaderPolarity(open);
+    const slot = root.querySelector("[data-logo-slot]");
+    if (slot && open) { slot.style.transform = "translateY(0)"; slot.style.opacity = "1"; slot.style.pointerEvents = "auto"; }
+    this.menuBusy = true;
+    if (this.menuSettle) clearTimeout(this.menuSettle);
+    this.menuSettle = setTimeout(() => { this.menuBusy = false; this.syncHeaderPolarity(); }, 940);
+    if (!open) setTimeout(() => { if (!this.state.menuOpen) m.style.visibility = "hidden"; }, 900);
+    const first = m.querySelector("[data-menu-item]");
+    if (open && first) setTimeout(() => first.focus(), 320);
+  }
+
+  setupMenuField() {
+    const field = this.root.querySelector("[data-menu-field]");
+    const items = Array.from(this.root.querySelectorAll("[data-menu-item]"));
+    if (!field || !items.length) return;
+    const fills = { blue: "var(--indisea-sky-blue)", yellow: "var(--indisea-signal-yellow)", green: "var(--indisea-link-green)", red: "var(--indisea-node-red)" };
+    /* The field now runs to the top, so the close control sits on top of it.
+       Its polarity follows the fill's luminance, per the color-mode rule. */
+    const onFill = { blue: "#262626", yellow: "#262626", green: "#262626", red: "#262626", ink: "#FAFAF9" };
+    const btn = this.root.querySelector("[data-menu-toggle]");
+    /* Below 1024px the field is display:none, so the surface behind the control
+       is the plain menu canvas: recoloring for an unpainted fill would blank it. */
+    const fieldPainted = () => field.offsetWidth > 0 && getComputedStyle(field).display !== "none";
+    const setBtn = (c) => { if (btn && this.state.menuOpen) btn.style.color = (c && fieldPainted()) ? c : ""; };
+    items.forEach(item => {
+      item.addEventListener("mouseenter", () => {
+        const f = item.getAttribute("data-field");
+        field.style.background = fills[f] || "var(--surface-card)";
+        items.forEach(o => { o.style.color = o === item ? "var(--text-heading)" : "var(--text-faint)"; });
+        setBtn(onFill[f]);
+      });
+    });
+    const list = this.root.querySelector("[data-menu-list]");
+    if (list) list.addEventListener("mouseleave", () => {
+      field.style.background = "var(--surface-card)";
+      items.forEach(o => { o.style.color = "var(--text-heading)"; });
+      setBtn(null);
+    });
+  }
+
+  runLoader() {
+    if (this.loaderStarted) return;
+    this.loaderStarted = true;
+    const wrap = this.root.querySelector("[data-loader]");
+    const count = this.root.querySelector("[data-loader-count]");
+    const lines = this.root.querySelectorAll("[data-hline]");
+    lines.forEach(el => { el.style.transform = "translateY(105%)"; });
+    document.body.style.overflow = "hidden";
+    if (this.reduced) { this.finishLoad(wrap, lines); return; }
+    let n = 0;
+    this.loaderTimer = setInterval(() => {
+      n = Math.min(100, n + 8 + Math.ceil(Math.random() * 10));
+      if (count) count.textContent = String(n).padStart(3, "0");
+      if (n >= 100) { clearInterval(this.loaderTimer); setTimeout(() => this.finishLoad(wrap, lines), 120); }
+    }, 40);
+    this.loaderFallback = setTimeout(() => { if (count) count.textContent = "100"; this.finishLoad(wrap, lines); }, 1200);
+  }
+
+  finishLoad(wrap, lines) {
+    if (this.loadFinished) return;
+    this.loadFinished = true;
+    if (this.loaderTimer) clearInterval(this.loaderTimer);
+    if (this.loaderFallback) clearTimeout(this.loaderFallback);
+    if (wrap) {
+      wrap.style.transition = "transform 800ms cubic-bezier(0.7,0,0.2,1)";
+      wrap.style.transform = "translateY(-100%)";
+      setTimeout(() => { wrap.style.display = "none"; }, 820);
+    }
+    document.body.style.overflow = "";
+    lines.forEach((el, i) => {
+      el.style.transition = this.reduced ? "none" : "transform 900ms cubic-bezier(0.16,1,0.3,1)";
+      el.style.transitionDelay = (i * 90) + "ms";
+      el.style.transform = "translateY(0)";
+    });
+    this.startVerbs();
+    /* Re-route once the load animation has settled: the first measurement runs
+       while the hero lines are still masked and the page height is in flux. */
+    setTimeout(() => { this.spine = null; }, 1200);
+  }
+
+  setupVerbs() { this.verbs = Array.from(this.root.querySelectorAll("[data-verb]")); }
+
+  startVerbs() {
+    if (this.reduced || !this.verbs || !this.verbs.length) return;
+    let i = -1;
+    const step = () => {
+      this.verbs.forEach(v => { v.style.background = "transparent"; v.style.color = "inherit"; });
+      i = (i + 1) % this.verbs.length;
+      /* O grifo entra lilás e vira lima; o texto permanece tinta em qualquer estado. */
+      const el = this.verbs[i];
+      el.style.color = "#262626";
+      el.style.background = "#D5BAFC";
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        if (el.style.background !== "transparent") el.style.background = "#BEFF8B";
+      }));
+    };
+    step();
+    this.verbTimer = setInterval(step, 2500);
+  }
+
+  setupReveals() {
+    this.reveals = Array.from(this.root.querySelectorAll("[data-reveal]"));
+    this.counters = Array.from(this.root.querySelectorAll("[data-count]"));
+    if (this.reduced) return;
+    this.reveals.forEach(el => { el.style.opacity = "0"; el.style.transform = "translateY(24px)"; });
+    this.revealSafety = setTimeout(() => this.showAllReveals(), 6000);
+  }
+
+  showAllReveals() {
+    (this.reveals || []).forEach(el => { el.style.opacity = "1"; el.style.transform = "none"; el.dataset.shown = "1"; });
+  }
+
+  tickReveals(vh) {
+    (this.reveals || []).forEach(el => {
+      if (el.dataset.shown) return;
+      const r = el.getBoundingClientRect();
+      if (r.top > vh * 0.88 || r.bottom < 0) return;
+      el.dataset.shown = "1";
+      const sibs = Array.from(el.parentElement ? el.parentElement.children : [el]).filter(x => x.hasAttribute && x.hasAttribute("data-reveal"));
+      const idx = Math.max(0, sibs.indexOf(el));
+      el.style.transition = "opacity 700ms ease, transform 700ms cubic-bezier(0.16,1,0.3,1)";
+      el.style.transitionDelay = (idx * 80) + "ms";
+      el.style.opacity = "1";
+      el.style.transform = "translateY(0)";
+    });
+    (this.counters || []).forEach(el => {
+      if (el.dataset.counted) return;
+      const r = el.getBoundingClientRect();
+      if (r.top > vh * 0.85 || r.bottom < 0) return;
+      el.dataset.counted = "1";
+      this.countUp(el);
+    });
+  }
+
+  countUp(el) {
+    const target = parseInt(el.getAttribute("data-count"), 10);
+    const pad = parseInt(el.getAttribute("data-pad") || "0", 10);
+    const suffix = el.getAttribute("data-suffix") || "";
+    if (this.reduced) return;
+    const dur = 1100, t0 = performance.now();
+    const tick = (t) => {
+      const p = Math.min(1, (t - t0) / dur);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = String(Math.round(target * eased)).padStart(pad, "0") + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+
+  hydrateLogos() {
+    const root = this.root;
+    if (!root) return;
+    root.querySelectorAll("[data-logo-src]").forEach(img => {
+      const src = img.getAttribute("data-logo-src");
+      if (src && src.indexOf("{{") === -1 && img.getAttribute("src") !== src) img.setAttribute("src", src);
+    });
+  }
+
+  setupWall() {
+    this.hydrateLogos();
+    this.rows = Array.from(this.root.querySelectorAll("[data-marquee]"));
+    this.rowOffset = [0, 0];
+    this.rows.forEach((row, i) => {
+      row.querySelectorAll("[data-logo-cell]").forEach(cell => {
+        cell.addEventListener("mouseenter", () => {
+          this.root.querySelectorAll("[data-logo-cell]").forEach(c => { c.style.opacity = "0.3"; });
+          cell.style.opacity = "1";
+          const cap = cell.querySelector("[data-cell-caption]");
+          if (cap) cap.style.opacity = "1";
+        });
+        cell.addEventListener("mouseleave", () => {
+          this.root.querySelectorAll("[data-logo-cell]").forEach(c => { c.style.opacity = "1"; });
+          const cap = cell.querySelector("[data-cell-caption]");
+          if (cap) cap.style.opacity = "0";
+        });
+      });
+      if (i === 1) this.rowOffset[1] = -row.scrollWidth / 2;
+    });
+    this.lastT = performance.now();
+    this.lastY = window.scrollY;
+    this.velocity = 0;
+  }
+
+  /* Section 05: connector lines measured from the live node boxes, then routed
+     orthogonally. Terminals are circles in the line's own hue: a hollow ring at
+     the origin, solid dots at the destinations. */
+  buildConnections() {
+    const root = this.root;
+    const wrap = root.querySelector("[data-conn]");
+    const svg = root.querySelector("[data-conn-svg]");
+    if (!wrap || !svg) return null;
+    const box = wrap.getBoundingClientRect();
+    if (!box.width || !box.height) return null;
+    const rel = (el) => {
+      const r = el.getBoundingClientRect();
+      return { l: r.left - box.left, r: r.right - box.left, t: r.top - box.top, b: r.bottom - box.top, cx: r.left + r.width / 2 - box.left, cy: r.top + r.height / 2 - box.top };
+    };
+    const src = wrap.querySelector('[data-node="source"]');
+    const hub = wrap.querySelector('[data-node="hub"]');
+    const targets = [0, 1, 2, 3].map(i => wrap.querySelector('[data-node="t' + i + '"]')).filter(Boolean);
+    if (!src || !hub || targets.length !== 4) return null;
+    const S = rel(src), H = rel(hub);
+    const w = 4, radius = 16;
+    /* Trunk runs charcoal from the product mark down into the Indisea hub, then
+       branches into one line per platform category, each in its own hue. The
+       endpoint rings are the DOM circles, so the SVG only draws the runs. */
+    const trunkX = S.r + Math.max(16, (H.l - S.r) / 2);
+    const segs = [{ d: route([[S.r, S.cy], [trunkX, S.cy], [trunkX, H.cy], [H.l, H.cy]], radius), c: "var(--text-heading)" }];
+    const hues = ["var(--text-heading)", "var(--text-heading)", "var(--text-heading)", "var(--text-heading)"];
+    const boxes = targets.map(rel);
+    const branchX = H.r + Math.max(20, (Math.min.apply(null, boxes.map(t => t.l)) - H.r) / 2);
+    boxes.forEach((T, i) => {
+      segs.push({ d: route([[H.r, H.cy], [branchX, H.cy], [branchX, T.cy], [T.l, T.cy]], radius), c: hues[i] });
+    });
+    svg.setAttribute("viewBox", "0 0 " + box.width + " " + box.height);
+    let markup = "";
+    segs.forEach(sg => { markup += '<path d="' + sg.d + '" fill="none" stroke="' + sg.c + '" stroke-width="' + w + '" stroke-linecap="round" data-conn-path></path>'; });
+    svg.innerHTML = markup;
+    const list = Array.from(svg.querySelectorAll("[data-conn-path]"));
+    /* Pulsos de sinal: um ponto azul percorre cada trecho, escalonado, do produto
+       para o hub e de lá para cada plataforma. A leitura é "o token sai daqui e
+       chega lá", não decoração. */
+    if (!this.reduced) {
+      let pulses = "";
+      list.forEach((p, i) => { p.setAttribute("id", "conn-p" + i); });
+      list.forEach((p, i) => {
+        const b = (i * 0.42).toFixed(2);
+        pulses += '<circle r="4.5" fill="#3BBFF7" opacity="0">' +
+          '<animateMotion dur="2.9s" begin="' + b + 's" repeatCount="indefinite" calcMode="linear" keyPoints="0;1" keyTimes="0;1">' +
+          '<mpath href="#conn-p' + i + '" xlink:href="#conn-p' + i + '"></mpath></animateMotion>' +
+          '<animate attributeName="opacity" dur="2.9s" begin="' + b + 's" repeatCount="indefinite" values="0;1;1;0" keyTimes="0;0.1;0.82;1"></animate>' +
+          '</circle>';
+      });
+      svg.insertAdjacentHTML("beforeend", pulses);
+    }
+    list.forEach(p => {
+      const len = p.getTotalLength();
+      p.style.strokeDasharray = len;
+      p.style.strokeDashoffset = this.reduced ? 0 : len;
+      p.style.transition = "stroke-dashoffset 900ms cubic-bezier(0.16,1,0.3,1)";
+    });
+    return { wrap: wrap, paths: list, drawn: false, w: box.width, h: box.height };
+  }
+
+  /* The connector spine. One orthogonal path down the whole page: vertical runs
+     sit in the page margins, OUTSIDE the 12-column content box, so they can never
+     cross type, and every horizontal move happens on a section boundary, in the
+     gap between blocks. Corners are derived, per the connector-line rules. It
+     draws with scroll, and turns stone once it enters the CTA block, resolving
+     into a hollow terminal there. */
+  /* Obstacles are anything the line must not touch: type, imagery, and any
+     element that paints its own background (a card the line would sit on top of).
+     Measured live, so the free lanes are real rather than assumed. */
+  /* Every card on the page is lifted above the spine, so the line only ever
+     crosses background layers. Marked at runtime by surface rather than by hand,
+     so a new card cannot be forgotten. Marked elements are also skipped when
+     measuring ink: the line does not need to avoid what covers it. */
+  markCards() {
+    const root = this.root;
+    if (!root) return;
+    /* [data-marquee] (will-change:transform) and [data-panel] (position:sticky)
+       each establish a stacking context, so a z-index on their CHILDREN cannot
+       escape it. The lift must go on the context itself. */
+    root.querySelectorAll("main [data-marquee], main [data-panel], main .indisea-card, main [data-quote], main [data-conn], main [style*='--surface-card'], main [style*='--surface-canvas']").forEach(el => {
+      if (el.tagName === "SECTION" || el.tagName === "FOOTER") return;
+      if (el.closest("[data-spine-under]") && !el.hasAttribute("data-spine-under")) return;
+      el.setAttribute("data-spine-under", "");
+    });
+  }
+
+  spineObstacles(section, mainTop) {
+    if (section.__spineObs && section.__spineObsKey === this.obsKey) return section.__spineObs;
+    const out = [];
+    const dy = window.scrollY - mainTop;
+    const push = (r) => {
+      if (!r.width || !r.height) return;
+      out.push({ l: r.left, r: r.right, t: r.top + dy, b: r.bottom + dy });
+    };
+
+    /* Measure real INK, not block boxes. A full-width heading whose copy only
+       reaches the third column must not block the whole row, and a nested span's
+       text still has to register. Ranges over the text nodes give exact line
+       rects for both cases. */
+    const walker = document.createTreeWalker(section, NodeFilter.SHOW_TEXT, {
+      acceptNode: (n) => n.textContent.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT
+    });
+    const range = document.createRange();
+    let n;
+    while ((n = walker.nextNode())) {
+      const p = n.parentElement;
+      if (!p || p.closest("[data-spine]")) continue;
+      /* Skip what the line does not need to avoid: cards lifted above it, and
+         elements explicitly ignored (continuously moving marquee rows, decorative
+         numerals) that the line instead draws over. */
+      if (p.closest("[data-spine-under],[data-spine-ignore]")) continue;
+      const cs = getComputedStyle(p);
+      /* No opacity test: reveal elements are opacity:0 until their scroll trigger,
+         and skipping those would measure the page without its copy. The hover-only
+         marquee captions are already excluded by [data-spine-under]. */
+      if (cs.display === "none" || cs.visibility === "hidden") continue;
+      range.selectNodeContents(n);
+      const rects = range.getClientRects();
+      for (let i = 0; i < rects.length; i++) push(rects[i]);
+    }
+    section.querySelectorAll("img,svg,i").forEach(el => {
+      if (el.closest("[data-spine]") || el.closest("[data-spine-under],[data-spine-ignore]")) return;
+      const cs = getComputedStyle(el);
+      if (cs.display === "none" || cs.visibility === "hidden") return;
+      push(el.getBoundingClientRect());
+    });
+    section.__spineObs = out;
+    section.__spineObsKey = this.obsKey;
+    return out;
+  }
+
+  buildSpine() {
+    const root = this.root;
+    if (!root) return null;
+    const svg = root.querySelector("[data-spine]");
+    const main = root.querySelector("main");
+    if (!svg || !main) return null;
+    const W = root.clientWidth;
+    if (!W) return null;
+
+    /* Unregistered custom properties compute to their literal token string, so
+       --margin/--gutter cannot be parsed as px. Read the resolved values off the
+       elements that consume them instead. */
+    const wrapEl = root.querySelector("[data-wrap]");
+    const gridEl = root.querySelector("[data-g]");
+    const margin = wrapEl ? parseFloat(getComputedStyle(wrapEl).paddingLeft) : 40;
+    const gutter = gridEl ? parseFloat(getComputedStyle(gridEl).columnGap) : 16;
+    const cols = gridEl ? getComputedStyle(gridEl).gridTemplateColumns.split(" ").length : 12;
+    const contentW = W - margin * 2;
+    const colW = (contentW - gutter * (cols - 1)) / cols;
+    const track = colW + gutter;
+    const colCenter = (i) => margin + i * track + colW / 2;
+    const frac = (f) => margin + contentW * f;
+
+    const hero = main.querySelector('[data-screen-label^="01"]');
+    const cta = main.querySelector('[data-screen-label^="11"]');
+    const footer = root.querySelector("[data-footer]");
+    if (!hero || !cta) return null;
+
+    /* Connector-line weights from the design system: lg = 16, xl = 32. Corner is
+       2x the weight and the terminal ring 2.5x, so the specimen scales as one. */
+    /* Three weights across the breakpoints: XL above 1024px, where the 12-column
+       grid and the wide margin exist; LG on tablet, where the grid collapses to
+       8 tracks and copy runs to the page margin; MD on mobile, where the margin
+       is only 20px. Corner and ring derive from the weight, so each is a whole
+       specimen rather than a rescaled stroke. */
+    const w = W > 1024 ? 32 : (W > 640 ? 16 : 8);
+    const r = w * 2.5;
+    const corner = w * 2;
+    const clear = w / 2 + 10;
+    /* The mobile route puts its start terminal in the edge lane, so that lane has
+       to clear the RING (r + half stroke), not just the stroke. Desktop terminals
+       sit at frac() lanes well inside the canvas and keep the tighter inset: at XL
+       a ring-aware inset would push the margin lane ~98px in, past the margin and
+       into content. Declared after w and r, which it reads. */
+    const mobileEdge = W <= 640;
+    const inset = Math.max(mobileEdge ? r + w / 2 + 2 : w / 2 + 2, margin / 2);
+    const edge = { left: inset, right: W - inset };
+
+    /* The route is AUTHORED, not solved: declared waypoints, in order. Measurement
+       is only used to nudge a lane clear of ink, never to pick it. A waypoint is
+       anchored either to a section's top edge or to an element inside one, which
+       is how the mobile route bends between a section's text and its cards. */
+    const mobile = W <= 640;
+    const gutterLane = colCenter(Math.min(3, cols - 1));
+    const lastCol = colCenter(cols - 1);
+    const inOne = lastCol;
+    const inTwo = colCenter(Math.max(0, cols - 2));
+
+    /* Mobile hugs the right edge of the canvas and only steps inward where it can
+       duck behind a card, so it never competes with a full-width column of type. */
+    const plan = mobile ? [
+      { sec: "02", x: edge.right },
+      { sec: "03", x: edge.right },
+      { wp: "stats", x: inTwo },
+      { sec: "04", x: edge.right },
+      { sec: "05", x: edge.right },
+      { wp: "illo", x: inTwo },
+      { sec: "06", x: edge.right },
+      { wp: "reasons", x: colCenter(1) },
+      { sec: "12", x: edge.right },
+      { sec: "13", x: edge.right },
+      { sec: "08", x: inOne },
+      { sec: "09", x: edge.right },
+      { wp: "clients", x: inOne },
+      { sec: "10", x: inOne },
+      { sec: "14", x: edge.right }
+    ] : [
+      { sec: "02", x: gutterLane },
+      { sec: "03", x: gutterLane },
+      { sec: "04", x: edge.right },
+      { sec: "05", x: frac(0.80) },
+      { sec: "06", x: edge.right },
+      { sec: "07", x: frac(0.50) },
+      { sec: "12", x: gutterLane },
+      { sec: "13", x: gutterLane },
+      { sec: "08", x: gutterLane },
+      { sec: "09", x: gutterLane },
+      { sec: "10", x: frac(0.76) },
+      { sec: "14", x: gutterLane }
+    ];
+    const endX = mobile ? inOne : frac(0.76);
+
+    const mainTop = main.getBoundingClientRect().top + window.scrollY;
+    const startX = mobile ? edge.right : frac(0.78);
+    const startY = hero.offsetTop + hero.offsetHeight * 0.22;
+    const ctaTop = cta.offsetTop;
+
+    /* A vertical run can span several sections, so every lane is validated across
+       the WHOLE run, not just the section that declared it. */
+    const allBlocks = Array.from(main.children).map(el => ({
+      el: el, top: el.offsetTop, bottom: el.offsetTop + el.offsetHeight
+    }));
+    const spanning = (y0, y1) => allBlocks.filter(b => b.bottom > y0 && b.top < y1);
+
+    const blockedRun = (x, y0, y1) => spanning(y0, y1).some(b => {
+      return this.spineObstacles(b.el, mainTop)
+        .some(o => o.r > x - clear && o.l < x + clear && o.b > y0 && o.t < y1);
+    });
+    const clearanceRun = (x, y0, y1) => {
+      let worst = Infinity;
+      spanning(y0, y1).forEach(b => {
+        this.spineObstacles(b.el, mainTop).forEach(o => {
+          if (o.b <= y0 || o.t >= y1) return;
+          const gap = o.l > x ? o.l - x : (o.r < x ? x - o.r : -1);
+          if (gap < worst) worst = gap;
+        });
+      });
+      return worst;
+    };
+    const bandBlocked = (section, y, x1, x2) => {
+      const lo = Math.min(x1, x2) - clear, hi = Math.max(x1, x2) + clear;
+      return spanning(y - clear, y + clear).some(b =>
+        this.spineObstacles(b.el, mainTop)
+          .some(o => o.b > y - clear && o.t < y + clear && o.r > lo && o.l < hi));
+    };
+    /* Keep the authored lane if it is clear for the full run; otherwise slide
+       sideways in half-column steps, and if nothing is clear take the lane with
+       the most room rather than an untested margin. */
+    const settle = (x, y0, y1) => {
+      if (!blockedRun(x, y0, y1)) return x;
+      for (let k = 1; k <= 8; k++) {
+        const d = k * track * 0.5;
+        if (x + d < W - w / 2 - 2 && !blockedRun(x + d, y0, y1)) return x + d;
+        if (x - d > w / 2 + 2 && !blockedRun(x - d, y0, y1)) return x - d;
+      }
+      let best = x, bestGap = -Infinity;
+      [edge.left, edge.right, x].forEach(cand => {
+        const g = clearanceRun(cand, y0, y1);
+        if (g > bestGap) { bestGap = g; best = cand; }
+      });
+      return best;
+    };
+
+    const steps = [];
+    plan.forEach(item => {
+      if (item.sec) {
+        const sec = main.querySelector('[data-screen-label^="' + item.sec + '"]');
+        if (!sec) return;
+        const padTop = parseFloat(getComputedStyle(sec).paddingTop) || 0;
+        /* Horizontals live in the gap between blocks: inside the section's own top
+           padding when it has some, otherwise just above it, in the previous
+           section's bottom padding. */
+        const y = padTop > 90 ? sec.offsetTop + Math.min(120, padTop * 0.42) : sec.offsetTop - 56;
+        steps.push({ sec: sec, y: y, x: item.x });
+        return;
+      }
+      /* Mid-section waypoint: cross in the gap ABOVE the anchored element, which is
+         the space between that section's copy and its cards. */
+      const el = main.querySelector('[data-spine-wp="' + item.wp + '"]');
+      if (!el) return;
+      const sec = el.closest("section") || main;
+      const top = el.getBoundingClientRect().top + window.scrollY - mainTop;
+      const mt = parseFloat(getComputedStyle(el).marginTop) || 0;
+      steps.push({ sec: sec, y: top - Math.max(20, Math.min(mt * 0.5, 90)), x: item.x });
+    });
+    steps.sort((a, b) => a.y - b.y);
+
+    const pts = [[startX, startY]];
+    let curX = startX;
+    let curY = startY;
+    steps.forEach((st, i) => {
+      const next = steps[i + 1];
+      const runEnd = next ? next.y : ctaTop;
+
+      /* Every lane is validated over the run it actually serves, measured from the
+         LAST COMMITTED crossing. Holding a lane is a decision like any other, so
+         it gets the same check: if the inherited lane is not clear all the way to
+         the next crossing, the line is forced to move. */
+      let target = settle(st.x, st.y, runEnd);
+      if (Math.abs(target - curX) < 1) {
+        if (!blockedRun(curX, curY, runEnd)) return;
+        target = settle(curX, curY, runEnd);
+        if (Math.abs(target - curX) < 1) return;
+      }
+
+      let y = st.y;
+      if (bandBlocked(st.sec, y, curX, target)) {
+        let fixed = false;
+        for (let k = 1; k <= 5 && !fixed; k++) {
+          for (const cy of [y - k * 40, y + k * 40]) {
+            if (cy <= curY + corner) continue;
+            if (!bandBlocked(st.sec, cy, curX, target)) { y = cy; fixed = true; break; }
+          }
+        }
+        if (!fixed) return;
+      }
+
+      /* Two crossings closer than a corner pair cannot render as a weave: route()
+         clamps both radii and emits a degenerate jog. Amend the previous crossing
+         rather than adding a second one, leaving curY at the committed crossing so
+         the next iteration still validates the run below it. */
+      if (pts.length >= 3 && y - curY < corner * 2) {
+        pts[pts.length - 1][0] = target;
+        curX = target;
+        return;
+      }
+      if (y <= curY + corner) return;
+      pts.push([curX, y]);
+      pts.push([target, y]);
+      curX = target;
+      curY = y;
+    });
+
+    /* Resolve in the CTA's right third, at a height clear of its headline. */
+    let endY = ctaTop + cta.offsetHeight * 0.5;
+    const settledEnd = settle(endX, ctaTop, ctaTop + cta.offsetHeight);
+    if (Math.abs(settledEnd - curX) > 1) {
+      const yCross = ctaTop + Math.min(110, (parseFloat(getComputedStyle(cta).paddingTop) || 160) * 0.4);
+      if (yCross > curY + corner) {
+        pts.push([curX, yCross]);
+        pts.push([settledEnd, yCross]);
+        curX = settledEnd;
+        curY = yCross;
+      }
+    }
+    if (endY < curY + r + corner) endY = curY + r + corner;
+    endY = Math.min(endY, ctaTop + cta.offsetHeight - r - 24);
+    /* Stop the stroke at the ring's EDGE, not its center: a path drawn to the
+       center shows inside the hole while the terminal is still appearing. */
+    const pathEndY = endY - r;
+    pts.push([curX, pathEndY]);
+
+    const H = (footer ? footer.offsetTop : main.offsetHeight) + 40;
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+    svg.style.height = H + "px";
+    svg.style.top = main.offsetTop + "px";
+
+    const d = route(pts, corner);
+    svg.innerHTML =
+      '<defs><linearGradient id="spine-hue" gradientUnits="userSpaceOnUse" x1="0" y1="' + (ctaTop - 1) + '" x2="0" y2="' + ctaTop + '">' +
+      '<stop offset="0" stop-color="#3BBFF7"></stop>' +
+      '<stop offset="1" stop-color="#3BBFF7"></stop>' +
+      '</linearGradient></defs>' +
+      '<path data-spine-path d="' + d + '" fill="none" stroke="url(#spine-hue)" stroke-width="' + w + '" stroke-linecap="round"></path>' +
+      /* A hollow terminal's hole is filled with the surface it sits on, matching
+         the design system's own Node(): with fill="none" the path's stroke shows
+         through the ring and it reads as a lollipop. The end ring sits on the
+         blue CTA block, so its hole takes that fill rather than the canvas. */
+      '<circle data-spine-start cx="' + startX + '" cy="' + startY + '" r="' + r + '" fill="var(--surface-canvas)" stroke="#3BBFF7" stroke-width="' + w + '"></circle>' +
+      '<circle data-spine-end cx="' + curX + '" cy="' + endY + '" r="' + r + '" fill="#3BBFF7" stroke="#D5BAFC" stroke-width="' + w + '" opacity="0"></circle>';
+
+    const path = svg.querySelector("[data-spine-path]");
+    const len = path.getTotalLength();
+    path.style.strokeDasharray = len;
+    path.style.strokeDashoffset = this.reduced ? 0 : len;
+    const startEl = svg.querySelector("[data-spine-start]");
+    if (startEl) {
+      startEl.style.transformBox = "fill-box";
+      startEl.style.transformOrigin = "center";
+      startEl.style.transition = "transform 600ms cubic-bezier(0.16,1,0.3,1)";
+    }
+    /* No fade: the terminal simply exists once the line reaches it. */
+    const endEl = svg.querySelector("[data-spine-end]");
+
+    return { svg: svg, path: path, len: len, startEl: startEl, endEl: endEl, startY: startY, endY: pathEndY, w: W, h: H, band: W > 1024 ? "xl" : (W > 640 ? "lg" : "md") };
+  }
+
+  tickSpine(y, vh) {
+    /* Cached ink must expire when anything that moved it changes: sticky panels
+       shift under scroll, and a resize relays out every rect. Width belongs in
+       the key, or a rebuild after a resize reuses rects from the old width. */
+    const key = Math.round(y / 400) + ":" + this.root.clientWidth;
+    if (key !== this.obsKey) this.obsKey = key;
+    const sp = this.spine;
+    if (sp) {
+      const root = this.root;
+      const main = root.querySelector("main");
+      const footer = root.querySelector("[data-footer]");
+      const h = (footer ? footer.offsetTop : main.offsetHeight) + 40;
+      /* Band is part of the identity: near the 640/1024 boundaries a scrollbar
+         appearing or the menu locking scroll can flip which plan applies, and
+         width alone would not always register it. */
+      const band = root.clientWidth > 1024 ? "xl" : (root.clientWidth > 640 ? "lg" : "md");
+      if (Math.abs(root.clientWidth - sp.w) > 1 || Math.abs(h - sp.h) > 2 || band !== sp.band) this.spine = null;
+    }
+    if (!this.spine) this.spine = this.buildSpine();
+    const s = this.spine;
+    if (!s) return;
+    const line = y + vh * 0.62;
+    const p = Math.min(1, Math.max(0, (line - s.startY) / Math.max(1, s.endY - s.startY)));
+    if (!this.reduced) s.path.style.strokeDashoffset = String(s.len * (1 - p));
+    if (s.startEl) s.startEl.style.transform = p > 0.001 ? "scale(1)" : "scale(0.4)";
+    if (s.endEl) s.endEl.setAttribute("opacity", p >= 1 ? "1" : "0");
+  }
+
+  update(t) {
+    const root = this.root;
+    if (!root) return;
+    const dt = Math.min(60, t - (this.lastT || t));
+    this.lastT = t;
+    const y = window.scrollY || window.pageYOffset;
+    const vh = window.innerHeight;
+    const docH = document.documentElement.scrollHeight - vh;
+    const prog = docH > 0 ? Math.min(1, Math.max(0, y / docH)) : 0;
+    const wide = window.innerWidth > 640;
+
+    this.tickSpine(y, vh);
+
+    /* The lockup retracts once the page has left the hero, so it stops competing
+       with the design; it returns at the top and whenever the menu is open. */
+    const slot = root.querySelector("[data-logo-slot]");
+    if (slot) {
+      const hidden = !this.state.menuOpen && y > 100;
+      slot.style.transform = hidden ? "translateY(-140%)" : "translateY(0)";
+      slot.style.opacity = hidden ? "0" : "1";
+      slot.style.pointerEvents = hidden ? "none" : "auto";
+    }
+
+    const targetV = Math.abs(y - (this.lastY || y)) / Math.max(1, dt);
+    this.velocity = this.velocity + (targetV - this.velocity) * 0.12;
+    this.lastY = y;
+
+    if (!this.reduced && this.rows && this.rows.length === 2) {
+      const speed = (0.028 + Math.min(0.5, this.velocity * 0.16)) * dt;
+      const w0 = this.rows[0].scrollWidth / 2, w1 = this.rows[1].scrollWidth / 2;
+      this.rowOffset[0] -= speed;
+      if (this.rowOffset[0] <= -w0) this.rowOffset[0] += w0;
+      this.rowOffset[1] += speed;
+      if (this.rowOffset[1] >= 0) this.rowOffset[1] -= w1;
+      this.rows[0].style.transform = "translate3d(" + this.rowOffset[0] + "px,0,0)";
+      this.rows[1].style.transform = "translate3d(" + this.rowOffset[1] + "px,0,0)";
+    }
+
+    this.tickReveals(vh);
+    this.syncHeaderPolarity();
+
+    const man = root.querySelector("[data-manifesto]");
+    if (man) {
+      const r = man.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, -r.top / Math.max(1, man.offsetHeight - vh)));
+      man.querySelectorAll("[data-mline]").forEach((el, i) => {
+        const on = this.reduced || p > 0.06 + i * 0.17;
+        el.style.transition = "transform 800ms cubic-bezier(0.16,1,0.3,1)";
+        el.style.transform = on ? "translateY(0)" : "translateY(105%)";
+      });
+      const fine = man.querySelector("[data-mfine]");
+      if (fine) {
+        const on = this.reduced || p > 0.66;
+        fine.style.transition = "opacity 600ms ease, transform 600ms cubic-bezier(0.16,1,0.3,1)";
+        fine.style.opacity = on ? "1" : "0";
+        fine.style.transform = on ? "translateY(0)" : "translateY(18px)";
+      }
+    }
+
+    if (this.conn) {
+      const cw = this.conn.wrap.getBoundingClientRect();
+      /* Endpoint rings resize as their icons decode, so re-measure whenever the
+         illustration's own box changes rather than trusting the first pass. */
+      if (Math.abs(cw.width - this.conn.w) > 1 || Math.abs(cw.height - this.conn.h) > 1) this.conn = null;
+    }
+    if (!this.conn) this.conn = this.buildConnections();
+    if (this.conn && !this.conn.drawn) {
+      const cr = this.conn.wrap.getBoundingClientRect();
+      if (cr.top < vh * 0.82) {
+        this.conn.drawn = true;
+        this.conn.paths.forEach((p, i) => { p.style.transitionDelay = (i * 110) + "ms"; p.style.strokeDashoffset = "0"; });
+      }
+    }
+
+    const clines = root.querySelectorAll("[data-cline]");
+    if (clines.length) {
+      const on = clines[0].getBoundingClientRect().top < vh * 0.85;
+      clines.forEach((el, i) => {
+        el.style.transition = "transform 900ms cubic-bezier(0.16,1,0.3,1)";
+        el.style.transitionDelay = (i * 110) + "ms";
+        el.style.transform = (this.reduced || on) ? "translateY(0)" : "translateY(105%)";
+      });
+    }
+  }
+
+  renderVals() {
+    const list = decorate(CONNECTORS);
+    return {
+      /* Booking link lives in links.js so it can be updated in one place. */
+      bookACall: (window.RAIPP_LINKS && window.RAIPP_LINKS.bookACall) || "https://wa.me/5511982838497?text=Ol%C3%A1%2C%20Get%C3%BAlio!%20Quero%20solicitar%20um%20diagn%C3%B3stico%20de%20design%20system.",
+      theme: this.state.theme,
+      alt: this.state.theme === "dark" ? "light" : "dark",
+      rowA: list.concat(list),
+      rowB: list.slice().reverse().concat(list.slice().reverse()),
+      ongoing: ONGOING,
+      clients: CLIENTS,
+      toggleMenu: () => { const next = !this.state.menuOpen; this.setState({ menuOpen: next }, () => this.syncHeaderPolarity()); this.syncMenu(next); },
+      toggleTheme: () => {
+        const next = this.state.theme === "dark" ? "light" : "dark";
+        try { localStorage.setItem("raipp-theme", next); } catch (e) {}
+        this.setState({ theme: next });
+        this.syncChrome(next);
+        setTimeout(() => { this.syncChrome(next); this.hydrateLogos(); this.conn = null; }, 0);
+      },
+      backToTop: () => window.scrollTo({ top: 0, behavior: this.reduced ? "auto" : "smooth" }),
+      copyMail: () => {
+        const label = this.root && this.root.querySelector("[data-copy-label]");
+        const done = () => { if (label) { label.textContent = "Copiado"; setTimeout(() => { label.textContent = "getulio@raipp.com.br"; }, 1600); } };
+        if (navigator.clipboard) navigator.clipboard.writeText("getulio@raipp.com.br").then(done).catch(done);
+        else done();
+      }
+    };
+  }
+}
+
+</script>
+
+
+</body>

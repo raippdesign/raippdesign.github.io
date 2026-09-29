@@ -1,0 +1,45 @@
+/* Indisea spacing: 4px base unit, 8px working rhythm.
+   Allowed: 4 8 12 16 24 32 48 64 96 128. Never 18, 27, 53. */
+:root{
+  --space-0: 0px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+  --space-32: 128px;
+
+  /* semantic rhythm */
+  --gap-inline: var(--space-2);
+  --gap-control: var(--space-3);
+  --gap-group: var(--space-4);
+  --gap-block: var(--space-6);
+  --gap-section: var(--space-16);
+  --gap-band: var(--space-24);
+
+  /* grid + margins (from the brand layout table) */
+  --grid-columns-desktop: 12; /* @kind other */
+  --grid-columns-tablet: 8; /* @kind other */
+  --grid-columns-mobile: 4; /* @kind other */
+  --grid-gutter-desktop: 24px;
+  --grid-gutter-desktop-lg: 32px;
+  --grid-gutter-tablet: 20px;
+  --grid-gutter-mobile: 16px;
+  --margin-desktop-lg: 96px;
+  --margin-desktop: 64px;
+  --margin-tablet: 48px;
+  --margin-mobile: 24px;
+  --container-max: 1440px;
+  --container-text: 720px;
+
+  /* MD3-consistent target sizes */
+  --target-min: 48px;
+  --control-height-sm: 32px;
+  --control-height-md: 40px;
+  --control-height-lg: 48px;
+  --control-height-xl: 56px;
+}

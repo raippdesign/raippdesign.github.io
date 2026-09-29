@@ -1,0 +1,189 @@
+/* Indisea base layer: element defaults only. Tokens live in tokens/*.css.
+   No shadows anywhere. Left-aligned, sentence case, 8pt rhythm. */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--surface-canvas);color:var(--text-body);font-family:var(--font-sans);font-size:var(--text-body-md);line-height:var(--leading-body);letter-spacing:var(--tracking-body);font-weight:var(--weight-body);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+h1,h2,h3,h4,h5,h6{margin:0;color:var(--text-heading);font-weight:var(--weight-heading);letter-spacing:var(--tracking-heading);line-height:var(--leading-heading);text-wrap:balance}
+h1{font-size:var(--text-h1)}h2{font-size:var(--text-h2)}h3{font-size:var(--text-h3)}
+h4{font-size:var(--ui-title-lg);letter-spacing:var(--tracking-body)}
+p{margin:0;max-width:var(--measure-body);text-wrap:pretty}
+a{color:var(--text-link);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;transition:color var(--duration-fast) var(--ease-standard)}
+a:hover{color:var(--text-link-hover)}
+a:active{color:var(--text-link-hover)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{outline:var(--focus-ring-width) solid var(--border-focus);outline-offset:var(--focus-ring-offset);border-radius:var(--radius-xs)}
+img,svg{display:block;max-width:100%}
+button,input,select,textarea{font:inherit;color:inherit}
+hr{border:0;border-top:var(--border-width-hairline) solid var(--border-hairline);margin:var(--space-8) 0}
+code,pre,.mono{font-family:var(--font-mono);font-variant-ligatures:none;font-weight:var(--mono-weight);letter-spacing:var(--tracking-mono);font-variant-numeric:tabular-nums;font-feature-settings:"zero" 1}
+::selection{background:var(--indisea-blue-200);color:var(--indisea-stone-900)}
+*{box-shadow:none}
+
+/* ---- brand type utilities ---- */
+.indisea-display-xl{font-size:var(--text-display-xl);line-height:var(--leading-display);letter-spacing:var(--tracking-display);font-weight:var(--weight-display)}
+.indisea-display{font-size:var(--text-display);line-height:var(--leading-display);letter-spacing:var(--tracking-display);font-weight:var(--weight-display)}
+/* big numbers are display type: semibold, tightest tracking */
+.indisea-figure{font-size:var(--text-display);line-height:var(--leading-display);letter-spacing:var(--tracking-display);font-weight:var(--weight-display);font-variant-numeric:tabular-nums}
+.indisea-body-lg{font-size:var(--text-body-lg);line-height:var(--leading-relaxed);letter-spacing:var(--tracking-body);max-width:var(--measure-body)}
+.indisea-label{font-size:var(--text-label);font-weight:var(--weight-medium);letter-spacing:var(--tracking-label)}
+.indisea-heading{color:var(--text-heading);font-weight:var(--weight-heading);letter-spacing:var(--tracking-heading);line-height:var(--leading-heading)}
+/* The NEUTRAL eyebrow: a section label. Plain muted caps, no chip. */
+.indisea-eyebrow{font-size:var(--text-micro);font-weight:var(--weight-semibold);letter-spacing:var(--tracking-caps);text-transform:uppercase;color:var(--text-muted)}
+/* The VERDICT eyebrow: a tint chip. Accent-colored label text on its own is not
+   allowed anywhere in this system, because at 10-11px it pairs the weakest
+   contrast with the smallest type. A verdict gets a fill instead: light tint with
+   dark colored text, inverting automatically on a charcoal canvas. Always pair
+   with a tone class; the base alone is a neutral gray chip. */
+.indisea-eyebrow-chip{display:inline-flex;align-items:center;height:24px;padding:0 var(--space-2);border-radius:var(--radius-pill);font-size:var(--text-micro);font-weight:var(--weight-semibold);letter-spacing:var(--tracking-caps);text-transform:uppercase;white-space:nowrap;background:var(--surface-sunken);color:var(--text-muted)}
+/* These read the status tokens DIRECTLY, never through a :root alias: an alias
+   would resolve on html and inherit already-computed, so it could not invert
+   inside a dark theme or a color block. See tokens/colors.css. */
+.indisea-eyebrow-good{background:var(--status-success-container);color:var(--status-success-on-container)}
+.indisea-eyebrow-warn{background:var(--status-warning-container);color:var(--status-warning-on-container)}
+.indisea-eyebrow-bad{background:var(--status-error-container);color:var(--status-error-on-container)}
+.indisea-eyebrow-info{background:var(--status-info-container);color:var(--status-info-on-container)}
+.indisea-micro{font-size:var(--text-micro);letter-spacing:var(--tracking-label);color:var(--text-faint)}
+
+/* ---- mono utilities. Machine-generated strings only, never prose. ---- */
+/* A value: version, ID, hash, timestamp, endpoint, amount in a table. */
+.indisea-mono{font-family:var(--font-mono);font-size:var(--mono-body);font-weight:var(--mono-weight);line-height:var(--leading-mono);letter-spacing:var(--tracking-mono);font-variant-ligatures:none;font-variant-numeric:tabular-nums;font-feature-settings:"zero" 1}
+/* Same, at product-UI scale: table cells, metadata rows, chips. */
+.indisea-mono-ui{font-family:var(--font-mono);font-size:var(--mono-ui);font-weight:var(--mono-weight);line-height:var(--leading-mono);letter-spacing:var(--tracking-mono);font-variant-ligatures:none;font-variant-numeric:tabular-nums;font-feature-settings:"zero" 1}
+/* Smallest legal mono: annotations under a value, footnote IDs. */
+.indisea-mono-micro{font-family:var(--font-mono);font-size:var(--mono-micro);font-weight:var(--mono-weight);line-height:1.4;letter-spacing:var(--tracking-mono);font-variant-ligatures:none;font-variant-numeric:tabular-nums;font-feature-settings:"zero" 1;color:var(--text-faint)}
+/* A column header over mono values. The one place mono goes uppercase. */
+.indisea-mono-label{font-family:var(--font-mono);font-size:var(--mono-micro);font-weight:var(--mono-weight-strong);text-transform:uppercase;letter-spacing:var(--tracking-mono-caps);color:var(--text-muted)}
+/* Inline code inside prose. Tinted container, never a border, never a shadow. */
+.indisea-code{font-family:var(--font-mono);font-size:0.875em;font-weight:var(--mono-weight);padding:2px 6px;border-radius:var(--radius-xs);background:var(--surface-sunken);color:var(--text-body);font-variant-ligatures:none}
+/* A code block. The only mono that may run more than one line. */
+.indisea-pre{font-family:var(--font-mono);font-size:var(--mono-body);font-weight:var(--mono-weight);line-height:1.6;letter-spacing:var(--tracking-mono);padding:var(--space-4);border-radius:var(--radius-sm);background:var(--surface-sunken);overflow-x:auto;font-variant-ligatures:none;tab-size:2}
+
+/* ---- numbered lists ----
+   A numbered list in this brand is OUTLINED CIRCLES, not digits and periods:
+   urban wayfinding, closer to a transit route bullet than to a word processor.
+
+   The numeral is a REAL ELEMENT, not a CSS counter. counter() in ::before is
+   generated content: it vanishes in any renderer that re-serializes the DOM
+   (thumbnailers, PDF pipelines, html-to-image), which would silently leave a row
+   of empty circles. Writing the digit into the markup costs one span and always
+   renders. It also lets a list start at any number.
+
+   The marker is an OUTLINED circle, not a filled one: the ring and the numeral
+   are the same color, so a list reads as a sequence of quiet waypoints rather
+   than a row of solid dots competing with the headings beside them.
+
+   ONE COLOR PER LIST. The items of a list are related, so they share a single
+   color instance; nothing cycles. Set the hue on the <ol> with
+   .indisea-ol-blue|green|yellow|red, or leave it off for the neutral default.
+
+   The color comes from --accent-type-<hue>, the BODY tier (4.5:1), because a
+   14px numeral is small text. That token resolves per canvas, so the same markup
+   is correct on stone and on charcoal with nothing re-specified. The ring is
+   currentColor, so the ring and numeral cannot drift apart. */
+.indisea-ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--space-4);color:var(--text-heading)}
+.indisea-ol>li{display:grid;grid-template-columns:var(--space-8) 1fr;gap:var(--space-3);align-items:start}
+.indisea-ol-marker{width:var(--space-8);height:var(--space-8);box-sizing:border-box;border:2px solid currentColor;border-radius:var(--radius-pill);display:flex;align-items:center;justify-content:center;font-size:var(--ui-body-md);font-weight:var(--weight-semibold);font-variant-numeric:tabular-nums;line-height:1;color:inherit}
+/* Hue variants. One class on the list sets both ring and numeral. */
+.indisea-ol-blue{color:var(--accent-type-blue)}
+.indisea-ol-green{color:var(--accent-type-green)}
+.indisea-ol-yellow{color:var(--accent-type-yellow)}
+.indisea-ol-red{color:var(--accent-type-red)}
+/* Tighter marker for dense UI lists. */
+.indisea-ol-sm>li{grid-template-columns:var(--space-6) 1fr}
+/* Ring stays 2px at both sizes: sub-pixel border widths round down to 1px in
+   Chrome, so a declared 1.5px was never what rendered. */
+.indisea-ol-sm>li>.indisea-ol-marker{width:var(--space-6);height:var(--space-6);font-size:var(--text-micro)}
+
+/* ---- layout utilities ---- */
+.indisea-container{max-width:var(--container-max);margin-inline:auto;padding-inline:var(--margin-desktop)}
+.indisea-grid-12{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--grid-gutter-desktop)}
+@media (max-width:1024px){.indisea-container{padding-inline:var(--margin-tablet)}.indisea-grid-12{grid-template-columns:repeat(8,minmax(0,1fr));gap:var(--grid-gutter-tablet)}}
+@media (max-width:640px){.indisea-container{padding-inline:var(--margin-mobile)}.indisea-grid-12{grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--grid-gutter-mobile)}}
+
+/* ---- surfaces (never shadows) ---- */
+/* Cards carry NO resting border. The surface value step does the separating.
+   A border is an interaction state only: hover on an interactive card, or focus. */
+.indisea-card{background:var(--surface-card);border:var(--border-width-strong) solid transparent;border-radius:var(--radius-card);padding:var(--space-6)}
+/* A surface sitting on its OWN value: the one legal resting border. The color
+   is derived per scope, so this works on stone, charcoal and inside any color
+   block without being told which. Use sparingly; prefer two surfaces. */
+.indisea-same-on-same{border:var(--border-width-hairline) solid var(--border-same-on-same)}
+.indisea-card-interactive{cursor:pointer;transition:var(--transition-control)}
+.indisea-card-interactive:hover{border-color:var(--border-strong)}
+.indisea-card-interactive:focus-visible{outline:var(--focus-ring-width) solid var(--border-focus);outline-offset:var(--focus-ring-offset)}
+
+/* ---- logo lockups ----
+   THE WORDMARK ALWAYS FOLLOWS THE PAGE'S TEXT COLOR: charcoal on a light canvas,
+   stone on a dark one. The official files encode that as two variants, the "-Alt"
+   file carrying the stone wordmark, so getting it right means picking a DIFFERENT
+   FILE rather than restyling one.
+
+   An <img src> cannot respond to a theme, which is exactly how every lockup in
+   this system came to be hard-wired light: the card went dark around a charcoal
+   wordmark and nothing in CSS could swap it. So a theme-aware lockup is a
+   BACKGROUND IMAGE on an empty element, where the theme scope can reassign it.
+
+     <span class="indisea-lockup indisea-lockup-primary"
+           style="--lockup:url('../assets/logos/Primary%20Lockup/Indisea-Logo-Primary.svg');
+                  --lockup-alt:url('../assets/logos/Primary%20Lockup/Indisea-Logo-Primary-Alt.svg');
+                  height:34px" role="img" aria-label="Indisea"></span>
+
+   Set the height; the lockup class supplies the aspect ratio, so the width
+   follows and the mark can never be stretched. Give it role="img" and an
+   aria-label, since a background image carries no alt text.
+
+   The icon lockup has no wordmark and the mono tones are already one value, so
+   neither has an -Alt file: --lockup-alt simply falls back to --lockup. */
+.indisea-lockup{display:block;background-image:var(--lockup);background-repeat:no-repeat;background-position:center;background-size:contain}
+[data-theme="dark"] .indisea-lockup{background-image:var(--lockup-alt,var(--lockup))}
+/* Official artboard ratios. Height drives width. */
+.indisea-lockup-primary{aspect-ratio:1000/178}
+.indisea-lockup-vertical{aspect-ratio:677/417}
+.indisea-lockup-icon{aspect-ratio:282/175}
+.indisea-lockup-wordmark{aspect-ratio:677/178}
+
+/* ---- motion utilities ----
+   Every one of these is positional or masked. None of them animate opacity. */
+
+/* A section or slide sliding OVER the one beneath it. The outgoing layer holds
+   still and is covered; it does not fade or shrink away. Reverse the direction
+   to pull the top layer back off and reveal what was underneath. */
+@keyframes indisea-cover-up{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes indisea-cover-down{from{transform:translateY(-100%)}to{transform:translateY(0)}}
+@keyframes indisea-cover-left{from{transform:translateX(100%)}to{transform:translateX(0)}}
+@keyframes indisea-uncover-down{from{transform:translateY(0)}to{transform:translateY(100%)}}
+.indisea-cover-up{animation:indisea-cover-up var(--duration-cover) var(--ease-standard) both}
+.indisea-cover-down{animation:indisea-cover-down var(--duration-cover) var(--ease-standard) both}
+.indisea-cover-left{animation:indisea-cover-left var(--duration-cover) var(--ease-standard) both}
+.indisea-uncover-down{animation:indisea-uncover-down var(--duration-cover) var(--ease-accelerate) both}
+
+/* Text arriving line by line, rising through a mask. The line is ALREADY SET;
+   the mask is what moves. Wrap each line in .indisea-line and let the parent clip. */
+@keyframes indisea-line-rise{from{transform:translateY(105%)}to{transform:translateY(0)}}
+.indisea-reveal{display:block}
+/* The mask box is PADDED and the padding cancelled in layout. Display and heading
+   leading (0.92 / 0.96) is smaller than the font's glyph box, so a mask sized to
+   the line box clips descenders, commas and accents at rest. The child translate
+   is 105% of the padded box, so the incoming line stays fully hidden. */
+.indisea-reveal>.indisea-line{display:block;overflow:hidden;padding-block:0.22em;margin-block:-0.22em}
+.indisea-reveal>.indisea-line>span{display:block;animation:indisea-line-rise var(--duration-line) var(--ease-decelerate) both}
+.indisea-reveal>.indisea-line:nth-child(1)>span{animation-delay:calc(var(--stagger-line)*0)}
+.indisea-reveal>.indisea-line:nth-child(2)>span{animation-delay:calc(var(--stagger-line)*1)}
+.indisea-reveal>.indisea-line:nth-child(3)>span{animation-delay:calc(var(--stagger-line)*2)}
+.indisea-reveal>.indisea-line:nth-child(4)>span{animation-delay:calc(var(--stagger-line)*3)}
+.indisea-reveal>.indisea-line:nth-child(5)>span{animation-delay:calc(var(--stagger-line)*4)}
+.indisea-reveal>.indisea-line:nth-child(6)>span{animation-delay:calc(var(--stagger-line)*5)}
+
+/* A connector line drawing along its path. Set --len to the path length
+   (path.getTotalLength()) or any value above it. */
+@keyframes indisea-draw{from{stroke-dashoffset:var(--len,1000)}to{stroke-dashoffset:0}}
+.indisea-draw{stroke-dasharray:var(--len,1000);animation:indisea-draw var(--duration-path) var(--ease-standard) both}
+/* A terminal node resolving as the line reaches it: it scales up from nothing at
+   its own center, so it reads as the line arriving rather than a dot fading in. */
+@keyframes indisea-node-land{from{transform:scale(0)}to{transform:scale(1)}}
+.indisea-node-land{transform-box:fill-box;transform-origin:center;animation:indisea-node-land var(--duration-fast) var(--ease-decelerate) both}
+
+/* A photograph sitting behind its frame. The frame is the window; the image
+   travels a little slower than the page, so the frame reads as an aperture.
+   Drive --p from scroll progress (-1 to 1) in JS, or leave it at 0. */
+.indisea-parallax{overflow:hidden}
+.indisea-parallax>img{height:calc(100% + var(--parallax-shift)*2);transform:translateY(calc(var(--p,0)*var(--parallax-shift)*-1));will-change:transform}

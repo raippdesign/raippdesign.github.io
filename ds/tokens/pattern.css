@@ -1,0 +1,71 @@
+/* Indisea logo pattern: the wave-and-node motif from the logomark, tiled.
+   Six colorways in assets/Indisea Logo Pattern/, each a 600x600 SVG of a single
+   solid color on transparency, so the color underneath is the background and
+   the SVG is the ink.
+
+   IT IS A BACKGROUND, NEVER A CONTENT SURFACE. The field is busy on purpose:
+   the wave forms read as motion and the cross-hatch nodes as connection points.
+   Nothing sits directly on it. Copy goes in a solid card or a solid color band
+   laid over the pattern, which is also what gives the composition its Bauhaus
+   figure-on-field structure.
+
+   TILE SCALE is a fixed set: 400, 600 or 800px. Nothing between and nothing
+   outside. Below roughly 300px the wave collapses into generic texture and the
+   connection meaning is lost, which is the whole reason the pattern exists.
+     400px  dense, for large fields and print
+     600px  native, the default
+     800px  open, for a hero or cover where the motif should be readable
+
+   TILING: the artwork loops on all four edges. Use background-repeat, or lay
+   multiple elements edge to edge with NO gap and NO corner radius. A radius on a
+   pattern tile breaks the loop and exposes the seam. */
+:root{
+  --pattern-tile-dense: 400px;
+  --pattern-tile: 600px;
+  --pattern-tile-open: 800px;
+
+  --pattern-url-blue: url("../assets/Indisea Logo Pattern/logo-pattern-blue.svg"); /* @kind other */
+  --pattern-url-yellow: url("../assets/Indisea Logo Pattern/logo-pattern-yellow.svg"); /* @kind other */
+  --pattern-url-green: url("../assets/Indisea Logo Pattern/logo-pattern-green.svg"); /* @kind other */
+  --pattern-url-red: url("../assets/Indisea Logo Pattern/logo-pattern-red.svg"); /* @kind other */
+  --pattern-url-white: url("../assets/Indisea Logo Pattern/logo-pattern-white.svg"); /* @kind other */
+  --pattern-url-charcoal: url("../assets/Indisea Logo Pattern/logo-pattern-charcoal.svg"); /* @kind other */
+
+  /* Opacity on the pattern LAYER is allowed, and it is the one place this system
+     permits decorative transparency. Subtlety should come from the colorway
+     first (same-hue on 300 or 700); reach for opacity only when the right
+     colorway is still too loud for the layout. */
+  --pattern-opacity-full: 1; /* @kind other */
+  --pattern-opacity-soft: 0.6; /* @kind other */
+  --pattern-opacity-whisper: 0.3; /* @kind other */
+}
+
+/* The pattern field. Set the background color on the element and the colorway
+   with data-pattern; the SVG is the ink over it.
+     <div class="indisea-pattern" data-pattern="white" style="background:var(--indisea-link-green)">
+   No radius: a rounded corner breaks the loop and shows the seam. */
+.indisea-pattern{background-image:var(--pattern-url-white);background-repeat:repeat;background-size:var(--pattern-tile) var(--pattern-tile);background-position:0 0;border-radius:0}
+.indisea-pattern[data-pattern="blue"]{background-image:var(--pattern-url-blue)}
+.indisea-pattern[data-pattern="yellow"]{background-image:var(--pattern-url-yellow)}
+.indisea-pattern[data-pattern="green"]{background-image:var(--pattern-url-green)}
+.indisea-pattern[data-pattern="red"]{background-image:var(--pattern-url-red)}
+.indisea-pattern[data-pattern="white"]{background-image:var(--pattern-url-white)}
+.indisea-pattern[data-pattern="charcoal"]{background-image:var(--pattern-url-charcoal)}
+.indisea-pattern[data-tile="dense"]{background-size:var(--pattern-tile-dense) var(--pattern-tile-dense)}
+.indisea-pattern[data-tile="open"]{background-size:var(--pattern-tile-open) var(--pattern-tile-open)}
+
+/* Reduced-opacity field. A background-image cannot take opacity on its own, so
+   the pattern goes on a ::before layer and that layer is what fades. The element
+   keeps its own background color underneath. */
+.indisea-pattern-soft{position:relative;isolation:isolate;border-radius:0}
+.indisea-pattern-soft>*{position:relative;z-index:1}
+.indisea-pattern-soft::before{content:"";position:absolute;inset:0;z-index:0;background-image:var(--pattern-url-white);background-repeat:repeat;background-size:var(--pattern-tile) var(--pattern-tile);opacity:var(--pattern-opacity-soft);pointer-events:none}
+.indisea-pattern-soft[data-pattern="blue"]::before{background-image:var(--pattern-url-blue)}
+.indisea-pattern-soft[data-pattern="yellow"]::before{background-image:var(--pattern-url-yellow)}
+.indisea-pattern-soft[data-pattern="green"]::before{background-image:var(--pattern-url-green)}
+.indisea-pattern-soft[data-pattern="red"]::before{background-image:var(--pattern-url-red)}
+.indisea-pattern-soft[data-pattern="charcoal"]::before{background-image:var(--pattern-url-charcoal)}
+.indisea-pattern-soft[data-opacity="whisper"]::before{opacity:var(--pattern-opacity-whisper)}
+.indisea-pattern-soft[data-opacity="full"]::before{opacity:var(--pattern-opacity-full)}
+.indisea-pattern-soft[data-tile="dense"]::before{background-size:var(--pattern-tile-dense) var(--pattern-tile-dense)}
+.indisea-pattern-soft[data-tile="open"]::before{background-size:var(--pattern-tile-open) var(--pattern-tile-open)}

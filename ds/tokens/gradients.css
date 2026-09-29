@@ -1,0 +1,111 @@
+/* Indisea gradients: 12 approved ramps, three per hue, single hue only.
+   Every gradient runs 180deg, TOP TO BOTTOM, light end at the top. One fixed
+   angle keeps them Swiss rather than decorative, and it means a gradient block
+   and a gradient bar in a chart read as the same material.
+
+   THE THREE TIERS
+     light   value 100 -> 500
+     medium  value 300 -> 700
+     dark    value 500 -> 900
+
+   MODE PAIRING: light mode uses the LIGHT tier, dark mode uses the DARK tier.
+   Use --gradient-<hue> and it switches for you; reach for a tier by name only
+   when you need to override. The medium tier is mode-neutral and is the one to
+   use for connector strokes and chart ramps, where the surface underneath is
+   not what the gradient is sitting on.
+
+   TEXT ON A GRADIENT IS LARGE-TEXT ONLY, 24px and up, and only on the seven
+   ramps that clear 3:1 at BOTH ends. Contrast is measured against the WORST end,
+   because a gradient offers the reader no choice about where the text lands.
+   Anything smaller goes in a solid card. Five ramps carry no text at all:
+
+     ramp              worst end vs charcoal   vs nearly white   text
+     blue light        7.19                    1.11              charcoal, 24px+
+     blue medium       3.68                    1.50              charcoal, 24px+
+     blue dark         1.62                    2.01              NONE
+     yellow light      6.99                    1.11              charcoal, 24px+
+     yellow medium     3.59                    1.52              charcoal, 24px+
+     yellow dark       1.61                    2.07              NONE
+     green light       4.50                    1.21              charcoal, 24px+
+     green medium      2.45                    1.98              NONE
+     green dark        1.28                    3.22              white, 24px+
+     red light         2.68                    1.33              NONE
+     red medium        1.63                    2.79              NONE
+     red dark          1.01                    5.40              white, 24px+
+
+   WHERE THEY ARE ALLOWED
+     - large block backgrounds (a full section or slide fill)
+     - connector line strokes, where a line shifts value along its path
+     - data visualization: bars, ramps, heat scales
+   Never on cards or tiles, never as a photo scrim, never on a small accent, and
+   never across two hues. A gradient block COUNTS as a color block against the
+   70/25/5 rhythm, so it spends the same 5-10% budget a solid fill would. */
+:root{
+  /* ---- light tier: 100 -> 500 ---- */
+  --gradient-blue-light: linear-gradient(180deg, var(--indisea-blue-100) 0%, var(--indisea-blue-500) 100%);
+  --gradient-yellow-light: linear-gradient(180deg, var(--indisea-yellow-100) 0%, var(--indisea-yellow-500) 100%);
+  --gradient-green-light: linear-gradient(180deg, var(--indisea-green-100) 0%, var(--indisea-green-500) 100%);
+  --gradient-red-light: linear-gradient(180deg, var(--indisea-red-100) 0%, var(--indisea-red-500) 100%);
+
+  /* ---- medium tier: 300 -> 700. Mode-neutral: use for strokes and charts. ---- */
+  --gradient-blue-medium: linear-gradient(180deg, var(--indisea-blue-300) 0%, var(--indisea-blue-700) 100%);
+  --gradient-yellow-medium: linear-gradient(180deg, var(--indisea-yellow-300) 0%, var(--indisea-yellow-700) 100%);
+  --gradient-green-medium: linear-gradient(180deg, var(--indisea-green-300) 0%, var(--indisea-green-700) 100%);
+  --gradient-red-medium: linear-gradient(180deg, var(--indisea-red-300) 0%, var(--indisea-red-700) 100%);
+
+  /* ---- dark tier: 500 -> 900 ---- */
+  --gradient-blue-dark: linear-gradient(180deg, var(--indisea-blue-500) 0%, var(--indisea-blue-900) 100%);
+  --gradient-yellow-dark: linear-gradient(180deg, var(--indisea-yellow-500) 0%, var(--indisea-yellow-900) 100%);
+  --gradient-green-dark: linear-gradient(180deg, var(--indisea-green-500) 0%, var(--indisea-green-900) 100%);
+  --gradient-red-dark: linear-gradient(180deg, var(--indisea-red-500) 0%, var(--indisea-red-900) 100%);
+
+  /* ---- mode-paired aliases: light tier on a light canvas, dark tier on dark ----
+     These are the ones to reach for on a block background. */
+  --gradient-blue: var(--gradient-blue-light);
+  --gradient-yellow: var(--gradient-yellow-light);
+  --gradient-green: var(--gradient-green-light);
+  --gradient-red: var(--gradient-red-light);
+
+  /* Content polarity for the mode-paired alias, so a heading on a gradient block
+     does not have to be re-specified per mode. Large text only, 24px+. */
+  --on-gradient-blue: var(--indisea-stone-900);
+  --on-gradient-yellow: var(--indisea-stone-900);
+  --on-gradient-green: var(--indisea-stone-900);
+  /* Red has no legal text at the light tier, so this is the one alias that
+     carries no content color. Put red-gradient copy in a solid card. */
+  --on-gradient-red: transparent;
+}
+
+[data-theme="dark"]{
+  --gradient-blue: var(--gradient-blue-dark);
+  --gradient-yellow: var(--gradient-yellow-dark);
+  --gradient-green: var(--gradient-green-dark);
+  --gradient-red: var(--gradient-red-dark);
+
+  /* Blue and yellow dark ramps clear NEITHER polarity, so they carry no text in
+     dark mode. Green and red dark take nearly white at 24px+. */
+  --on-gradient-blue: transparent;
+  --on-gradient-yellow: transparent;
+  --on-gradient-green: var(--indisea-nearly-white);
+  --on-gradient-red: var(--indisea-nearly-white);
+}
+
+/* A gradient block. Same contract as .indisea-block: it paints its own fill.
+   Pair with data-mode so buttons, borders and cards inside still resolve. */
+.indisea-gradient-block{background-image:var(--gradient-blue);color:var(--on-gradient-blue)}
+.indisea-gradient-block[data-gradient="yellow"]{background-image:var(--gradient-yellow);color:var(--on-gradient-yellow)}
+.indisea-gradient-block[data-gradient="green"]{background-image:var(--gradient-green);color:var(--on-gradient-green)}
+.indisea-gradient-block[data-gradient="red"]{background-image:var(--gradient-red);color:var(--on-gradient-red)}
+/* Explicit tier override, when the mode pairing is not what the layout wants. */
+.indisea-gradient-block[data-tier="light"][data-gradient="blue"]{background-image:var(--gradient-blue-light)}
+.indisea-gradient-block[data-tier="medium"][data-gradient="blue"]{background-image:var(--gradient-blue-medium)}
+.indisea-gradient-block[data-tier="dark"][data-gradient="blue"]{background-image:var(--gradient-blue-dark)}
+.indisea-gradient-block[data-tier="light"][data-gradient="yellow"]{background-image:var(--gradient-yellow-light)}
+.indisea-gradient-block[data-tier="medium"][data-gradient="yellow"]{background-image:var(--gradient-yellow-medium)}
+.indisea-gradient-block[data-tier="dark"][data-gradient="yellow"]{background-image:var(--gradient-yellow-dark)}
+.indisea-gradient-block[data-tier="light"][data-gradient="green"]{background-image:var(--gradient-green-light)}
+.indisea-gradient-block[data-tier="medium"][data-gradient="green"]{background-image:var(--gradient-green-medium)}
+.indisea-gradient-block[data-tier="dark"][data-gradient="green"]{background-image:var(--gradient-green-dark)}
+.indisea-gradient-block[data-tier="light"][data-gradient="red"]{background-image:var(--gradient-red-light)}
+.indisea-gradient-block[data-tier="medium"][data-gradient="red"]{background-image:var(--gradient-red-medium)}
+.indisea-gradient-block[data-tier="dark"][data-gradient="red"]{background-image:var(--gradient-red-dark)}

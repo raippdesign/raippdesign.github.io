@@ -1,0 +1,29 @@
+/* Indisea overlays and scrims.
+
+   THIS FILE USED TO BE elevation.css AND DEFINED --shadow-none PLUS A FOUR-STEP
+   --elevation-N-surface SCALE. Both were removed, deliberately:
+
+     - There are no shadows, ever, so a --shadow-none token is a shadow API in a
+       brand that has none. A consuming agent that finds it reasonably infers
+       there are other shadow values.
+     - Levels 1 and 2 resolved to the SAME value (--surface-card), because the
+       system only has two surfaces. A four-step scale over two surfaces encodes
+       nothing and implies a layered elevation model that does not exist.
+
+   Depth in this system is ONE SURFACE STEP: stone canvas, nearly-white card. On
+   charcoal it is charcoal and nearly charcoal. Use --surface-canvas and
+   --surface-card directly. A surface on its OWN value takes a 1px
+   --border-same-on-same edge; see readme.md, "No shadows, ever".
+
+   What legitimately lives here: the state and structure borders, and the three
+   overlay values. An overlay reads as raised through a flat fill over a scrim,
+   never through a shadow. */
+:root{
+  /* borders are STATE and STRUCTURE, never resting card decoration */
+  --border-hover: var(--border-strong);
+  --border-rule: var(--border-hairline);
+  --overlay-surface: var(--surface-card); /* @kind color */
+  --scrim: color-mix(in srgb, var(--indisea-stone-900) 40%, transparent);
+  /* blur is used only for scrims and sticky headers over content */
+  --blur-sticky: saturate(180%) blur(12px); /* @kind color */
+}

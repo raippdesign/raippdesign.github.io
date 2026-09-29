@@ -1,0 +1,33 @@
+/* Indisea shape: rounded corners everywhere, pills for actions.
+   Radii sit on the 4/8 grid, mirroring MD3's shape scale. */
+:root{
+  --radius-none: 0px;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+  --radius-pill: 999px;
+
+  --radius-button: var(--radius-pill);
+  --radius-chip: var(--radius-pill);
+  --radius-input: var(--radius-sm);
+  --radius-card: var(--radius-lg);
+  --radius-card-lg: var(--radius-xl);
+  --radius-sheet: var(--radius-2xl);
+  --radius-swatch: var(--radius-md);
+
+  /* borders: the only separation device in this brand */
+  --border-width-hairline: 1px;
+  --border-width-strong: 2px;
+  --border-width-heavy: 4px;
+  --focus-ring-width: 3px;
+  --focus-ring-offset: 2px;
+
+  /* line/stroke weights for connection diagrams */
+  --stroke-path: 4px;
+  --stroke-path-heavy: 8px;
+  --node-size: 16px;
+  --terminal-size: 24px;
+}

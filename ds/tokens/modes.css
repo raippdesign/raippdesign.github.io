@@ -1,0 +1,397 @@
+/* Indisea color modes.
+   A layout is built from BLOCKS, and every block declares its mode. The mode
+   remaps the semantic roles so anything inside it (text, icons, cards, borders)
+   is correct without per-element overrides.
+
+   Three kinds of block:
+     1. Base mode        the page default. `:root` (light) or [data-theme="dark"].
+     2. Alt mode         the opposite of the base. [data-theme="light"|"dark"].
+     3. Color mode       a saturated brand background. [data-mode="..."].
+
+   Proportion is the rule, not the decoration: 70% base, 20-25% alt, 5-10% color.
+   See readme.md, "Block rhythm: the 70/25/5 rule".
+
+   VIVID BLOCKS: the accent at full strength. Polarity is set by the fill's
+   luminance, and the 2026 palette splits cleanly two and two.
+   Measured against #FAFAF9 and #262626:
+
+     mode      fill                       content        ratio
+     blue      Sky Blue 500     #3BBFF7   charcoal       7.2:1
+     yellow    Signal Yellow 500 #EEA02B  charcoal       7.0:1
+     green     Link Green 500   #07A240   nearly white   3.2:1  <- display only
+     red       Node Red 500     #C92121   nearly white   5.4:1
+
+   BODY COPY NEVER SITS DIRECTLY ON A VIVID BLOCK. It goes in a card. A vivid
+   block carries display type only: a headline at 36px+, the same boundary the
+   accent-type tiers use, so the two rules move together. That is what makes Link
+   Green legal at
+   3.2:1, and it is a hard rule rather than a preference, because green's other
+   polarity (charcoal) is only 4.5:1 and would fail the moment the fill shifts.
+   Use .indisea-card-on-color for any paragraph, form or list.
+
+   VIVID BLOCKS DO NOT CHANGE BETWEEN LIGHT AND DARK MODE. The accent at full
+   strength reads correctly on either canvas, so it stays put.
+
+   DEEP BLOCKS DO. They are the copy-rich exception (body text may sit directly
+   on them), and they invert with the base mode so they always pop off the
+   surrounding surface:
+
+     mode          light canvas                  dark canvas
+     blue-deep     Sky Blue 800 / near-white     Sky Blue 400 / charcoal
+     yellow-deep   Sig. Yellow 800 / near-white  Sig. Yellow 400 / charcoal
+     green-deep    Link Green 700 / near-white   Link Green 400 / charcoal
+     red-deep      Node Red 700 / near-white     Node Red 300 / charcoal
+
+     light-canvas ratios: 5.9 / 6.0 / 5.9 / 8.9
+     dark-canvas ratios:  8.3 / 8.2 / 5.8 / 5.2
+
+   Node Red uses 300 rather than 400 on a dark canvas, because charcoal on Red
+   400 is only 3.6:1.
+
+   The switch is driven by --deep-*-fill and --deep-content in tokens/colors.css,
+   which the ambient theme scope redefines. The [data-mode="*-deep"] rules below
+   only CONSUME those tokens, so a deep block needs no theme attribute of its own:
+   put it inside a dark page and it flips on its own.
+
+   BUTTON LABELS ARE SMALL TEXT, so they follow the 4.5:1 bar, not 3:1. That
+   makes the success pill CHARCOAL on Link Green (4.5:1) even though a green
+   BLOCK uses nearly-white display type. Warning is charcoal on yellow (7.0:1),
+   alert is nearly-white on red (5.4:1).
+
+   DEAD ZONE, never set text on these: blue 600, yellow 600, green 600, red 400.
+*/
+
+/* An explicit light scope, so an alt-mode block inside a dark page can reset
+   cleanly. Mirrors :root exactly. */
+[data-theme="light"]{
+  --surface-canvas: var(--indisea-stone-100);
+  --surface-card: var(--indisea-stone-50);
+  --surface-sunken: var(--indisea-stone-200);
+  --surface-inverse: var(--indisea-stone-900);
+  --surface-inverse-card: var(--indisea-stone-800);
+  --text-heading: var(--indisea-stone-900);
+  --text-body: var(--indisea-stone-900);
+  --text-muted: var(--indisea-stone-700);
+  --text-faint: var(--indisea-stone-600);
+  --text-on-inverse: var(--indisea-stone-100);
+  --text-link: var(--indisea-blue-800);
+  --text-link-hover: var(--indisea-blue-900);
+  --border-hairline: var(--indisea-stone-300);
+  --border-strong: var(--indisea-stone-900);
+  --border-subtle: var(--indisea-stone-200);
+  --border-inverse: var(--indisea-stone-700);
+  --border-same-on-same: var(--indisea-stone-300);
+  --deep-same-on-same: rgba(250,250,249,0.28);
+  --action-primary: var(--indisea-stone-900);
+  --action-primary-hover: var(--indisea-stone-800);
+  --action-primary-press: var(--indisea-stone-700);
+  --action-primary-text: var(--indisea-stone-50);
+  --action-primary-icon: var(--indisea-sky-blue);
+  --action-secondary: transparent;
+  --action-secondary-hover: var(--indisea-stone-200);
+  --action-secondary-press: var(--indisea-stone-300);
+  --action-secondary-text: var(--indisea-stone-900);
+  --accent-type-blue: var(--indisea-blue-800);
+  --accent-type-green: var(--indisea-green-700);
+  --accent-type-yellow: var(--indisea-yellow-800);
+  --accent-type-red: var(--indisea-node-red);
+  --deep-blue-fill: var(--indisea-blue-800);
+  --deep-green-fill: var(--indisea-green-700);
+  --deep-yellow-fill: var(--indisea-yellow-800);
+  --deep-red-fill: var(--indisea-red-700);
+  --deep-content: var(--indisea-nearly-white);
+  --deep-content-muted: rgba(250,250,249,0.90);
+  --deep-content-faint: rgba(250,250,249,0.74);
+  --deep-border-hairline: rgba(250,250,249,0.32);
+  --deep-border-subtle: rgba(250,250,249,0.20);
+  --deep-recede-fill: rgba(250,250,249,0.10);
+  --deep-pill-bg: var(--indisea-nearly-white);
+  --deep-pill-text: var(--indisea-stone-900);
+  --deep-pill-icon: var(--indisea-stone-900);
+}
+
+/* ---------------- DEFAULT color modes: the accent at full strength ----------------
+   Blue and Yellow take charcoal; Green and Red take nearly white.
+   Display type only: put body copy in a .indisea-card-on-color.
+   One selector per mode so the compiler registers each as its own theme scope. */
+
+[data-mode="blue"]{
+  --mode-fill: var(--indisea-sky-blue);
+  --surface-canvas: var(--indisea-sky-blue);
+  --surface-card: var(--indisea-stone-50);
+  --surface-sunken: var(--indisea-blue-800);
+  --text-heading: var(--indisea-stone-900);
+  --text-body: var(--indisea-stone-900);
+  --text-muted: rgba(38,38,38,0.90);
+  --text-faint: rgba(38,38,38,0.74);
+  --text-link: var(--indisea-stone-900);
+  --text-link-hover: rgba(38,38,38,0.76);
+  --border-hairline: rgba(38,38,38,0.28);
+  --border-subtle: rgba(38,38,38,0.16);
+  --border-strong: var(--indisea-stone-900);
+  --border-same-on-same: var(--indisea-blue-700);
+  --card-on-color: var(--indisea-stone-50);
+  --card-on-color-text: var(--indisea-stone-900);
+  --card-on-color-tint: var(--indisea-blue-800);
+  --card-on-color-tint-text: var(--indisea-nearly-white);
+  --action-primary: var(--indisea-stone-900);
+  --action-primary-hover: var(--indisea-stone-800);
+  --action-primary-press: var(--indisea-stone-700);
+  --action-primary-text: var(--indisea-stone-50);
+  --action-primary-icon: var(--indisea-sky-blue);
+  --action-secondary: transparent;
+  --action-secondary-text: var(--indisea-stone-900);
+}
+
+[data-mode="yellow"]{
+  --mode-fill: var(--indisea-signal-yellow);
+  --surface-canvas: var(--indisea-signal-yellow);
+  --surface-card: var(--indisea-stone-50);
+  --surface-sunken: var(--indisea-yellow-800);
+  --text-heading: var(--indisea-stone-900);
+  --text-body: var(--indisea-stone-900);
+  --text-muted: rgba(38,38,38,0.90);
+  --text-faint: rgba(38,38,38,0.74);
+  --text-link: var(--indisea-stone-900);
+  --text-link-hover: rgba(38,38,38,0.76);
+  --border-hairline: rgba(38,38,38,0.28);
+  --border-subtle: rgba(38,38,38,0.16);
+  --border-strong: var(--indisea-stone-900);
+  --border-same-on-same: var(--indisea-yellow-700);
+  --card-on-color: var(--indisea-stone-50);
+  --card-on-color-text: var(--indisea-stone-900);
+  --card-on-color-tint: var(--indisea-yellow-800);
+  --card-on-color-tint-text: var(--indisea-nearly-white);
+  --action-primary: var(--indisea-stone-900);
+  --action-primary-hover: var(--indisea-stone-800);
+  --action-primary-press: var(--indisea-stone-700);
+  --action-primary-text: var(--indisea-stone-50);
+  --action-primary-icon: var(--indisea-sky-blue);
+  --action-secondary: transparent;
+  --action-secondary-text: var(--indisea-stone-900);
+}
+
+[data-mode="green"]{
+  --mode-fill: var(--indisea-link-green);
+  --surface-canvas: var(--indisea-link-green);
+  --surface-card: var(--indisea-stone-50);
+  --surface-sunken: var(--indisea-green-800);
+  --text-heading: var(--indisea-nearly-white);
+  --text-body: var(--indisea-nearly-white);
+  /* NO MUTED TIER EXISTS HERE. Nearly white on this fill is 3.2:1, which is
+     large-text-only, so anything dimmer than full nearly white is illegal at any
+     size. muted and faint therefore resolve to the SAME value as body: the token
+     stops advertising a safe tier that does not exist. Small or secondary text on
+     this block belongs in a .indisea-card-on-color. */
+  --text-muted: var(--indisea-nearly-white);
+  --text-faint: var(--indisea-nearly-white);
+  --text-link: var(--indisea-nearly-white);
+  --text-link-hover: rgba(250,250,249,0.82);
+  --border-hairline: rgba(250,250,249,0.34);
+  --border-subtle: rgba(250,250,249,0.22);
+  --border-strong: var(--indisea-nearly-white);
+  --border-same-on-same: var(--indisea-green-300);
+  --card-on-color: var(--indisea-stone-50);
+  --card-on-color-text: var(--indisea-stone-900);
+  --card-on-color-tint: var(--indisea-green-800);
+  --card-on-color-tint-text: var(--indisea-nearly-white);
+  --action-primary: var(--indisea-nearly-white);
+  --action-primary-hover: var(--indisea-stone-200);
+  --action-primary-press: var(--indisea-stone-300);
+  --action-primary-text: var(--indisea-green-800);
+  --action-primary-icon: var(--indisea-green-800);
+  --action-secondary: transparent;
+  --action-secondary-text: var(--indisea-nearly-white);
+}
+
+[data-mode="red"]{
+  --mode-fill: var(--indisea-node-red);
+  --surface-canvas: var(--indisea-node-red);
+  --surface-card: var(--indisea-stone-50);
+  --surface-sunken: var(--indisea-red-700);
+  --text-heading: var(--indisea-nearly-white);
+  --text-body: var(--indisea-nearly-white);
+  /* NO MUTED TIER EXISTS HERE. Nearly white on this fill is 3.2:1, which is
+     large-text-only, so anything dimmer than full nearly white is illegal at any
+     size. muted and faint therefore resolve to the SAME value as body: the token
+     stops advertising a safe tier that does not exist. Small or secondary text on
+     this block belongs in a .indisea-card-on-color. */
+  --text-muted: var(--indisea-nearly-white);
+  --text-faint: var(--indisea-nearly-white);
+  --text-link: var(--indisea-nearly-white);
+  --text-link-hover: rgba(250,250,249,0.82);
+  --border-hairline: rgba(250,250,249,0.34);
+  --border-subtle: rgba(250,250,249,0.22);
+  --border-strong: var(--indisea-nearly-white);
+  --border-same-on-same: var(--indisea-red-300);
+  --card-on-color: var(--indisea-stone-50);
+  --card-on-color-text: var(--indisea-stone-900);
+  --card-on-color-tint: var(--indisea-red-700);
+  --card-on-color-tint-text: var(--indisea-nearly-white);
+  --action-primary: var(--indisea-nearly-white);
+  --action-primary-hover: var(--indisea-stone-200);
+  --action-primary-press: var(--indisea-stone-300);
+  --action-primary-text: var(--indisea-red-800);
+  --action-primary-icon: var(--indisea-red-800);
+  --action-secondary: transparent;
+  --action-secondary-text: var(--indisea-nearly-white);
+}
+
+/* ---------------- DEEP color modes: the copy-rich exception ----------------
+   These consume the theme-responsive --deep-* tokens, so the same markup is a
+   dark fill on a light page and a light tint on a dark page. */
+
+[data-mode="blue-deep"]{
+  --mode-fill: var(--deep-blue-fill);
+  --surface-canvas: var(--deep-blue-fill);
+  --surface-card: var(--indisea-stone-50);
+  --surface-sunken: var(--deep-recede-fill);
+  --text-heading: var(--deep-content);
+  --text-body: var(--deep-content);
+  --text-muted: var(--deep-content-muted);
+  --text-faint: var(--deep-content-faint);
+  --text-link: var(--deep-content);
+  --text-link-hover: var(--deep-content-muted);
+  --border-hairline: var(--deep-border-hairline);
+  --border-subtle: var(--deep-border-subtle);
+  --border-strong: var(--deep-content);
+  --border-same-on-same: var(--deep-same-on-same);
+  --card-on-color: var(--indisea-stone-50);
+  --card-on-color-text: var(--indisea-stone-900);
+  --card-on-color-tint: var(--deep-recede-fill);
+  --card-on-color-tint-text: var(--deep-content);
+  --action-primary: var(--deep-pill-bg);
+  --action-primary-hover: var(--deep-pill-bg);
+  --action-primary-press: var(--deep-pill-bg);
+  --action-primary-text: var(--deep-pill-text);
+  --action-primary-icon: var(--deep-pill-icon);
+  --action-secondary: transparent;
+  --action-secondary-text: var(--deep-content);
+}
+
+[data-mode="green-deep"]{
+  --mode-fill: var(--deep-green-fill);
+  --surface-canvas: var(--deep-green-fill);
+  --surface-card: var(--indisea-stone-50);
+  --surface-sunken: var(--deep-recede-fill);
+  --text-heading: var(--deep-content);
+  --text-body: var(--deep-content);
+  --text-muted: var(--deep-content-muted);
+  --text-faint: var(--deep-content-faint);
+  --text-link: var(--deep-content);
+  --text-link-hover: var(--deep-content-muted);
+  --border-hairline: var(--deep-border-hairline);
+  --border-subtle: var(--deep-border-subtle);
+  --border-strong: var(--deep-content);
+  --border-same-on-same: var(--deep-same-on-same);
+  --card-on-color: var(--indisea-stone-50);
+  --card-on-color-text: var(--indisea-stone-900);
+  --card-on-color-tint: var(--deep-recede-fill);
+  --card-on-color-tint-text: var(--deep-content);
+  --action-primary: var(--deep-pill-bg);
+  --action-primary-hover: var(--deep-pill-bg);
+  --action-primary-press: var(--deep-pill-bg);
+  --action-primary-text: var(--deep-pill-text);
+  --action-primary-icon: var(--deep-pill-icon);
+  --action-secondary: transparent;
+  --action-secondary-text: var(--deep-content);
+}
+
+[data-mode="yellow-deep"]{
+  --mode-fill: var(--deep-yellow-fill);
+  --surface-canvas: var(--deep-yellow-fill);
+  --surface-card: var(--indisea-stone-50);
+  --surface-sunken: var(--deep-recede-fill);
+  --text-heading: var(--deep-content);
+  --text-body: var(--deep-content);
+  --text-muted: var(--deep-content-muted);
+  --text-faint: var(--deep-content-faint);
+  --text-link: var(--deep-content);
+  --text-link-hover: var(--deep-content-muted);
+  --border-hairline: var(--deep-border-hairline);
+  --border-subtle: var(--deep-border-subtle);
+  --border-strong: var(--deep-content);
+  --border-same-on-same: var(--deep-same-on-same);
+  --card-on-color: var(--indisea-stone-50);
+  --card-on-color-text: var(--indisea-stone-900);
+  --card-on-color-tint: var(--deep-recede-fill);
+  --card-on-color-tint-text: var(--deep-content);
+  --action-primary: var(--deep-pill-bg);
+  --action-primary-hover: var(--deep-pill-bg);
+  --action-primary-press: var(--deep-pill-bg);
+  --action-primary-text: var(--deep-pill-text);
+  --action-primary-icon: var(--deep-pill-icon);
+  --action-secondary: transparent;
+  --action-secondary-text: var(--deep-content);
+}
+
+[data-mode="red-deep"]{
+  --mode-fill: var(--deep-red-fill);
+  --surface-canvas: var(--deep-red-fill);
+  --surface-card: var(--indisea-stone-50);
+  --surface-sunken: var(--deep-recede-fill);
+  --text-heading: var(--deep-content);
+  --text-body: var(--deep-content);
+  --text-muted: var(--deep-content-muted);
+  --text-faint: var(--deep-content-faint);
+  --text-link: var(--deep-content);
+  --text-link-hover: var(--deep-content-muted);
+  --border-hairline: var(--deep-border-hairline);
+  --border-subtle: var(--deep-border-subtle);
+  --border-strong: var(--deep-content);
+  --border-same-on-same: var(--deep-same-on-same);
+  --card-on-color: var(--indisea-stone-50);
+  --card-on-color-text: var(--indisea-stone-900);
+  --card-on-color-tint: var(--deep-recede-fill);
+  --card-on-color-tint-text: var(--deep-content);
+  --action-primary: var(--deep-pill-bg);
+  --action-primary-hover: var(--deep-pill-bg);
+  --action-primary-press: var(--deep-pill-bg);
+  --action-primary-text: var(--deep-pill-text);
+  --action-primary-icon: var(--deep-pill-icon);
+  --action-secondary: transparent;
+  --action-secondary-text: var(--deep-content);
+}
+
+/* Pale tints: steps 100-400 of any hue, charcoal content. For quiet supporting
+   blocks rather than statements. Set the background to the step you want:
+   <section data-mode="green" data-tint="200" style="background:var(--indisea-green-200)">
+   Legal pale steps per hue: blue 100-500, yellow 100-600, green 100-500, red 100-300. */
+[data-tint]{
+  --text-heading: var(--indisea-stone-900);
+  --text-body: var(--indisea-stone-900);
+  --text-muted: rgba(38,38,38,0.76);
+  --text-faint: rgba(38,38,38,0.58);
+  --text-link: var(--indisea-stone-900);
+  --text-link-hover: rgba(38,38,38,0.72);
+  --border-hairline: rgba(38,38,38,0.24);
+  --border-subtle: rgba(38,38,38,0.14);
+  --border-strong: var(--indisea-stone-900);
+  --border-same-on-same: rgba(38,38,38,0.24);
+  --card-on-color: var(--indisea-stone-50);
+  --card-on-color-text: var(--indisea-stone-900);
+  --action-primary: var(--indisea-stone-900);
+  --action-primary-hover: var(--indisea-stone-800);
+  --action-primary-press: var(--indisea-stone-700);
+  --action-primary-text: var(--indisea-stone-50);
+  --action-primary-icon: var(--indisea-sky-blue);
+  --action-secondary-text: var(--indisea-stone-900);
+}
+
+/* A SCOPE DECLARATION CARRIES ITS OWN CONTENT COLOR.
+   This rule is load-bearing. `var()` resolves at the point of DECLARATION, not at
+   the point of use: `body{color:var(--text-body)}` computes charcoal once, and a
+   descendant that merely declares `data-mode="green"` inherits that already
+   computed charcoal. The tokens flip, the text does not. Setting color on the
+   scope selector itself re-resolves --text-body inside the new scope, so any
+   element that declares a mode is correct without also opting into a class.
+   Background is deliberately NOT set here: a color block may carry its own fill,
+   a vivid tint, or an image. */
+[data-theme],[data-mode],[data-tint]{color:var(--text-body)}
+
+/* The block itself. Every layout block gets one of these. */
+.indisea-block{background:var(--surface-canvas);color:var(--text-body)}
+/* A card sitting on a color mode: nearly white by default (pops forward), or a
+   deep tint of the same hue (recedes). Neither takes a shadow or a border. */
+.indisea-card-on-color{background:var(--card-on-color);color:var(--card-on-color-text);border-radius:var(--radius-card);padding:var(--space-6)}
+.indisea-card-on-color-tint{background:var(--card-on-color-tint);color:var(--card-on-color-tint-text);border-radius:var(--radius-card);padding:var(--space-6)}

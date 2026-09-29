@@ -1,0 +1,79 @@
+/* Indisea typography: one family (IBM Plex Sans), hierarchy by scale + weight.
+   Sizes follow the brand type scale; fluid via clamp() as the brand specifies. */
+:root{
+  --font-sans: "IBM Plex Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /* IBM Plex Mono. Used sparingly. Machine-generated strings only.
+     See readme.md, "When to use mono", for the eight legal cases. */
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  /* Three weights, and only three. Light 300 and Bold 700 are deliberately NOT
+     defined: weight is fixed by role in this system, and neither has a role, so
+     shipping them would only invite drift. */
+  --weight-regular: 400; /* @kind other */
+  --weight-medium: 500; /* @kind other */
+  --weight-semibold: 600; /* @kind other */
+
+  /* WEIGHT IS FIXED BY ROLE, not chosen per instance:
+       display type and big numbers  -> semibold 600
+       headings, every level         -> medium 500
+       body                          -> regular 400
+       labels and mono strong        -> medium 500
+     Reach for the role tokens below rather than a literal weight. */
+  --weight-display: 600; /* @kind other */
+  --weight-heading: 500; /* @kind other */
+  --weight-body: 400; /* @kind other */
+
+  /* leading: headings sit almost as tight as display (0.96 against 0.92), so a
+     two-line heading reads as one block. Body is close-set at 1.45. */
+  --leading-display: 0.92; /* @kind other */
+  --leading-heading: 0.96; /* @kind other */
+  --leading-snug: 1.22; /* @kind other */
+  --leading-body: 1.45; /* @kind other */
+  --leading-relaxed: 1.5; /* @kind other */
+
+  /* tracking is negative across the whole scale, which is what reads as Swiss.
+     Body sits slightly negative too, not at zero. */
+  --tracking-display: -0.035em;
+  --tracking-heading: -0.032em;
+  --tracking-body: -0.011em;
+  --tracking-label: 0.005em;
+  --tracking-caps: 0.07em;
+
+  /* fluid scale */
+  --text-display-xl: clamp(56px, 8vw, 128px);
+  --text-display: clamp(44px, 5.5vw, 80px);
+  --text-h1: clamp(36px, 4vw, 64px);
+  --text-h2: clamp(28px, 3vw, 48px);
+  --text-h3: clamp(22px, 2vw, 32px);
+  --text-body-lg: clamp(18px, 1.2vw, 22px);
+  --text-body-md: 16px;
+  --text-body-sm: 14px;
+  --text-label: 13px;
+  --text-micro: 11px;
+
+  /* fixed (UI) sizes: use inside product UI where fluid type is wrong */
+  --ui-title-lg: 22px;
+  --ui-title-md: 16px;
+  --ui-title-sm: 14px;
+  --ui-body-lg: 16px;
+  --ui-body-md: 14px;
+  --ui-body-sm: 12px;
+  --ui-label-lg: 14px;
+  --ui-label-md: 12px;
+  --ui-label-sm: 11px;
+
+  /* mono is set one step DOWN from the sans it sits beside, because Plex Mono
+     runs optically larger at the same nominal size. Pair 13/14, 12/13, 11/12. */
+  --mono-body: 13px;
+  --mono-ui: 12px;
+  --mono-micro: 11px;
+  --mono-weight: 400; /* @kind other */
+  --mono-weight-strong: 500; /* @kind other */
+  --tracking-mono: 0em;
+  --tracking-mono-caps: 0.06em;
+  --leading-mono: 1.45; /* @kind other */
+
+  /* measure: 55-75 characters */
+  --measure-body: 66ch; /* @kind other */
+  --measure-narrow: 46ch; /* @kind other */
+  --measure-wide: 75ch; /* @kind other */
+}
