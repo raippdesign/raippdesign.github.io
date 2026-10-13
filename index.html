@@ -455,23 +455,40 @@
   </main>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;showLoader&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Comportamento&quot;},&quot;floatingCta&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Comportamento&quot;},&quot;whatsappNumber&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;5511982838497&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contato&quot;},&quot;newsletterEndpoint&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Newsletter&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;showLoader&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Comportamento&quot;},&quot;floatingCta&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Comportamento&quot;},&quot;whatsappNumber&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;5511982838497&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contato&quot;},&quot;newsletterEndpoint&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://17a48129.sibforms.com/serve/MUIFALJV6zYSyCGn7j5wfJ-NXIlvIdzklB80APIV8O_8kHSYFFa_8Nhwk_TNWiQjiI5sGziGpr146x8zjEQGGd3yNhSr0q9uqcP9_1xK63nGjp_J_iCMuVZKmMa14bt5oqT_SpRm_pB9MIits0hTHcU7qa-bNGYhB_nJ4cR4LYQbFPj0aybbVead0lDFd95coqM9MXsH7k0ECKSQWg==&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Newsletter&quot;}}">
 class Component extends DCLogic {
   state = { lead: "idle", leadErr: "" };
 
-  /* Newsletter: valida, envia para newsletterEndpoint (POST "email") e mostra a confirmação. Sem endpoint, simula o envio. */
-  submitLead(e) {
+  /* Newsletter: envia à Brevo (lista RAIPP #3) e confirma apenas após resposta de sucesso. */
+  async submitLead(e) {
     e.preventDefault();
     if (this.state.lead === "sending") return;
     const f = e.currentTarget, input = f.elements.email;
     const email = String(input.value || "").trim();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { this.setState({ leadErr: "Confira o e-mail digitado." }); input.focus(); return; }
+    const endpoint = String(this.props.newsletterEndpoint || "https://17a48129.sibforms.com/serve/MUIFALJV6zYSyCGn7j5wfJ-NXIlvIdzklB80APIV8O_8kHSYFFa_8Nhwk_TNWiQjiI5sGziGpr146x8zjEQGGd3yNhSr0q9uqcP9_1xK63nGjp_J_iCMuVZKmMa14bt5oqT_SpRm_pB9MIits0hTHcU7qa-bNGYhB_nJ4cR4LYQbFPj0aybbVead0lDFd95coqM9MXsH7k0ECKSQWg==").trim();
+    if (!endpoint) { this.setState({ leadErr: "Cadastro indisponível no momento. Tente mais tarde." }); return; }
     this.setState({ lead: "sending", leadErr: "" });
-    const ok = () => { this.setState({ lead: "done" }); if (window.gtag) window.gtag("event", "sign_up", { method: "newsletter" }); };
-    const url = String(this.props.newsletterEndpoint ?? "").trim();
-    if (!url) { setTimeout(ok, 500); return; }
-    const body = new FormData(); body.append("email", email);
-    fetch(url, { method: "POST", body, mode: "no-cors" }).then(ok).catch(() => this.setState({ lead: "idle", leadErr: "Não foi possível enviar agora. Tente de novo." }));
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 20000);
+    try {
+      const url = new URL(endpoint);
+      url.searchParams.set("isAjax", "1");
+      const body = new FormData();
+      body.append("EMAIL", email);
+      body.append("email_address_check", "");
+      body.append("locale", "pt");
+      const response = await fetch(url.toString(), { method: "POST", body, mode: "cors", credentials: "omit", signal: controller.signal });
+      if (!response.ok) throw new Error("Falha no cadastro");
+      const result = await response.json();
+      if (!result.success) throw new Error("Cadastro recusado pela Brevo");
+      this.setState({ lead: "done", leadErr: "" });
+      if (window.gtag) window.gtag("event", "sign_up", { method: "newsletter" });
+    } catch (error) {
+      this.setState({ lead: "idle", leadErr: "Não foi possível confirmar seu cadastro. Tente de novo." });
+    } finally {
+      clearTimeout(timeout);
+    }
   }
 
   wa(msg) {
