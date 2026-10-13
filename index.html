@@ -544,7 +544,7 @@
   </main>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;showLoader&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Comportamento&quot;},&quot;floatingCta&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Comportamento&quot;},&quot;whatsappNumber&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;5511982838497&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contato&quot;},&quot;newsletterNameField&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;FIRSTNAME&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Newsletter&quot;},&quot;newsletterEndpoint&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://17a48129.sibforms.com/serve/MUIFALJV6zYSyCGn7j5wfJ-NXIlvIdzklB80APIV8O_8kHSYFFa_8Nhwk_TNWiQjiI5sGziGpr146x8zjEQGGd3yNhSr0q9uqcP9_1xK63nGjp_J_iCMuVZKmMa14bt5oqT_SpRm_pB9MIits0hTHcU7qa-bNGYhB_nJ4cR4LYQbFPj0aybbVead0lDFd95coqM9MXsH7k0ECKSQWg==&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Newsletter&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;showLoader&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Comportamento&quot;},&quot;floatingCta&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Comportamento&quot;},&quot;whatsappNumber&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;5511982838497&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contato&quot;},&quot;newsletterNameField&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;NOME&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Newsletter&quot;},&quot;newsletterEndpoint&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://17a48129.sibforms.com/serve/MUIFALJV6zYSyCGn7j5wfJ-NXIlvIdzklB80APIV8O_8kHSYFFa_8Nhwk_TNWiQjiI5sGziGpr146x8zjEQGGd3yNhSr0q9uqcP9_1xK63nGjp_J_iCMuVZKmMa14bt5oqT_SpRm_pB9MIits0hTHcU7qa-bNGYhB_nJ4cR4LYQbFPj0aybbVead0lDFd95coqM9MXsH7k0ECKSQWg==&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Newsletter&quot;}}">
 class Component extends DCLogic {
   state = { lead: "idle", leadErr: "", leadMode: "short" };
 
@@ -579,7 +579,7 @@ class Component extends DCLogic {
       url.searchParams.set("isAjax", "1");
       const body = new FormData();
       body.append("EMAIL", email);
-      body.append(String(this.props.newsletterNameField || "FIRSTNAME").trim(), name);
+      body.append(String(this.props.newsletterNameField || "NOME").trim(), name);
       body.append("email_address_check", "");
       body.append("locale", "pt");
       const response = await fetch(url.toString(), { method: "POST", body, mode: "cors", credentials: "omit", signal: controller.signal });
