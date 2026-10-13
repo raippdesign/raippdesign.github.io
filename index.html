@@ -113,11 +113,11 @@
         </h1>
         <p data-hero-fade="" style="margin:0;max-width:34ch;font-size:clamp(18px,2vw,23px);line-height:1.45;color:#4E4E4D;text-wrap:pretty;">SaaS, interfaces e sistemas digitais criados por design, preparados para evoluir com IA.</p>
         <div data-hero-fade="" style="display:flex;flex-wrap:wrap;align-items:center;gap:20px 28px;">
-          <a data-btn="" data-cta="hero" href="{{ waHero }}" target="_blank" rel="noopener" style="display:flex;align-items:stretch;gap:6px;width:100%;max-width:380px;" style-active="transform:scale(0.98);">
-            <span data-btn-body="" style="flex:1 1 auto;min-height:56px;display:flex;align-items:center;justify-content:center;padding:0 24px;border-radius:999px;background:#262626;color:#FAFAF9;font-size:17px;font-weight:600;letter-spacing:-0.01em;transition:background-color 300ms linear;">
+          <a data-btn="" data-cta="hero" href="{{ waHero }}" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:12px;width:100%;max-width:380px;min-height:64px;padding:6px;border-radius:999px;background:#262626;color:#FAFAF9;font-size:17px;font-weight:600;letter-spacing:-0.01em;transition:background-color 300ms linear;" style-active="transform:scale(0.98);">
+            <span data-btn-body="" style="flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;padding-left:18px;">
               <span style="display:block;height:1.3em;line-height:1.3;overflow:hidden;"><span data-btn-roll="" style="display:block;transition:transform 460ms cubic-bezier(.22,1,.36,1);"><span style="display:block;">Falar no WhatsApp</span><span aria-hidden="true" style="display:block;">Falar no WhatsApp</span></span></span>
             </span>
-            <span data-btn-dot="" style="position:relative;flex:none;width:56px;height:56px;border-radius:999px;background:#BEFF8B;color:#262626;overflow:hidden;">
+            <span data-btn-dot="" style="position:relative;flex:none;width:52px;height:52px;border-radius:999px;background:#BEFF8B;color:#262626;overflow:hidden;">
               <i data-btn-i1="" class="ph-fill ph-whatsapp-logo" aria-hidden="true" style="position:absolute;left:50%;top:50%;width:24px;height:24px;margin:-12px 0 0 -12px;font-size:24px;line-height:24px;transition:transform 460ms cubic-bezier(.22,1,.36,1);"></i>
               <i data-btn-i2="" class="ph-fill ph-whatsapp-logo" aria-hidden="true" style="position:absolute;left:50%;top:50%;width:24px;height:24px;margin:-12px 0 0 -12px;font-size:24px;line-height:24px;transform:translateY(56px);transition:transform 460ms cubic-bezier(.22,1,.36,1);"></i>
             </span>
@@ -126,6 +126,48 @@
             <img src="assets/getulio.png" alt="" style="width:44px;height:44px;border-radius:999px;object-fit:cover;display:block;flex:none;">
             <span style="font-size:15px;line-height:1.35;color:#262626;max-width:22ch;"><b style="font-weight:600;">15+ anos</b> criando produtos digitais.</span>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="newsletter" data-screen-label="01b Newsletter" style="position:relative;padding:clamp(24px,4vw,48px) clamp(20px,5vw,64px) 0;">
+      <div data-reveal="" data-dark="" style="position:relative;overflow:hidden;background:#262626;color:#F0EDEA;border-radius:24px;padding:clamp(28px,5vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(32px,5vw,64px);align-items:end;">
+        <div style="display:flex;flex-direction:column;gap:20px;">
+          <span style="align-self:flex-start;display:inline-flex;align-items:center;gap:8px;height:30px;padding:0 14px;border-radius:999px;background:#BEFF8B;color:#262626;font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;"><i class="ph-fill ph-envelope-simple" aria-hidden="true" style="font-size:15px;"></i>Newsletter semanal</span>
+          <h2 style="margin:0;font-size:clamp(34px,5.2vw,72px);font-weight:600;letter-spacing:-0.04em;line-height:0.98;color:#F0EDEA;text-wrap:balance;">O que a GenAI está mudando nas interfaces. <span style="color:#BEFF8B;">E em nós.</span></h2>
+          <p style="margin:0;max-width:42ch;font-size:clamp(17px,1.5vw,20px);line-height:1.5;color:#AFADAB;text-wrap:pretty;">Um artigo por semana sobre GenAI, interfaces generativas e o nosso comportamento diante delas.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <sc-if value="{{ leadIdle }}" hint-placeholder-val="{{ true }}">
+            <form onSubmit="{{ onLead }}" noValidate="" style="display:flex;flex-direction:column;gap:14px;margin:0;">
+              <label for="lead-email" style="font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#AFADAB;">Seu melhor e-mail</label>
+              <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                <input id="lead-email" name="email" type="email" autoComplete="email" inputMode="email" required="" placeholder="voce@empresa.com" onInput="{{ clearLeadError }}" aria-describedby="lead-note" style="flex:3 1 240px;min-width:0;min-height:64px;padding:0 24px;border-radius:999px;border:2px solid #F0EDEA;background:#F0EDEA;color:#262626;font-family:inherit;font-size:17px;letter-spacing:-0.01em;" style-focus="border-color:#BEFF8B;">
+                <button data-btn="" data-btn-hover="#D3FFB0" type="submit" disabled="{{ leadBusy }}" style="flex:1 0 220px;display:flex;align-items:center;gap:12px;min-height:64px;padding:6px;border:0;border-radius:999px;background:#BEFF8B;color:#262626;font-family:inherit;font-size:17px;font-weight:600;letter-spacing:-0.01em;cursor:pointer;transition:background-color 300ms linear;" style-active="transform:scale(0.98);">
+                  <span data-btn-body="" style="flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;padding-left:18px;">
+                    <span style="display:block;height:1.3em;line-height:1.3;overflow:hidden;"><span data-btn-roll="" style="display:block;transition:transform 460ms cubic-bezier(.22,1,.36,1);"><span style="display:block;">Quero receber</span><span aria-hidden="true" style="display:block;">Quero receber</span></span></span>
+                  </span>
+                  <span data-btn-dot="" style="position:relative;flex:none;width:52px;height:52px;border-radius:999px;background:#262626;color:#BEFF8B;overflow:hidden;">
+                    <i data-btn-i1="" class="ph-fill ph-arrow-right" aria-hidden="true" style="position:absolute;left:50%;top:50%;width:22px;height:22px;margin:-11px 0 0 -11px;font-size:22px;line-height:22px;transition:transform 460ms cubic-bezier(.22,1,.36,1);"></i>
+                    <i data-btn-i2="" class="ph-fill ph-arrow-right" aria-hidden="true" style="position:absolute;left:50%;top:50%;width:22px;height:22px;margin:-11px 0 0 -11px;font-size:22px;line-height:22px;transform:translateY(56px);transition:transform 460ms cubic-bezier(.22,1,.36,1);"></i>
+                  </span>
+                </button>
+              </div>
+              <sc-if value="{{ leadHasError }}" hint-placeholder-val="{{ false }}">
+                <p role="alert" style="margin:0;font-size:14px;line-height:1.45;color:#D5BAFC;">{{ leadErr }}</p>
+              </sc-if>
+              <sc-if value="{{ leadNoError }}" hint-placeholder-val="{{ true }}">
+                <p id="lead-note" style="margin:0;font-size:14px;line-height:1.45;color:#AFADAB;">1 e-mail por semana. Sem spam, cancele quando quiser.</p>
+              </sc-if>
+            </form>
+          </sc-if>
+          <sc-if value="{{ leadDone }}" hint-placeholder-val="{{ false }}">
+            <div role="status" style="display:flex;align-items:center;gap:16px;min-height:64px;padding:6px 24px 6px 6px;border-radius:32px;background:#BEFF8B;color:#262626;">
+              <span style="flex:none;width:52px;height:52px;border-radius:999px;background:#262626;color:#BEFF8B;display:grid;place-items:center;"><i class="ph-fill ph-check" aria-hidden="true" style="font-size:22px;"></i></span>
+              <span style="font-size:17px;font-weight:600;line-height:1.3;letter-spacing:-0.01em;">Inscrição feita. Até a próxima semana.</span>
+            </div>
+            <p style="margin:0;font-size:14px;line-height:1.45;color:#AFADAB;">Confira sua caixa de entrada para confirmar o e-mail.</p>
+          </sc-if>
         </div>
       </div>
     </section>
@@ -171,11 +213,11 @@
       </div>
 
       <div style="margin-top:clamp(32px,5vw,56px);">
-        <a data-btn="" data-cta="servicos" href="{{ waProduct }}" target="_blank" rel="noopener" style="display:flex;align-items:stretch;gap:6px;width:100%;max-width:380px;" style-active="transform:scale(0.98);">
-          <span data-btn-body="" style="flex:1 1 auto;min-height:56px;display:flex;align-items:center;justify-content:center;padding:0 24px;border-radius:999px;background:#262626;color:#FAFAF9;font-size:17px;font-weight:600;letter-spacing:-0.01em;transition:background-color 300ms linear;">
+        <a data-btn="" data-cta="servicos" href="{{ waProduct }}" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:12px;width:100%;max-width:380px;min-height:64px;padding:6px;border-radius:999px;background:#262626;color:#FAFAF9;font-size:17px;font-weight:600;letter-spacing:-0.01em;transition:background-color 300ms linear;" style-active="transform:scale(0.98);">
+          <span data-btn-body="" style="flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;padding-left:18px;">
             <span style="display:block;height:1.3em;line-height:1.3;overflow:hidden;"><span data-btn-roll="" style="display:block;transition:transform 460ms cubic-bezier(.22,1,.36,1);"><span style="display:block;">Quero evoluir meu produto</span><span aria-hidden="true" style="display:block;">Quero evoluir meu produto</span></span></span>
           </span>
-          <span data-btn-dot="" style="position:relative;flex:none;width:56px;height:56px;border-radius:999px;background:#BEFF8B;color:#262626;overflow:hidden;">
+          <span data-btn-dot="" style="position:relative;flex:none;width:52px;height:52px;border-radius:999px;background:#BEFF8B;color:#262626;overflow:hidden;">
             <i data-btn-i1="" class="ph-fill ph-whatsapp-logo" aria-hidden="true" style="position:absolute;left:50%;top:50%;width:24px;height:24px;margin:-12px 0 0 -12px;font-size:24px;line-height:24px;transition:transform 460ms cubic-bezier(.22,1,.36,1);"></i>
             <i data-btn-i2="" class="ph-fill ph-whatsapp-logo" aria-hidden="true" style="position:absolute;left:50%;top:50%;width:24px;height:24px;margin:-12px 0 0 -12px;font-size:24px;line-height:24px;transform:translateY(56px);transition:transform 460ms cubic-bezier(.22,1,.36,1);"></i>
           </span>
@@ -244,11 +286,11 @@
           <p style="margin:0;font-size:clamp(30px,4.6vw,60px);font-weight:600;letter-spacing:-0.04em;line-height:1;text-wrap:balance;">Menos decisões repetidas. Mais consistência. Mais velocidade para evoluir.</p>
         </div>
         <div style="display:flex;justify-content:flex-start;">
-          <a data-btn="" data-cta="design-system" href="{{ waAnalise }}" target="_blank" rel="noopener" style="display:flex;align-items:stretch;gap:6px;width:100%;max-width:380px;" style-active="transform:scale(0.98);">
-            <span data-btn-body="" style="flex:1 1 auto;min-height:56px;display:flex;align-items:center;justify-content:center;padding:0 24px;border-radius:999px;background:#262626;color:#FAFAF9;font-size:17px;font-weight:600;letter-spacing:-0.01em;transition:background-color 300ms linear;">
+          <a data-btn="" data-cta="design-system" href="{{ waAnalise }}" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:12px;width:100%;max-width:380px;min-height:64px;padding:6px;border-radius:999px;background:#262626;color:#FAFAF9;font-size:17px;font-weight:600;letter-spacing:-0.01em;transition:background-color 300ms linear;" style-active="transform:scale(0.98);">
+            <span data-btn-body="" style="flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;padding-left:18px;">
               <span style="display:block;height:1.3em;line-height:1.3;overflow:hidden;"><span data-btn-roll="" style="display:block;transition:transform 460ms cubic-bezier(.22,1,.36,1);"><span style="display:block;">Solicitar uma análise</span><span aria-hidden="true" style="display:block;">Solicitar uma análise</span></span></span>
             </span>
-            <span data-btn-dot="" style="position:relative;flex:none;width:56px;height:56px;border-radius:999px;background:#262626;color:#BEFF8B;overflow:hidden;">
+            <span data-btn-dot="" style="position:relative;flex:none;width:52px;height:52px;border-radius:999px;background:#BEFF8B;color:#262626;overflow:hidden;">
               <i data-btn-i1="" class="ph-fill ph-whatsapp-logo" aria-hidden="true" style="position:absolute;left:50%;top:50%;width:24px;height:24px;margin:-12px 0 0 -12px;font-size:24px;line-height:24px;transition:transform 460ms cubic-bezier(.22,1,.36,1);"></i>
               <i data-btn-i2="" class="ph-fill ph-whatsapp-logo" aria-hidden="true" style="position:absolute;left:50%;top:50%;width:24px;height:24px;margin:-12px 0 0 -12px;font-size:24px;line-height:24px;transform:translateY(56px);transition:transform 460ms cubic-bezier(.22,1,.36,1);"></i>
             </span>
@@ -341,11 +383,11 @@
         </h2>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:28px;align-items:end;">
           <p style="margin:0;max-width:42ch;font-size:clamp(17px,1.5vw,20px);line-height:1.55;text-wrap:pretty;">Um espaço onde transformo experiência profissional, design e inteligência artificial em conteúdo, experimentação e novos formatos de criação.</p>
-          <a data-btn="" data-cta="ux-for-creators" href="https://www.uxforcreators.com" target="_blank" rel="noopener" style="display:flex;align-items:stretch;gap:6px;width:100%;max-width:380px;" style-active="transform:scale(0.98);">
-            <span data-btn-body="" style="flex:1 1 auto;min-height:56px;display:flex;align-items:center;justify-content:center;padding:0 24px;border-radius:999px;background:#262626;color:#FAFAF9;font-size:17px;font-weight:600;letter-spacing:-0.01em;transition:background-color 300ms linear;">
+          <a data-btn="" data-cta="ux-for-creators" href="https://www.uxforcreators.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:12px;width:100%;max-width:380px;min-height:64px;padding:6px;border-radius:999px;background:#262626;color:#FAFAF9;font-size:17px;font-weight:600;letter-spacing:-0.01em;transition:background-color 300ms linear;" style-active="transform:scale(0.98);">
+            <span data-btn-body="" style="flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;padding-left:18px;">
               <span style="display:block;height:1.3em;line-height:1.3;overflow:hidden;"><span data-btn-roll="" style="display:block;transition:transform 460ms cubic-bezier(.22,1,.36,1);"><span style="display:block;">Conhecer o UX for Creators</span><span aria-hidden="true" style="display:block;">Conhecer o UX for Creators</span></span></span>
             </span>
-            <span data-btn-dot="" style="position:relative;flex:none;width:56px;height:56px;border-radius:999px;background:#F0EDEA;color:#262626;overflow:hidden;">
+            <span data-btn-dot="" style="position:relative;flex:none;width:52px;height:52px;border-radius:999px;background:#F0EDEA;color:#262626;overflow:hidden;">
               <i data-btn-i1="" class="ph-fill ph-arrow-up-right" aria-hidden="true" style="position:absolute;left:50%;top:50%;width:22px;height:22px;margin:-11px 0 0 -11px;font-size:22px;line-height:22px;transition:transform 460ms cubic-bezier(.22,1,.36,1);"></i>
               <i data-btn-i2="" class="ph-fill ph-arrow-up-right" aria-hidden="true" style="position:absolute;left:50%;top:50%;width:22px;height:22px;margin:-11px 0 0 -11px;font-size:22px;line-height:22px;transform:translateY(56px);transition:transform 460ms cubic-bezier(.22,1,.36,1);"></i>
             </span>
@@ -364,11 +406,11 @@
         </h2>
         <p data-reveal="" style="margin:0;max-width:30ch;font-size:clamp(19px,2vw,26px);font-weight:500;letter-spacing:-0.02em;line-height:1.35;text-wrap:pretty;">Me conte o problema. A gente começa por ele.</p>
         <div data-reveal="" style="display:flex;flex-wrap:wrap;align-items:center;gap:20px 32px;">
-          <a data-btn="" data-cta="contato" href="{{ waFinal }}" target="_blank" rel="noopener" style="display:flex;align-items:stretch;gap:6px;width:100%;max-width:380px;" style-active="transform:scale(0.98);">
-            <span data-btn-body="" style="flex:1 1 auto;min-height:56px;display:flex;align-items:center;justify-content:center;padding:0 24px;border-radius:999px;background:#262626;color:#FAFAF9;font-size:17px;font-weight:600;letter-spacing:-0.01em;transition:background-color 300ms linear;">
+          <a data-btn="" data-cta="contato" href="{{ waFinal }}" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:12px;width:100%;max-width:380px;min-height:64px;padding:6px;border-radius:999px;background:#262626;color:#FAFAF9;font-size:17px;font-weight:600;letter-spacing:-0.01em;transition:background-color 300ms linear;" style-active="transform:scale(0.98);">
+            <span data-btn-body="" style="flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;padding-left:18px;">
               <span style="display:block;height:1.3em;line-height:1.3;overflow:hidden;"><span data-btn-roll="" style="display:block;transition:transform 460ms cubic-bezier(.22,1,.36,1);"><span style="display:block;">Falar no WhatsApp</span><span aria-hidden="true" style="display:block;">Falar no WhatsApp</span></span></span>
             </span>
-            <span data-btn-dot="" style="position:relative;flex:none;width:56px;height:56px;border-radius:999px;background:#262626;color:#BEFF8B;overflow:hidden;">
+            <span data-btn-dot="" style="position:relative;flex:none;width:52px;height:52px;border-radius:999px;background:#BEFF8B;color:#262626;overflow:hidden;">
               <i data-btn-i1="" class="ph-fill ph-whatsapp-logo" aria-hidden="true" style="position:absolute;left:50%;top:50%;width:24px;height:24px;margin:-12px 0 0 -12px;font-size:24px;line-height:24px;transition:transform 460ms cubic-bezier(.22,1,.36,1);"></i>
               <i data-btn-i2="" class="ph-fill ph-whatsapp-logo" aria-hidden="true" style="position:absolute;left:50%;top:50%;width:24px;height:24px;margin:-12px 0 0 -12px;font-size:24px;line-height:24px;transform:translateY(56px);transition:transform 460ms cubic-bezier(.22,1,.36,1);"></i>
             </span>
@@ -413,8 +455,25 @@
   </main>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;showLoader&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Comportamento&quot;},&quot;floatingCta&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Comportamento&quot;},&quot;whatsappNumber&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;5511982838497&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contato&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;showLoader&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Comportamento&quot;},&quot;floatingCta&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Comportamento&quot;},&quot;whatsappNumber&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;5511982838497&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contato&quot;},&quot;newsletterEndpoint&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Newsletter&quot;}}">
 class Component extends DCLogic {
+  state = { lead: "idle", leadErr: "" };
+
+  /* Newsletter: valida, envia para newsletterEndpoint (POST "email") e mostra a confirmação. Sem endpoint, simula o envio. */
+  submitLead(e) {
+    e.preventDefault();
+    if (this.state.lead === "sending") return;
+    const f = e.currentTarget, input = f.elements.email;
+    const email = String(input.value || "").trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { this.setState({ leadErr: "Confira o e-mail digitado." }); input.focus(); return; }
+    this.setState({ lead: "sending", leadErr: "" });
+    const ok = () => { this.setState({ lead: "done" }); if (window.gtag) window.gtag("event", "sign_up", { method: "newsletter" }); };
+    const url = String(this.props.newsletterEndpoint ?? "").trim();
+    if (!url) { setTimeout(ok, 500); return; }
+    const body = new FormData(); body.append("email", email);
+    fetch(url, { method: "POST", body, mode: "no-cors" }).then(ok).catch(() => this.setState({ lead: "idle", leadErr: "Não foi possível enviar agora. Tente de novo." }));
+  }
+
   wa(msg) {
     const n = String(this.props.whatsappNumber ?? "5511982838497").replace(/\D/g, "");
     return "https://wa.me/" + n + "?text=" + encodeURIComponent(msg);
@@ -592,13 +651,13 @@ class Component extends DCLogic {
   setupButtons() {
     if (!window.matchMedia("(hover: hover)").matches) return;
     this.q("[data-btn]").forEach(b => {
-      const body = b.querySelector("[data-btn-body]"), roll = b.querySelector("[data-btn-roll]");
+      const roll = b.querySelector("[data-btn-roll]"), base = b.style.backgroundColor, hov = b.getAttribute("data-btn-hover") || "#363636";
       const i1 = b.querySelector("[data-btn-i1]"), i2 = b.querySelector("[data-btn-i2]");
       const set = (on) => {
         if (roll) roll.style.transform = on ? "translateY(-50%)" : "none";
         if (i1) i1.style.transform = on ? "translateY(-56px)" : "none";
         if (i2) i2.style.transform = on ? "translateY(0)" : "translateY(56px)";
-        if (body) body.style.backgroundColor = on ? "#363636" : "#262626";
+        b.style.backgroundColor = on ? hov : base;
       };
       b.addEventListener("mouseenter", () => set(true));
       b.addEventListener("mouseleave", () => set(false));
@@ -801,6 +860,14 @@ class Component extends DCLogic {
       waAnalise: this.wa("Olá, Getúlio! Quero solicitar uma análise de Design System."),
       waFinal: this.wa("Olá, Getúlio! Tenho um produto para construir ou evoluir."),
       floatingCta: this.props.floatingCta ?? true,
+      leadIdle: this.state.lead !== "done",
+      leadDone: this.state.lead === "done",
+      leadBusy: this.state.lead === "sending",
+      leadErr: this.state.leadErr,
+      leadHasError: !!this.state.leadErr,
+      leadNoError: !this.state.leadErr,
+      onLead: (e) => this.submitLead(e),
+      clearLeadError: () => { if (this.state.leadErr) this.setState({ leadErr: "" }); },
       toggleMenu: () => { if (this.setMenu) this.setMenu(!this.menuOpen); },
       closeMenu: () => { if (this.setMenu && this.menuOpen) this.setMenu(false); },
       backToTop: () => window.scrollTo({ top: 0, behavior: this.reduced ? "auto" : "smooth" })
