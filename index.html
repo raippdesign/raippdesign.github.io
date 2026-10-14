@@ -56,7 +56,7 @@
   [data-raipp],main{width:100%;min-width:0;max-width:100%;}
   [data-raipp]{overflow-x:clip;}
   [data-vid-stage]{align-items:center;}
-  @media (orientation:portrait){[data-vid-stage]{align-items:flex-start;}[data-vid-wrap]{margin-top:24px;}}
+  @media (orientation:portrait){[data-vid-stage]{align-items:flex-start;height:calc(100svh + 24px)!important;top:-24px!important;}[data-vid-wrap]{margin-top:24px;}}
   a{color:#262626;text-decoration:none;}
   a:hover{color:#4E4E4D;}
   :focus-visible{outline:3px solid #D5BAFC;outline-offset:3px;}
@@ -836,15 +836,16 @@ class Component extends DCLogic {
 
   renderVideo(t, vw, vh) {
     const V = this.vid, portrait = vw < vh;
-    // Stable sticky height avoids jumps when mobile browser bars expand or collapse.
-    const videoH = V.wrap.parentElement.clientHeight || vh;
+    // Keep the text gap fixed; let the sticky stage pin the video itself at the top.
+    const stage = V.wrap.parentElement, topGap = portrait ? 24 : 0;
+    const videoH = Math.max(1, stage.clientHeight - topGap) || vh;
     const expandDistance = videoH * (portrait ? 0.7 : 1.6);
     const holdDistance = videoH * 2;
     const layoutKey = portrait + ":" + vw + ":" + videoH;
     if (V.layoutKey !== layoutKey) {
       V.layoutKey = layoutKey;
       V.wrap.parentElement.style.alignItems = portrait ? "flex-start" : "center";
-      V.track.style.height = (videoH + (portrait ? 0 : expandDistance) + holdDistance).toFixed(1) + "px";
+      V.track.style.height = (videoH + topGap + (portrait ? 0 : expandDistance) + holdDistance).toFixed(1) + "px";
       V.key = "";
     }
     const r = V.track.getBoundingClientRect();
@@ -871,7 +872,6 @@ class Component extends DCLogic {
       w = startW + (vw - startW) * e;
       h = startH + (videoH - startH) * e;
     }
-    const topGap = portrait ? 24 * (1 - e) : 0;
     const key = Math.round(w) + "x" + Math.round(h) + ":" + Math.round(topGap);
     if (key === V.key) return;
     V.key = key;
