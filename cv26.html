@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Getúlio Lima · Senior Experience Design & Standards Specialist</title>
+  <meta name="description" content="Getúlio Lima — Staff Product Designer and Design Systems Specialist." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --paper: #ffffff;
+      --ink: #111111;
+      --muted: #666661;
+      --line: #d9d9d3;
+      --soft: #f7f7f4;
+      --max: 1160px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg);
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--bg);
+      font-family: "Montserrat", Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    a {
+      color: inherit;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+    }
+
+    a:hover { text-decoration-thickness: 2px; }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: flex-end;
+      padding: 14px 24px;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(17,17,17,.08);
+    }
+
+    .print-button {
+      appearance: none;
+      border: 0;
+      border-bottom: 2px solid var(--ink);
+      padding: 8px 0 5px;
+      background: transparent;
+      color: var(--ink);
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .page {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 28px auto 64px;
+      background: var(--paper);
+      box-shadow: 0 18px 55px rgba(0,0,0,.08);
+    }
+
+    .inner { padding: 72px 76px 68px; }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.7fr) minmax(250px, .8fr);
+      gap: 48px;
+      padding-bottom: 44px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .eyebrow,
+    .section-kicker,
+    .meta-label {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(46px, 6vw, 78px);
+      line-height: .96;
+      letter-spacing: -.055em;
+      font-weight: 700;
+    }
+
+    .role {
+      display: inline-block;
+      margin-top: 24px;
+      padding: 6px 8px 5px;
+      color: #fff;
+      background: #111;
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+
+    .intro {
+      max-width: 760px;
+      margin: 26px 0 0;
+      font-size: 17px;
+      line-height: 1.65;
+      letter-spacing: -.012em;
+    }
+
+    .contact {
+      align-self: end;
+      display: grid;
+      gap: 20px;
+      padding-bottom: 3px;
+    }
+
+    .contact-item p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .contact-item a,
+    .contact-item strong {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.7fr) minmax(250px, .8fr);
+      gap: 48px;
+    }
+
+    .main,
+    .side { min-width: 0; }
+
+    .section {
+      padding-top: 44px;
+    }
+
+    .section + .section {
+      margin-top: 6px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      margin: 0 0 24px;
+      font-size: 21px;
+      line-height: 1.2;
+      letter-spacing: -.025em;
+    }
+
+    .section-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+    }
+
+    .summary {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .highlights {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .highlight {
+      min-height: 118px;
+      padding: 18px;
+      background: var(--soft);
+      border-top: 2px solid var(--ink);
+    }
+
+    .highlight strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .highlight p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.55;
+    }
+
+    .case {
+      padding: 26px 0 28px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .case:first-of-type { padding-top: 0; }
+
+    .case:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .case-header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .case h3,
+    .experience h3 {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.35;
+      letter-spacing: -.015em;
+    }
+
+    .case-sub,
+    .experience-meta {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .case-tag {
+      padding: 4px 7px;
+      border: 1px solid var(--ink);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .case p,
+    .experience p {
+      margin: 13px 0 0;
+      color: #30302d;
+    }
+
+    .experience {
+      padding: 22px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .experience:first-of-type { padding-top: 0; }
+
+    .experience:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .experience-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .period {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .side-block {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .side-block:first-child { padding-top: 44px; }
+
+    .side-block:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .side-block h3 {
+      margin: 0 0 16px;
+      font-size: 13px;
+      letter-spacing: .02em;
+    }
+
+    .stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pill {
+      padding: 6px 8px;
+      border: 1px solid var(--line);
+      background: #fff;
+      font-size: 11px;
+      line-height: 1.25;
+    }
+
+    .side-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .side-list li {
+      padding: 9px 0;
+      border-bottom: 1px solid #ecece8;
+      color: #30302d;
+      font-size: 12.5px;
+    }
+
+    .side-list li:last-child { border-bottom: 0; }
+
+    .side-list strong {
+      display: block;
+      margin-bottom: 2px;
+      color: var(--ink);
+      font-size: 12px;
+    }
+
+    .cert {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .footer {
+      margin-top: 54px;
+      padding-top: 18px;
+      border-top: 1px solid var(--ink);
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 820px) {
+      .inner { padding: 48px 30px; }
+
+      .hero,
+      .grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+
+      .contact { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+      .highlights { grid-template-columns: 1fr; }
+
+      .side-block:first-child { padding-top: 6px; }
+    }
+
+    @media (max-width: 520px) {
+      .page {
+        width: 100%;
+        margin: 0;
+        box-shadow: none;
+      }
+
+      .toolbar { padding: 12px 18px; }
+
+      .inner { padding: 42px 22px; }
+
+      .contact { grid-template-columns: 1fr; }
+
+      .case-header,
+      .experience-head {
+        grid-template-columns: 1fr;
+      }
+
+      .period,
+      .case-tag { justify-self: start; }
+    }
+
+    @page {
+      size: A4;
+      margin: 12mm;
+    }
+
+    @media print {
+      html,
+      body { background: #fff; }
+
+      body {
+        font-size: 11px;
+        line-height: 1.43;
+      }
+
+      .toolbar { display: none; }
+
+      .page {
+        width: auto;
+        margin: 0;
+        box-shadow: none;
+      }
+
+      .inner { padding: 0; }
+
+      h1 { font-size: 40px; }
+
+      .hero {
+        grid-template-columns: 1.55fr .75fr;
+        gap: 30px;
+        padding-bottom: 24px;
+      }
+
+      .intro {
+        margin-top: 16px;
+        font-size: 12.2px;
+        line-height: 1.5;
+      }
+
+      .role {
+        margin-top: 16px;
+        font-size: 11px;
+      }
+
+      .grid {
+        grid-template-columns: 1.55fr .75fr;
+        gap: 30px;
+      }
+
+      .section { padding-top: 24px; }
+
+      .section-title {
+        margin-bottom: 14px;
+        font-size: 15px;
+      }
+
+      .summary {
+        font-size: 10.5px;
+        line-height: 1.55;
+      }
+
+      .highlights {
+        gap: 8px;
+        margin-top: 14px;
+      }
+
+      .highlight {
+        min-height: auto;
+        padding: 11px;
+      }
+
+      .highlight strong { font-size: 9.5px; }
+      .highlight p { font-size: 8.8px; }
+
+      .case {
+        padding: 13px 0 15px;
+        break-inside: avoid;
+      }
+
+      .case h3,
+      .experience h3 { font-size: 11.5px; }
+
+      .case p,
+      .experience p {
+        margin-top: 7px;
+        font-size: 9.2px;
+        line-height: 1.45;
+      }
+
+      .case-sub,
+      .experience-meta { font-size: 8.3px; }
+
+      .experience {
+        padding: 12px 0;
+        break-inside: avoid;
+      }
+
+      .side-block {
+        padding: 15px 0;
+        break-inside: avoid;
+      }
+
+      .side-block:first-child { padding-top: 24px; }
+      .side-block h3 { margin-bottom: 9px; font-size: 9.5px; }
+
+      .pill {
+        padding: 4px 6px;
+        font-size: 7.8px;
+      }
+
+      .side-list li {
+        padding: 5px 0;
+        font-size: 8.4px;
+      }
+
+      .side-list strong { font-size: 8.5px; }
+      .cert { font-size: 7.5px; }
+
+      .footer { margin-top: 24px; font-size: 7px; }
+
+      a {
+        text-decoration: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="toolbar">
+    <button class="print-button" onclick="window.print()">Download PDF</button>
+  </div>
+
+  <main class="page">
+    <div class="inner">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">Staff Product Designer · Design Systems</p>
+          <h1>Getúlio<br>Lima</h1>
+          <div class="role">Senior Experience Design &amp; Standards Specialist</div>
+
+          <p class="intro">
+            Staff Product Designer with 15+ years of experience designing complex digital products,
+            with a strong background in fintech, enterprise SaaS, healthcare, retail and B2B platforms.
+            I combine high-quality design craft, Design Systems, governance and AI-assisted workflows
+            to create scalable experiences that connect product strategy, reusable components and implementation.
+          </p>
+        </div>
+
+        <aside class="contact" aria-label="Contact information">
+          <div class="contact-item">
+            <p class="meta-label">Location</p>
+            <strong>São Paulo, Brazil</strong>
+          </div>
+
+          <div class="contact-item">
+            <p class="meta-label">Contact</p>
+            <a href="tel:+5511982838497">+55 11 98283-8497</a>
+          </div>
+
+          <div class="contact-item">
+            <p class="meta-label">LinkedIn</p>
+            <a href="https://www.linkedin.com/in/getuliosoueu/" target="_blank" rel="noreferrer">
+              linkedin.com/in/getuliosoueu
+            </a>
+          </div>
+
+          <div class="contact-item">
+            <p class="meta-label">Writing</p>
+            <a href="https://substack.com/@getuliosoueu" target="_blank" rel="noreferrer">
+              The Future of Design
+            </a>
+          </div>
+
+          <div class="contact-item">
+            <p class="meta-label">Portfolio</p>
+            <a href="https://www.raipp.com.br/" target="_blank" rel="noreferrer">
+              raipp.com.br
+            </a>
+          </div>
+
+          <div class="contact-item">
+            <p class="meta-label">Certification</p>
+            <a href="https://verify.skilljar.com/c/654gygsrny8g" target="_blank" rel="noreferrer">
+              Anthropic AI Fluency
+            </a>
+          </div>
+        </aside>
+      </header>
+
+      <div class="grid">
+        <div class="main">
+          <section class="section">
+            <h2 class="section-title">Profile</h2>
+            <p class="summary">
+              Specialist in creating and evolving Design Systems for multi-product and multibrand environments.
+              Experienced with Figma libraries, variables, reusable components, variants, states, documentation
+              and design tokens with Tokens Studio. I work closely with Product and Engineering teams to align
+              design decisions with technical implementation, establish governance and increase consistency across
+              products. I use code and AI agents as design tools to validate components, explore directions,
+              refine microinteractions and reduce handoff friction, while remaining focused on product design,
+              usability and system quality.
+            </p>
+
+            <div class="highlights">
+              <div class="highlight">
+                <strong>Enterprise Design Systems</strong>
+                <p>Component libraries, interaction patterns, variables, tokens, documentation and scalable standards.</p>
+              </div>
+
+              <div class="highlight">
+                <strong>Governance &amp; DesignOps</strong>
+                <p>Cross-team alignment, contribution models, adoption rituals and consistency across digital products.</p>
+              </div>
+
+              <div class="highlight">
+                <strong>High-quality craft</strong>
+                <p>Refined interfaces, responsive states and microinteractions built to improve clarity and usability.</p>
+              </div>
+
+              <div class="highlight">
+                <strong>AI-assisted workflow</strong>
+                <p>Agents and coded prototypes used to expand exploration, validate ideas and improve decision quality.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="section">
+            <h2 class="section-title">Selected Work</h2>
+
+            <article class="case">
+              <div class="case-header">
+                <div>
+                  <h3>Multibrand Design System · Enterprise SaaS Platform</h3>
+                  <p class="case-sub">Grupo ITSS · Product ecosystem</p>
+                </div>
+                <span class="case-tag">Core case</span>
+              </div>
+              <p>
+                Dedicated work on the creation and evolution of a Design System supporting multiple products and brands.
+                Defined reusable components, variants, states, slots and documentation in Figma, structured design tokens
+                with Tokens Studio and collaborated directly with Engineering to improve alignment between design decisions
+                and technical implementation. Helped introduce a systemic design culture, governance routines and shared
+                ownership across product teams.
+              </p>
+            </article>
+
+            <article class="case">
+              <div class="case-header">
+                <div>
+                  <h3>PAS · Low-code Platform</h3>
+                  <p class="case-sub">Grupo ITSS</p>
+                </div>
+                <span class="case-tag">Enterprise</span>
+              </div>
+              <p>
+                Product design from vision to scalable architecture for a low-code SaaS platform. Defined scope,
+                information architecture, permission models, reusable patterns and customization rules for complex
+                enterprise use cases.
+              </p>
+            </article>
+
+            <article class="case">
+              <div class="case-header">
+                <div>
+                  <h3>AI Assistant &amp; Knowledge Base</h3>
+                  <p class="case-sub">Grupo ITSS</p>
+                </div>
+                <span class="case-tag">AI product</span>
+              </div>
+              <p>
+                Designed a multibrand AI assistant and knowledge experience using a token-oriented Design System.
+                Connected generative flows, reusable patterns and brand flexibility for white-label products while
+                preserving consistency across the ecosystem.
+              </p>
+            </article>
+
+            <article class="case">
+              <div class="case-header">
+                <div>
+                  <h3>GFIZ2 · Tax Administration System</h3>
+                  <p class="case-sub">SEFAZ-MA</p>
+                </div>
+                <span class="case-tag">Operational</span>
+              </div>
+              <p>
+                Redesigned a complex government operational system with emphasis on information architecture,
+                data-dense interfaces and decision-support workflows for internal users.
+              </p>
+            </article>
+
+            <article class="case">
+              <div class="case-header">
+                <div>
+                  <h3>Cosmic Pet Club · Interactive Commerce Experience</h3>
+                  <p class="case-sub">New York · Figma to production</p>
+                </div>
+                <span class="case-tag">Craft</span>
+              </div>
+              <p>
+                Designed and coded an interactive marketing experience from Figma to production, using motion and
+                front-end prototyping to refine microinteractions, validate responsive behavior and accelerate delivery.
+                Integrated the final experience with Shopify.
+              </p>
+            </article>
+          </section>
+
+          <section class="section">
+            <h2 class="section-title">Experience</h2>
+
+            <article class="experience">
+              <div class="experience-head">
+                <div>
+                  <h3>Raipp Consultoria · Senior Product Designer &amp; Consultant</h3>
+                  <p class="experience-meta">Product strategy · Design Systems · AI workflows · Enterprise platforms</p>
+                </div>
+                <span class="period">2013 · Present</span>
+              </div>
+              <p>
+                End-to-end ownership of client product initiatives, from discovery and architecture to validated
+                interfaces and production-ready prototypes. Designs multibrand platforms and token-based systems,
+                integrates AI agents into exploration and documentation workflows, and uses coded prototypes to improve
+                component quality, motion and collaboration with Engineering.
+              </p>
+            </article>
+
+            <article class="experience">
+              <div class="experience-head">
+                <div>
+                  <h3>Dock · Head of Design</h3>
+                  <p class="experience-meta">Fintech · Payment infrastructure · B2B</p>
+                </div>
+                <span class="period">2018 · 2019</span>
+              </div>
+              <p>
+                Led design in a financial infrastructure company, structuring team practices, product standards and
+                collaboration models for critical B2B payment products operating under strong compliance requirements.
+              </p>
+            </article>
+
+            <article class="experience">
+              <div class="experience-head">
+                <div>
+                  <h3>Mira Educação · Head of Design</h3>
+                  <p class="experience-meta">Edtech · Team building · Product strategy</p>
+                </div>
+                <span class="period">2016 · 2018</span>
+              </div>
+              <p>
+                Built the design function from the ground up, including hiring, process, culture and UX strategy connected
+                to learning outcomes and product growth.
+              </p>
+            </article>
+
+            <article class="experience">
+              <div class="experience-head">
+                <div>
+                  <h3>Porto · Porto Conecta · Head of Design</h3>
+                  <p class="experience-meta">Insurance · Financial services · Digital innovation</p>
+                </div>
+                <span class="period">2013 · 2015</span>
+              </div>
+              <p>
+                Led design for the digital innovation unit of Porto, creating products and experience standards for the
+                insurance ecosystem.
+              </p>
+            </article>
+
+            <article class="experience">
+              <div class="experience-head">
+                <div>
+                  <h3>Previous Experience</h3>
+                  <p class="experience-meta">Doctuz · Mergo · UOL</p>
+                </div>
+                <span class="period">2012 · 2023</span>
+              </div>
+              <p>
+                Partner and Product Lead at Doctuz, UX instructor at Mergo, and Information Architect at UOL,
+                including Bate-Papo Mobile, a product serving approximately four million users.
+              </p>
+            </article>
+          </section>
+        </div>
+
+        <aside class="side">
+          <section class="side-block">
+            <h3>Expertise</h3>
+            <div class="stack">
+              <span class="pill">Design Systems</span>
+              <span class="pill">UX Standards</span>
+              <span class="pill">Design Tokens</span>
+              <span class="pill">Component Libraries</span>
+              <span class="pill">Governance</span>
+              <span class="pill">DesignOps</span>
+              <span class="pill">Accessibility</span>
+              <span class="pill">Enterprise UX</span>
+              <span class="pill">Information Architecture</span>
+              <span class="pill">Prototyping</span>
+              <span class="pill">Gamification</span>
+              <span class="pill">AI Workflows</span>
+            </div>
+          </section>
+
+          <section class="side-block">
+            <h3>Tools &amp; Workflow</h3>
+            <ul class="side-list">
+              <li><strong>Design</strong>Figma, FigJam, Miro, Auto Layout, Variables, Libraries</li>
+              <li><strong>Systems</strong>Tokens Studio, design tokens, variants, slots, documentation</li>
+              <li><strong>AI &amp; Prototyping</strong>Claude, Claude Code, Cursor, Figma Make, Lovable</li>
+              <li><strong>Technical fluency</strong>HTML, CSS, JavaScript, React, GSAP, Three.js, ScrollTrigger, Lenis, shadcn/ui</li>
+            </ul>
+          </section>
+
+          <section class="side-block">
+            <h3>Industries</h3>
+            <ul class="side-list">
+              <li>Financial Services &amp; Fintech</li>
+              <li>Enterprise SaaS &amp; B2B Platforms</li>
+              <li>Healthcare &amp; Healthtech</li>
+              <li>Retail &amp; E-commerce</li>
+              <li>Insurance &amp; Technology</li>
+              <li>Government &amp; Operational Systems</li>
+            </ul>
+          </section>
+
+          <section class="side-block">
+            <h3>Education</h3>
+            <ul class="side-list">
+              <li><strong>Stanford University</strong>Human-Computer Interaction · 2012</li>
+              <li><strong>FGV</strong>MBA in Strategic Management · 2012</li>
+              <li><strong>Centro Universitário Senac</strong>Digital Interface Design · 2009–2013</li>
+            </ul>
+          </section>
+
+          <section class="side-block">
+            <h3>Recognition &amp; Certification</h3>
+            <ul class="side-list">
+              <li>
+                <strong>AI Fluency: Framework &amp; Foundations</strong>
+                Anthropic
+                <a class="cert" href="https://verify.skilljar.com/c/654gygsrny8g" target="_blank" rel="noreferrer">
+                  Verify certificate
+                </a>
+              </li>
+              <li>
+                <strong>Finalist · ITU &amp; Samsung Electronics</strong>
+                Accessibility solution for people with hearing disabilities · 2015
+              </li>
+            </ul>
+          </section>
+
+          <section class="side-block">
+            <h3>Selected Clients</h3>
+            <p class="summary">
+              Porto Seguro · Dock · Zarpo · Sappiens · Doctuz · Mimo · Grupo ITSS · Lebes
+            </p>
+          </section>
+
+          <section class="side-block">
+            <h3>Languages</h3>
+            <ul class="side-list">
+              <li><strong>Portuguese</strong>Native</li>
+              <li>
+                <strong>English</strong>
+                Intermediate, with strong technical reading and comprehension.
+                Professional conversation in continuous development.
+              </li>
+            </ul>
+          </section>
+        </aside>
+      </div>
+
+      <footer class="footer">
+        <span>Getúlio Lima · Staff Product Designer</span>
+        <span>São Paulo · Brazil</span>
+      </footer>
+    </div>
+  </main>
+</body>
+</html>
