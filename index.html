@@ -55,6 +55,8 @@
   body{margin:0;width:100%;max-width:100%;background:#F0EDEA;color:#262626;overflow-x:clip;overscroll-behavior-x:none;-webkit-font-smoothing:antialiased;}
   [data-raipp],main{width:100%;min-width:0;max-width:100%;}
   [data-raipp]{overflow-x:clip;}
+  [data-vid-stage]{align-items:center;}
+  @media (orientation:portrait){[data-vid-stage]{align-items:flex-start;}[data-vid-wrap]{margin-top:24px;}}
   a{color:#262626;text-decoration:none;}
   a:hover{color:#4E4E4D;}
   :focus-visible{outline:3px solid #D5BAFC;outline-offset:3px;}
@@ -241,15 +243,22 @@
     </section>
 
     <section id="projetos" data-screen-label="03 Últimos projetos" style="position:relative;padding-top:clamp(96px,16vw,200px);">
-      <div style="display:flex;align-items:center;gap:12px;padding:0 clamp(20px,5vw,64px);"><span style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;color:#262626;">03</span><span style="width:24px;height:2px;background:#262626;"></span><span style="font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#4E4E4D;">Últimos projetos</span></div>
+      <div data-project-intro="" style="display:flex;flex-direction:column;gap:24px;max-width:1228px;padding:0 clamp(20px,5vw,64px);">
+        <div style="display:flex;align-items:center;gap:12px;"><span style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;color:#262626;">03</span><span style="width:24px;height:2px;background:#262626;"></span><span style="font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#4E4E4D;">Últimos projetos</span></div>
+        <h2 data-reveal="" style="margin:0;font-size:clamp(42px,9.6vw,128px);font-weight:600;letter-spacing:-0.04em;line-height:0.94;color:#262626;text-wrap:balance;">Virtual Plant</h2>
+        <div data-reveal="" style="display:flex;flex-direction:column;gap:16px;max-width:60ch;font-size:clamp(18px,1.8vw,22px);line-height:1.5;color:#4E4E4D;text-wrap:pretty;">
+          <p style="margin:0;">Redesign do hub de engenharia, com arquitetura modular e componentes reutilizáveis. Interface desenhada e gerada 100% no Claude Design, com o modelo Opus 5.5.</p>
+          <p style="margin:0;">Documentação de tokens, componentes e suas variáveis construída e gerada no Codex, com o modelo Sol 6.1.</p>
+        </div>
+      </div>
       <div data-vid-track="" style="position:relative;height:260vh;">
-        <div style="position:sticky;top:0;height:100svh;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+        <div data-vid-stage="" style="position:sticky;top:0;height:100svh;display:flex;justify-content:center;overflow:hidden;">
           <div data-vid-wrap="" data-dark="" style="position:relative;width:62vw;height:62svh;border-radius:24px;overflow:hidden;background:#262626;container-type:size;will-change:width,height,border-radius;">
             <sc-if value="{{ useVimeo }}" hint-placeholder-val="{{ false }}">
-              <iframe data-vid-vimeo="" src="{{ vimeoSrc }}" title="Digital Plant · vídeo do projeto" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" referrerPolicy="strict-origin-when-cross-origin" tabIndex="-1" style="position:absolute;left:50%;top:50%;width:max(100cqw,177.78cqh);height:max(100cqh,56.25cqw);transform:translate(-50%,-50%);border:0;pointer-events:none;"></iframe>
+              <iframe data-vid-vimeo="" src="{{ vimeoSrc }}" title="Virtual Plant · vídeo do projeto" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" referrerPolicy="strict-origin-when-cross-origin" tabIndex="-1" style="position:absolute;left:50%;top:50%;width:max(100cqw,177.78cqh);height:max(100cqh,56.25cqw);transform:translate(-50%,-50%);border:0;pointer-events:none;"></iframe>
             </sc-if>
             <sc-if value="{{ useLocal }}" hint-placeholder-val="{{ true }}">
-              <video data-vid-el="" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="auto" aria-label="Digital Plant · vídeo do projeto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;background:#262626;">
+              <video data-vid-el="" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="auto" aria-label="Virtual Plant · vídeo do projeto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;background:#262626;">
                 <source src="assets/hub-VP.mp4" type="video/mp4">
               </video>
             </sc-if>
@@ -835,6 +844,7 @@ class Component extends DCLogic {
     const layoutKey = portrait + ":" + vw + ":" + videoH;
     if (V.layoutKey !== layoutKey) {
       V.layoutKey = layoutKey;
+      V.wrap.parentElement.style.alignItems = portrait ? "flex-start" : "center";
       V.track.style.height = (videoH + expandDistance + holdDistance).toFixed(1) + "px";
       V.key = "";
     }
@@ -861,11 +871,13 @@ class Component extends DCLogic {
       w = startW + (vw - startW) * e;
       h = startH + (videoH - startH) * e;
     }
-    const key = Math.round(w) + "x" + Math.round(h);
+    const topGap = portrait ? 24 * (1 - e) : 0;
+    const key = Math.round(w) + "x" + Math.round(h) + ":" + Math.round(topGap);
     if (key === V.key) return;
     V.key = key;
     V.wrap.style.width = w.toFixed(1) + "px";
     V.wrap.style.height = h.toFixed(1) + "px";
+    V.wrap.style.marginTop = topGap.toFixed(1) + "px";
     V.wrap.style.borderRadius = (24 * (1 - e)).toFixed(2) + "px";
     if (V.hint) V.hint.style.opacity = e > 0.05 ? "0" : "1";
   }
