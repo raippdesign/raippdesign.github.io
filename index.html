@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Getúlio Lima · Product Design para produtos inteligentes | raipp</title>
 <meta name="description" content="Product Design para produtos inteligentes, plataformas SaaS, Design Systems e experiências preparadas para GenAI. 15+ anos criando produtos digitais.">
 <meta property="og:title" content="Produtos inteligentes para a era da GenAI · Getúlio Lima">
@@ -26,7 +26,6 @@
 <body>
 <x-dc>
 <helmet>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#F0EDEA">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
@@ -52,8 +51,10 @@
 <script src="https://player.vimeo.com/api/player.js"></script>
 <style>
   *,*::before,*::after{box-sizing:border-box;}
-  html{background:#F0EDEA;scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
-  body{margin:0;background:#F0EDEA;color:#262626;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+  html{background:#F0EDEA;scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:clip;overscroll-behavior-x:none;}
+  body{margin:0;width:100%;max-width:100%;background:#F0EDEA;color:#262626;overflow-x:clip;overscroll-behavior-x:none;-webkit-font-smoothing:antialiased;}
+  [data-raipp],main{width:100%;min-width:0;max-width:100%;}
+  [data-raipp]{overflow-x:clip;}
   a{color:#262626;text-decoration:none;}
   a:hover{color:#4E4E4D;}
   :focus-visible{outline:3px solid #D5BAFC;outline-offset:3px;}
@@ -827,7 +828,16 @@ class Component extends DCLogic {
 
   renderVideo(t, vw, vh) {
     const V = this.vid, portrait = vw < vh;
-    if (V.portrait !== portrait) { V.portrait = portrait; V.track.style.height = portrait ? "170svh" : "260vh"; V.key = ""; }
+    // Stable sticky height avoids jumps when mobile browser bars expand or collapse.
+    const videoH = V.wrap.parentElement.clientHeight || vh;
+    const expandDistance = videoH * (portrait ? 0.7 : 1.6);
+    const holdDistance = videoH * 2;
+    const layoutKey = portrait + ":" + vw + ":" + videoH;
+    if (V.layoutKey !== layoutKey) {
+      V.layoutKey = layoutKey;
+      V.track.style.height = (videoH + expandDistance + holdDistance).toFixed(1) + "px";
+      V.key = "";
+    }
     const r = V.track.getBoundingClientRect();
     const el = V.el;
     if (el && el.readyState > 0) {
@@ -841,15 +851,15 @@ class Component extends DCLogic {
       }
     }
     if (V.key && (r.bottom < -vh * 0.5 || r.top > vh * 1.5)) return;
-    let p = -r.top / Math.max(1, r.height - vh);
+    let p = -r.top / Math.max(1, expandDistance);
     p = Math.min(1, Math.max(0, p));
     const e = this.reduced ? 1 : (p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2);
     let w, h;
-    if (!portrait) { const k = 0.62 + 0.38 * e; w = k * vw; h = k * vh; }
+    if (!portrait) { const k = 0.62 + 0.38 * e; w = k * vw; h = k * videoH; }
     else {
       const startW = 0.84 * vw, startH = startW * 9 / 16;
       w = startW + (vw - startW) * e;
-      h = startH + (vh - startH) * e;
+      h = startH + (videoH - startH) * e;
     }
     const key = Math.round(w) + "x" + Math.round(h);
     if (key === V.key) return;
@@ -885,8 +895,9 @@ class Component extends DCLogic {
       it.lb.style.transform = on && side ? "translate(0,-50%)" : "translate(-8px,-50%)";
     };
     const layout = this.onRailResize = () => {
-      const side = window.innerWidth >= 900, n = R.items.length;
-      const z = side ? 60 : Math.max(40, Math.min(52, Math.floor((window.innerWidth - 56) / n)));
+      const width = document.documentElement.clientWidth;
+      const side = width >= 900, n = R.items.length;
+      const z = side ? 60 : Math.max(40, Math.min(52, Math.floor((width - 56) / n)));
       if (side === R.side && z === R.z) return;
       R.side = side; R.z = z;
       rail.style.transition = "none";
@@ -1014,7 +1025,7 @@ class Component extends DCLogic {
   frame(t) {
     const dt = Math.min(64, t - this.lastT);
     this.lastT = t;
-    const y = window.scrollY, vh = window.innerHeight, vw = window.innerWidth;
+    const y = window.scrollY, vh = window.innerHeight, vw = document.documentElement.clientWidth;
     const v = Math.abs(y - this.lastY) / Math.max(1, dt);
     this.lastY = y;
     this.vel += (v - this.vel) * 0.1;
