@@ -846,7 +846,11 @@ class Component extends DCLogic {
     const e = this.reduced ? 1 : (p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2);
     let w, h;
     if (!portrait) { const k = 0.62 + 0.38 * e; w = k * vw; h = k * vh; }
-    else { w = (0.84 + 0.16 * e) * vw; h = w * 9 / 16; }
+    else {
+      const startW = 0.84 * vw, startH = startW * 9 / 16;
+      w = startW + (vw - startW) * e;
+      h = startH + (vh - startH) * e;
+    }
     const key = Math.round(w) + "x" + Math.round(h);
     if (key === V.key) return;
     V.key = key;
