@@ -1,18 +1,16 @@
 # raipp · Home
 
-Site estático, sem build. Suba o conteúdo desta pasta na raiz do repositório.
+Site estático publicado pelo GitHub Pages a partir da raiz da branch `main`.
 
-## Arquivos
-- `index.html` página principal
-- `support.js` runtime da página (obrigatório)
-- `cursor.js`, `field.js` cursor e malha animada
-- `assets/` logo e fotos
+## Arquivos usados
 
-## Vídeo
-Coloque `hub-VP.mov` dentro de `assets/` (ou `assets/hub-VP.mp4`, que carrega mais rápido). O arquivo tem mais de 25 MB: suba pelo Git (não pelo upload do navegador) ou use Git LFS se passar de 100 MB.
+- `index.html`: página e metadados de compartilhamento.
+- `support.js`: runtime obrigatório da página.
+- `cursor.js` e `field.js`: efeitos visuais.
+- `assets/raipp-logo.svg` e `assets/getulio-2026.png`: logo e foto.
+- `assets/hub-VP.mp4`: vídeo com reprodução automática, sem som e em loop.
+- `assets/capa.png`: capa para compartilhamento nas redes sociais.
+- `CNAME`: domínio próprio existente.
+- `.nojekyll`: publicação direta dos arquivos estáticos.
 
-## GitHub Pages
-Settings → Pages → Deploy from a branch → `main` / `(root)`.
-Domínio próprio: adicione um arquivo `CNAME` com `www.raipp.com.br`.
-
-Para testar localmente use um servidor (`npx serve .` ou `python3 -m http.server`), não abra o arquivo direto pelo `file://`.
+Para testar localmente, execute `python3 -m http.server` nesta pasta.
