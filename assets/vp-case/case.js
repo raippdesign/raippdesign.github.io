@@ -1,5 +1,6 @@
 
 'use strict';
+$$('[data-return-home]').forEach(a=>a.addEventListener('click',()=>{try{sessionStorage.setItem('raipp-returning-project','1')}catch(e){}}));
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>Array.from(r.querySelectorAll(s));
 let toastTimer;function toast(message){clearTimeout(toastTimer);$('#toast').textContent=message;$('#toast').hidden=false;toastTimer=setTimeout(()=>$('#toast').hidden=true,4200)}
 const themeDemo=$('#theme-demo');
