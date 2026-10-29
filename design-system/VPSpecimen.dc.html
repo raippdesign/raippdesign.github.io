@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="display:flex;flex-direction:column;align-items:center;gap:16px;color:var(--vp-color-text);font-family:var(--vp-font-sans);font-size:var(--vp-control-font-size)">
+
+<sc-if value="{{ is.button }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex;flex-direction:column;gap:14px;align-items:flex-start">
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <button style="display:inline-flex;align-items:center;gap:var(--vp-control-gap);height:var(--vp-control-height);padding:0 var(--vp-control-padding-x);border-radius:var(--vp-radius-md);font:500 var(--vp-control-font-size)/1 var(--vp-font-sans);background:var(--vp-color-primary);color:var(--vp-color-primary-foreground);border:1px solid transparent;cursor:pointer" style-hover="background:var(--vp-color-primary-hover)"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-plus"></use></svg>Criar trabalho</button>
+      <button style="display:inline-flex;align-items:center;gap:var(--vp-control-gap);height:var(--vp-control-height);padding:0 var(--vp-control-padding-x);border-radius:var(--vp-radius-md);font:500 var(--vp-control-font-size)/1 var(--vp-font-sans);background:var(--vp-color-bg);color:var(--vp-color-text);border:1px solid var(--vp-color-border);cursor:pointer" style-hover="background:var(--vp-color-bg-hover)">Cancelar</button>
+      <button style="display:inline-flex;align-items:center;gap:var(--vp-control-gap);height:var(--vp-control-height);padding:0 var(--vp-control-padding-x);border-radius:var(--vp-radius-md);font:500 var(--vp-control-font-size)/1 var(--vp-font-sans);background:transparent;color:var(--vp-color-text);border:1px solid transparent;cursor:pointer" style-hover="background:var(--vp-color-bg-hover)">Ver detalhes</button>
+      <button style="display:inline-flex;align-items:center;gap:var(--vp-control-gap);height:var(--vp-control-height);padding:0 var(--vp-control-padding-x);border-radius:var(--vp-radius-md);font:500 var(--vp-control-font-size)/1 var(--vp-font-sans);background:var(--vp-color-danger);color:var(--vp-color-danger-foreground);border:1px solid transparent;cursor:pointer">Excluir trabalho</button>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <span style="width:64px;font:400 11px/1 var(--vp-font-mono);color:var(--vp-color-text-muted)">estados</span>
+      <span style="display:inline-flex;align-items:center;height:var(--vp-control-height);padding:0 var(--vp-control-padding-x);border-radius:var(--vp-radius-md);font:500 var(--vp-control-font-size)/1 var(--vp-font-sans);background:var(--vp-color-primary-hover);color:var(--vp-color-primary-foreground)">Hover</span>
+      <span style="display:inline-flex;align-items:center;height:var(--vp-control-height);padding:0 var(--vp-control-padding-x);border-radius:var(--vp-radius-md);font:500 var(--vp-control-font-size)/1 var(--vp-font-sans);background:var(--vp-color-primary);color:var(--vp-color-primary-foreground);box-shadow:0 0 0 2px var(--vp-color-bg),0 0 0 4px var(--vp-color-focus-ring)">Foco</span>
+      <span style="display:inline-flex;align-items:center;height:var(--vp-control-height);padding:0 var(--vp-control-padding-x);border-radius:var(--vp-radius-md);font:500 var(--vp-control-font-size)/1 var(--vp-font-sans);background:var(--vp-color-primary-disabled);color:var(--vp-color-primary-foreground)">Desabilitado</span>
+      <span style="display:inline-flex;align-items:center;gap:8px;height:var(--vp-control-height);padding:0 var(--vp-control-padding-x);border-radius:var(--vp-radius-md);font:500 var(--vp-control-font-size)/1 var(--vp-font-sans);background:var(--vp-color-primary);color:var(--vp-color-primary-foreground)"><span style="width:14px;height:14px;border-radius:50%;border:2px solid currentColor;border-right-color:transparent;animation:vpspin 0.8s linear infinite"></span>Criando…</span>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <span style="width:64px;font:400 11px/1 var(--vp-font-mono);color:var(--vp-color-text-muted)">tamanhos</span>
+      <span style="display:inline-flex;align-items:center;height:var(--vp-control-height);padding:0 var(--vp-control-padding-x);border-radius:var(--vp-radius-md);font:500 var(--vp-control-font-size)/1 var(--vp-font-sans);background:var(--vp-color-primary);color:var(--vp-color-primary-foreground)">Médio · md</span>
+      <span style="display:inline-flex;align-items:center;height:var(--vp-control-height-sm);padding:0 10px;border-radius:var(--vp-radius-md);font:500 12px/1 var(--vp-font-sans);background:var(--vp-color-primary);color:var(--vp-color-primary-foreground)">Pequeno · sm</span>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ is.iconButton }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+    <span style="padding:5px 8px;border-radius:var(--vp-radius-sm);background:var(--vp-color-tooltip-bg);color:var(--vp-color-tooltip-fg);font:500 12px/1 var(--vp-font-sans)">Medir</span>
+    <div style="display:flex;gap:6px">
+      <span style="width:var(--vp-control-height);height:var(--vp-control-height);display:grid;place-items:center;border-radius:var(--vp-radius-md);color:var(--vp-color-text)"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-orbit"></use></svg></span>
+      <span style="width:var(--vp-control-height);height:var(--vp-control-height);display:grid;place-items:center;border-radius:var(--vp-radius-md);background:var(--vp-color-selection);color:var(--vp-color-primary-text);border:1px solid var(--vp-color-primary-border)"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-ruler"></use></svg></span>
+      <span style="width:var(--vp-control-height);height:var(--vp-control-height);display:grid;place-items:center;border-radius:var(--vp-radius-md);border:1px solid var(--vp-color-border);color:var(--vp-color-text)"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-more"></use></svg></span>
+      <span style="width:var(--vp-control-height);height:var(--vp-control-height);display:grid;place-items:center;border-radius:var(--vp-radius-md);color:var(--vp-color-text-subtle);opacity:0.5"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-section"></use></svg></span>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ is.input }}" hint-placeholder-val="{{ false }}">
+  <div style="display:grid;grid-template-columns:repeat(3,180px);gap:16px">
+    <div style="display:flex;flex-direction:column;gap:6px"><span style="font:var(--vp-font-label)">Padrão</span><div style="display:flex;align-items:center;height:var(--vp-control-height);padding:0 var(--vp-control-padding-x);border:1px solid var(--vp-color-border-strong);border-radius:var(--vp-radius-md);background:var(--vp-color-input-bg)">Galpão Norte</div></div>
+    <div style="display:flex;flex-direction:column;gap:6px"><span style="font:var(--vp-font-label)">Foco</span><div style="display:flex;align-items:center;height:var(--vp-control-height);padding:0 var(--vp-control-padding-x);border:1px solid var(--vp-color-border-focus);box-shadow:0 0 0 2px var(--vp-color-focus-ring);border-radius:var(--vp-radius-md);background:var(--vp-color-input-bg)">ZS1 Produção</div></div>
+    <div style="display:flex;flex-direction:column;gap:6px"><span style="font:var(--vp-font-label)">Erro</span><div style="display:flex;align-items:center;height:var(--vp-control-height);padding:0 var(--vp-control-padding-x);border:1px solid var(--vp-color-danger);border-radius:var(--vp-radius-md);background:var(--vp-color-input-bg)">-12</div><span style="display:flex;gap:4px;align-items:center;font:var(--vp-font-caption);color:var(--vp-color-danger)"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-alert"></use></svg>Informe um número ≥ 0.</span></div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ is.numberUnit }}" hint-placeholder-val="{{ false }}">
+  <div style="display:grid;grid-template-columns:repeat(2,220px);gap:16px">
+    <div style="display:flex;flex-direction:column;gap:6px"><span style="font:var(--vp-font-label)">Tempo de presença</span><div style="display:flex;align-items:center;justify-content:space-between;height:var(--vp-control-height);padding:0 var(--vp-control-padding-x);border:1px solid var(--vp-color-border-strong);border-radius:var(--vp-radius-md);background:var(--vp-color-input-bg);font-variant-numeric:tabular-nums"><span>2.400</span><span style="font:var(--vp-font-caption);color:var(--vp-color-text-muted)">h/ano</span></div><span style="font:var(--vp-font-caption);color:var(--vp-color-text-muted)">Ajuda abaixo do campo.</span></div>
+    <div style="display:flex;flex-direction:column;gap:6px"><span style="font:var(--vp-font-label);color:var(--vp-color-text-muted)">Área (desabilitado)</span><div style="display:flex;align-items:center;justify-content:space-between;height:var(--vp-control-height);padding:0 var(--vp-control-padding-x);border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-md);background:var(--vp-color-bg-muted);color:var(--vp-color-text-subtle);font-variant-numeric:tabular-nums"><span>768,00</span><span style="font:var(--vp-font-caption)">m²</span></div></div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ is.select }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex;flex-direction:column;gap:6px;width:240px"><span style="font:var(--vp-font-label)">Tipo de piso</span><div style="display:flex;align-items:center;justify-content:space-between;height:var(--vp-control-height);padding:0 var(--vp-control-padding-x);border:1px solid var(--vp-color-border-strong);border-radius:var(--vp-radius-md);background:var(--vp-color-input-bg)"><span>Concreto</span><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-chev-d"></use></svg></div></div>
+</sc-if>
+
+<sc-if value="{{ is.segmented }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex;flex-direction:column;gap:6px;width:320px"><span style="font:var(--vp-font-label)">Risco de incêndio</span>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);padding:3px;gap:3px;border-radius:var(--vp-radius-md);background:var(--vp-color-bg-muted);border:1px solid var(--vp-color-border)">
+      <span style="display:grid;place-items:center;height:calc(var(--vp-control-height) - 8px);color:var(--vp-color-text-muted)">Baixo</span>
+      <span style="display:grid;place-items:center;height:calc(var(--vp-control-height) - 8px);border-radius:var(--vp-radius-sm);background:var(--vp-color-bg);box-shadow:var(--vp-shadow-sm);font-weight:500">Ordinário</span>
+      <span style="display:grid;place-items:center;height:calc(var(--vp-control-height) - 8px);color:var(--vp-color-text-muted)">Alto</span>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ is.optionCard }}" hint-placeholder-val="{{ false }}">
+  <div style="display:grid;grid-template-columns:repeat(2,240px);gap:10px">
+    <div style="display:flex;gap:10px;padding:12px 14px;border-radius:var(--vp-radius-lg);border:2px solid var(--vp-color-primary);background:var(--vp-color-selection)"><span style="flex:none;margin-top:2px;width:14px;height:14px;border-radius:50%;border:4px solid var(--vp-color-primary);background:var(--vp-color-bg)"></span><div style="display:flex;flex-direction:column;gap:3px"><b style="font-weight:500">Análise de risco</b><span style="font:var(--vp-font-caption);color:var(--vp-color-text-muted)">Zonas, linhas e perdas.</span></div></div>
+    <div style="display:flex;gap:10px;padding:13px 15px;border-radius:var(--vp-radius-lg);border:1px solid var(--vp-color-border-strong);background:var(--vp-color-bg)"><span style="flex:none;margin-top:2px;width:14px;height:14px;border-radius:50%;border:1px solid var(--vp-color-border-strong)"></span><div style="display:flex;flex-direction:column;gap:3px"><b style="font-weight:500">Projeto de proteção</b><span style="font:var(--vp-font-caption);color:var(--vp-color-text-muted)">Captação, descidas, aterramento.</span></div></div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ is.chipFilter }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex;gap:6px">
+    <span style="display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:var(--vp-radius-full);border:1px solid var(--vp-color-border);color:var(--vp-color-text-muted)">Em andamento</span>
+    <span style="display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:var(--vp-radius-full);border:1px solid var(--vp-color-primary-border);background:var(--vp-color-selection);color:var(--vp-color-primary-text);font-weight:500">Com pendência</span>
+    <span style="display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:var(--vp-radius-full);border:1px solid var(--vp-color-border);color:var(--vp-color-text-muted)">Concluído</span>
+  </div>
+</sc-if>
+
+<sc-if value="{{ is.tabs }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex;gap:4px;border-bottom:1px solid var(--vp-color-border);width:340px">
+    <span style="display:flex;gap:8px;align-items:center;padding:10px 12px;border-bottom:2px solid var(--vp-color-primary);margin-bottom:-1px;font-weight:500">Todos <span style="padding:1px 6px;border-radius:var(--vp-radius-full);background:var(--vp-color-bg-muted);font:500 11px/1.4 var(--vp-font-sans);color:var(--vp-color-text-muted)">12</span></span>
+    <span style="display:flex;gap:8px;align-items:center;padding:10px 12px;color:var(--vp-color-text-muted)">SPDA <span style="padding:1px 6px;border-radius:var(--vp-radius-full);background:var(--vp-color-bg-muted);font:500 11px/1.4 var(--vp-font-sans)">9</span></span>
+    <span style="display:flex;gap:8px;align-items:center;padding:10px 12px;color:var(--vp-color-text-muted)">GED <span style="padding:1px 6px;border-radius:var(--vp-radius-full);background:var(--vp-color-bg-muted);font:500 11px/1.4 var(--vp-font-sans)">3</span></span>
+  </div>
+</sc-if>
+
+<sc-if value="{{ is.status }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;max-width:420px">
+    <span style="display:inline-flex;align-items:center;height:22px;padding:0 7px;border-radius:var(--vp-radius-sm);font:500 12px/1 var(--vp-font-sans);background:var(--vp-color-info-subtle);color:var(--vp-color-info-on-subtle);border:1px solid var(--vp-color-info-border)">Em andamento</span>
+    <span style="display:inline-flex;align-items:center;height:22px;padding:0 7px;border-radius:var(--vp-radius-sm);font:500 12px/1 var(--vp-font-sans);background:var(--vp-color-info-subtle);color:var(--vp-color-info-on-subtle);border:1px solid var(--vp-color-info-border)">Em revisão</span>
+    <span style="display:inline-flex;align-items:center;height:22px;padding:0 7px;border-radius:var(--vp-radius-sm);font:500 12px/1 var(--vp-font-sans);background:var(--vp-color-success-subtle);color:var(--vp-color-success-on-subtle);border:1px solid var(--vp-color-success-border)">Concluído</span>
+    <span style="display:inline-flex;align-items:center;height:22px;padding:0 7px;border-radius:var(--vp-radius-sm);font:500 12px/1 var(--vp-font-sans);background:var(--vp-color-warning-subtle);color:var(--vp-color-warning-on-subtle);border:1px solid var(--vp-color-warning-border)">2 pendências</span>
+    <span style="display:inline-flex;align-items:center;height:22px;padding:0 7px;border-radius:var(--vp-radius-sm);font:500 12px/1 var(--vp-font-sans);background:var(--vp-color-danger-subtle);color:var(--vp-color-danger-on-subtle);border:1px solid var(--vp-color-danger-border)">Falhou</span>
+    <span style="display:inline-flex;align-items:center;height:22px;padding:0 7px;border-radius:var(--vp-radius-sm);font:500 12px/1 var(--vp-font-sans);background:var(--vp-color-bg-muted);color:var(--vp-color-text-muted);border:1px solid var(--vp-color-border)">Rascunho</span>
+  </div>
+</sc-if>
+
+<sc-if value="{{ is.appChip }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex;gap:6px">
+    <span style="display:inline-flex;gap:6px;align-items:center;height:22px;padding:0 8px;border-radius:var(--vp-radius-full);background:var(--vp-color-app-spda-subtle);font:500 12px/1 var(--vp-font-sans)"><i style="width:6px;height:6px;border-radius:50%;background:var(--vp-color-app-spda)"></i>SPDA</span>
+    <span style="display:inline-flex;gap:6px;align-items:center;height:22px;padding:0 8px;border-radius:var(--vp-radius-full);background:var(--vp-color-app-ged-subtle);font:500 12px/1 var(--vp-font-sans)"><i style="width:6px;height:6px;border-radius:50%;background:var(--vp-color-app-ged)"></i>GED</span>
+    <span style="display:inline-flex;gap:6px;align-items:center;height:22px;padding:0 8px;border-radius:var(--vp-radius-full);background:var(--vp-color-app-identity-subtle);font:500 12px/1 var(--vp-font-sans)"><i style="width:6px;height:6px;border-radius:50%;background:var(--vp-color-app-identity)"></i>Identity</span>
+    <span style="display:inline-flex;gap:6px;align-items:center;height:22px;padding:0 8px;border-radius:var(--vp-radius-full);background:var(--vp-color-app-platform-subtle);font:500 12px/1 var(--vp-font-sans)"><i style="width:6px;height:6px;border-radius:50%;background:var(--vp-color-app-platform)"></i>Platform</span>
+  </div>
+</sc-if>
+
+<sc-if value="{{ is.banner }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex;flex-direction:column;gap:8px;width:440px">
+    <div style="display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:var(--vp-radius-md);background:var(--vp-color-info-subtle);border:1px solid var(--vp-color-info-border);color:var(--vp-color-info-on-subtle)"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:1px"><use href="#i-info"></use></svg><span>O valor de área vem do modelo. Edite para sobrescrever.</span></div>
+    <div style="display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:var(--vp-radius-md);background:var(--vp-color-warning-subtle);border:1px solid var(--vp-color-warning-border);color:var(--vp-color-warning-on-subtle)"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:1px"><use href="#i-alert"></use></svg><span style="flex:1">ZS2 Escritórios está sem tipo de piso.</span><u style="font-weight:500">Corrigir</u></div>
+    <div style="display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:var(--vp-radius-md);background:var(--vp-color-danger-subtle);border:1px solid var(--vp-color-danger-border);color:var(--vp-color-danger-on-subtle)"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:1px"><use href="#i-alert"></use></svg><span style="flex:1"><b style="font-weight:600">Não foi possível salvar.</b> As alterações estão neste navegador.</span></div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ is.tooltip }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+    <span style="display:flex;gap:8px;align-items:center;padding:6px 8px;border-radius:var(--vp-radius-sm);background:var(--vp-color-tooltip-bg);color:var(--vp-color-tooltip-fg);font:500 12px/1 var(--vp-font-sans)">Medir distância <kbd style="font:500 11px/1 var(--vp-font-mono);opacity:0.7">M</kbd></span>
+    <span style="width:var(--vp-control-height);height:var(--vp-control-height);display:grid;place-items:center;border-radius:var(--vp-radius-md);background:var(--vp-color-bg);border:1px solid var(--vp-color-border);box-shadow:0 0 0 2px var(--vp-color-bg),0 0 0 4px var(--vp-color-focus-ring)"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-ruler"></use></svg></span>
+  </div>
+</sc-if>
+
+<sc-if value="{{ is.dialog }}" hint-placeholder-val="{{ false }}">
+  <div style="padding:28px 40px;border-radius:var(--vp-radius-lg);background:var(--vp-color-overlay)">
+    <div style="width:340px;border-radius:var(--vp-radius-xl);background:var(--vp-color-bg-elevated);box-shadow:var(--vp-shadow-xl);border:1px solid var(--vp-color-border);overflow:hidden">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 18px"><b style="font:var(--vp-font-section-title)">Novo trabalho SPDA</b><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-x"></use></svg></div>
+      <div style="display:flex;flex-direction:column;gap:6px;padding:0 18px 16px"><span style="font:var(--vp-font-label)">Nome do trabalho</span><div style="display:flex;align-items:center;height:var(--vp-control-height);padding:0 var(--vp-control-padding-x);border:1px solid var(--vp-color-border-strong);border-radius:var(--vp-radius-md);background:var(--vp-color-input-bg)">Galpão Norte, análise 2</div></div>
+      <div style="display:flex;justify-content:flex-end;gap:8px;padding:12px 18px;border-top:1px solid var(--vp-color-border)"><span style="display:inline-flex;align-items:center;height:var(--vp-control-height);padding:0 var(--vp-control-padding-x);border-radius:var(--vp-radius-md);border:1px solid var(--vp-color-border);font-weight:500">Cancelar</span><span style="display:inline-flex;align-items:center;height:var(--vp-control-height);padding:0 var(--vp-control-padding-x);border-radius:var(--vp-radius-md);background:var(--vp-color-primary);color:var(--vp-color-primary-foreground);font-weight:500">Criar trabalho</span></div>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ is.toast }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex;flex-direction:column;gap:10px;width:340px">
+    <div style="display:flex;gap:10px;padding:12px 14px;border-radius:var(--vp-radius-lg);background:var(--vp-color-bg-elevated);border:1px solid var(--vp-color-border);box-shadow:var(--vp-shadow-lg)"><span style="color:var(--vp-color-success);flex:none"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-check"></use></svg></span><div style="flex:1;display:flex;flex-direction:column;gap:3px"><b style="font-weight:500">Documento enviado</b><span style="font:var(--vp-font-caption);color:var(--vp-color-text-muted)">Memorial descritivo SPDA, revisão C.</span></div><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-x"></use></svg></div>
+    <div style="display:flex;gap:10px;padding:12px 14px;border-radius:var(--vp-radius-lg);background:var(--vp-color-bg-elevated);border:1px solid var(--vp-color-border);box-shadow:var(--vp-shadow-lg)"><span style="color:var(--vp-color-danger);flex:none"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-alert"></use></svg></span><div style="flex:1;display:flex;flex-direction:column;gap:3px"><b style="font-weight:500">Envio falhou</b><span style="font:var(--vp-font-caption);color:var(--vp-color-text-muted)">O arquivo passou de 200 MB.</span></div><span style="align-self:center;display:inline-flex;align-items:center;height:28px;padding:0 10px;border-radius:var(--vp-radius-md);border:1px solid var(--vp-color-border);font:500 12px/1 var(--vp-font-sans)">Escolher outro</span></div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ is.progress }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex;flex-direction:column;gap:14px;width:360px">
+    <div style="display:flex;justify-content:space-between;font:var(--vp-font-caption);color:var(--vp-color-text-muted)"><span>Processando geometria</span><span style="font-variant-numeric:tabular-nums">38 de 61 MB</span></div>
+    <div style="height:4px;border-radius:2px;background:var(--vp-color-bg-hover);overflow:hidden"><div style="width:62%;height:100%;background:var(--vp-color-primary)"></div></div>
+    <div style="display:flex;gap:14px;align-items:center"><span style="width:14px;height:14px;border-radius:50%;border:2px solid var(--vp-color-primary);border-right-color:transparent;animation:vpspin 0.8s linear infinite"></span><span style="width:28px;height:28px;border-radius:50%;border:3px solid var(--vp-color-primary);border-right-color:transparent;animation:vpspin 0.8s linear infinite"></span><span style="font:var(--vp-font-caption);color:var(--vp-color-text-muted)">sm · lg</span></div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ is.skeleton }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex;flex-direction:column;width:380px;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-lg);overflow:hidden">
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px;padding:12px 14px;border-bottom:1px solid var(--vp-color-border)"><i style="height:10px;border-radius:4px;background:var(--vp-color-bg-hover)"></i><i style="height:10px;border-radius:4px;background:var(--vp-color-bg-hover);width:60%"></i><i style="height:10px;border-radius:4px;background:var(--vp-color-bg-hover)"></i></div>
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px;padding:12px 14px;border-bottom:1px solid var(--vp-color-border)"><i style="height:10px;border-radius:4px;background:var(--vp-color-bg-hover);width:80%"></i><i style="height:10px;border-radius:4px;background:var(--vp-color-bg-hover);width:60%"></i><i style="height:10px;border-radius:4px;background:var(--vp-color-bg-hover);width:70%"></i></div>
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px;padding:12px 14px"><i style="height:10px;border-radius:4px;background:var(--vp-color-bg-hover);width:65%"></i><i style="height:10px;border-radius:4px;background:var(--vp-color-bg-hover);width:60%"></i><i style="height:10px;border-radius:4px;background:var(--vp-color-bg-hover)"></i></div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ is.emptyState }}" hint-placeholder-val="{{ false }}">
+  <div style="display:grid;grid-template-columns:repeat(2,230px);gap:12px">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:22px 16px;text-align:center;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-lg);background:var(--vp-color-bg)"><span style="width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--vp-color-bg-muted);color:var(--vp-color-text-muted)"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-folder"></use></svg></span><b style="font:var(--vp-font-section-title);font-size:15px">Nenhum trabalho ainda</b><span style="font:var(--vp-font-caption);color:var(--vp-color-text-muted)">Crie uma análise de risco ou projeto de proteção.</span><span style="margin-top:4px;display:inline-flex;align-items:center;height:32px;padding:0 10px;border-radius:var(--vp-radius-md);background:var(--vp-color-primary);color:var(--vp-color-primary-foreground);font:500 12px/1 var(--vp-font-sans)">Novo trabalho</span></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:22px 16px;text-align:center;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-lg);background:var(--vp-color-bg)"><span style="width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--vp-color-danger-subtle);color:var(--vp-color-danger)"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-alert"></use></svg></span><b style="font:var(--vp-font-section-title);font-size:15px">Não foi possível carregar</b><span style="font:var(--vp-font-caption);color:var(--vp-color-text-muted)">O servidor não respondeu. Nada foi alterado.</span><span style="margin-top:4px;display:inline-flex;align-items:center;height:32px;padding:0 10px;border-radius:var(--vp-radius-md);border:1px solid var(--vp-color-border);font:500 12px/1 var(--vp-font-sans)">Tentar de novo</span></div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ is.topbar }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex;align-items:center;gap:12px;width:620px;height:56px;padding:0 12px;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-lg);background:var(--vp-color-bg)">
+    <span style="width:28px;height:28px;border-radius:var(--vp-radius-md);display:grid;place-items:center;background:var(--vp-color-primary);color:var(--vp-color-primary-foreground)"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-grid"></use></svg></span>
+    <b style="font:600 15px/1 var(--vp-font-brand)">Virtual Plant</b>
+    <span style="flex:1;display:flex;align-items:center;gap:8px;height:34px;padding:0 10px;border-radius:var(--vp-radius-md);background:var(--vp-color-bg-muted);border:1px solid var(--vp-color-border);color:var(--vp-color-text-muted);font-size:12px"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-search"></use></svg>Buscar trabalhos…</span>
+    <span style="display:flex;flex-direction:column;gap:2px;padding:4px 8px;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-md);font-size:11px;line-height:1"><span style="color:var(--vp-color-text-muted)">Engenharia Norte</span><span>Galpão Industrial</span></span>
+    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-moon"></use></svg>
+    <span style="width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--vp-color-bg-muted);border:1px solid var(--vp-color-border);font:600 10px/1 var(--vp-font-sans)">GR</span>
+  </div>
+</sc-if>
+
+<sc-if value="{{ is.launcher }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex;flex-direction:column;gap:12px;width:300px;padding:16px;border-radius:var(--vp-radius-xl);background:var(--vp-color-bg-elevated);border:1px solid var(--vp-color-border);box-shadow:var(--vp-shadow-lg)">
+    <div style="display:flex;justify-content:space-between;align-items:center"><b style="font:var(--vp-font-section-title)">Aplicativos</b><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-x"></use></svg></div>
+    <div style="display:flex;align-items:center;gap:8px;height:34px;padding:0 10px;border:1px solid var(--vp-color-border-strong);border-radius:var(--vp-radius-md);color:var(--vp-color-text-subtle);font-size:12px"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-search"></use></svg>Filtrar aplicativos</div>
+    <span style="font:var(--vp-font-overline);color:var(--vp-color-text-muted);text-transform:uppercase;letter-spacing:0.04em">HUB</span>
+    <div style="display:flex;gap:18px">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;width:64px"><span style="width:40px;height:40px;border-radius:var(--vp-radius-md);display:grid;place-items:center;background:var(--vp-color-app-spda);color:var(--vp-color-app-foreground)"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-zap"></use></svg></span><span style="font-size:12px">SPDA</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;width:64px"><span style="width:40px;height:40px;border-radius:var(--vp-radius-md);display:grid;place-items:center;background:var(--vp-color-app-ged);color:var(--vp-color-app-foreground)"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-folder"></use></svg></span><span style="font-size:12px">GED</span></div>
+    </div>
+    <span style="font:var(--vp-font-overline);color:var(--vp-color-text-muted);text-transform:uppercase;letter-spacing:0.04em">Plataforma</span>
+    <div style="display:flex;gap:18px">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;width:64px"><span style="width:40px;height:40px;border-radius:var(--vp-radius-md);display:grid;place-items:center;background:var(--vp-color-app-identity);color:var(--vp-color-app-foreground)"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-users"></use></svg></span><span style="font-size:12px">Identity</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;width:64px"><span style="width:40px;height:40px;border-radius:var(--vp-radius-md);display:grid;place-items:center;background:var(--vp-color-app-platform);color:var(--vp-color-app-foreground)"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-sliders"></use></svg></span><span style="font-size:12px">Platform</span></div>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ is.context }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex;align-items:center;gap:14px;padding:6px 10px;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-md);background:var(--vp-color-bg)"><span style="display:flex;flex-direction:column;gap:3px;line-height:1"><span style="font-size:11px;color:var(--vp-color-text-muted)">Engenharia Norte</span><span style="font-weight:500">Galpão Industrial</span></span><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-chev-d"></use></svg></div>
+</sc-if>
+
+<sc-if value="{{ is.search }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex;flex-direction:column;gap:6px;width:420px">
+    <div style="display:flex;align-items:center;gap:8px;height:38px;padding:0 10px;border-radius:var(--vp-radius-md);background:var(--vp-color-bg);border:1px solid var(--vp-color-border-focus);box-shadow:0 0 0 2px var(--vp-color-focus-ring)"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-search"></use></svg><span style="flex:1">galpão</span><kbd style="padding:2px 5px;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-sm);font:500 11px/1 var(--vp-font-mono);color:var(--vp-color-text-muted)">Ctrl K</kbd></div>
+    <div style="display:flex;flex-direction:column;padding:6px;border-radius:var(--vp-radius-lg);background:var(--vp-color-bg-elevated);border:1px solid var(--vp-color-border);box-shadow:var(--vp-shadow-lg)">
+      <span style="padding:6px 8px;font:var(--vp-font-overline);color:var(--vp-color-text-muted)">Trabalhos</span>
+      <span style="display:flex;gap:8px;align-items:center;padding:8px;border-radius:var(--vp-radius-md);background:var(--vp-color-selection)"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-box"></use></svg>Galpão Industrial Norte, análise de risco</span>
+      <span style="display:flex;gap:8px;align-items:center;padding:8px"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-file"></use></svg>Memorial descritivo SPDA rev. C</span>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ is.appCard }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex;flex-direction:column;gap:8px;width:320px">
+    <div style="display:flex;gap:12px;align-items:center;padding:12px;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-lg);background:var(--vp-color-bg)"><span style="width:40px;height:40px;border-radius:var(--vp-radius-md);display:grid;place-items:center;background:var(--vp-color-app-spda);color:var(--vp-color-app-foreground)"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-zap"></use></svg></span><span style="display:flex;flex-direction:column;gap:3px"><b style="font-weight:500">SPDA</b><span style="font:var(--vp-font-caption);color:var(--vp-color-text-muted)">Análise de risco e projeto de proteção</span></span></div>
+    <div style="display:flex;gap:12px;align-items:center;padding:12px;border:1px solid var(--vp-color-border-strong);border-radius:var(--vp-radius-lg);background:var(--vp-color-bg-hover)"><span style="width:40px;height:40px;border-radius:var(--vp-radius-md);display:grid;place-items:center;background:var(--vp-color-app-ged);color:var(--vp-color-app-foreground)"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-folder"></use></svg></span><span style="display:flex;flex-direction:column;gap:3px"><b style="font-weight:500">GED</b><span style="font:var(--vp-font-caption);color:var(--vp-color-text-muted)">Documentos, pastas e revisões · hover</span></span></div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ is.workList }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex;flex-direction:column;width:460px;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-lg);background:var(--vp-color-bg);overflow:hidden">
+    <div style="display:flex;gap:12px;align-items:center;padding:10px 12px;border-bottom:1px solid var(--vp-color-border)"><span style="width:56px;height:40px;border-radius:var(--vp-radius-md);background:var(--vp-color-bg-muted);border:1px solid var(--vp-color-border);display:grid;place-items:center;color:var(--vp-color-text-subtle)"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-box"></use></svg></span><span style="flex:1;display:flex;flex-direction:column;gap:5px"><b style="font-weight:500">Galpão Industrial Norte</b><span style="display:flex;gap:6px;align-items:center;font:var(--vp-font-caption);color:var(--vp-color-text-muted)"><span style="display:inline-flex;gap:5px;align-items:center;height:18px;padding:0 6px;border-radius:var(--vp-radius-full);background:var(--vp-color-app-spda-subtle);color:var(--vp-color-text);font-weight:500"><i style="width:5px;height:5px;border-radius:50%;background:var(--vp-color-app-spda)"></i>SPDA</span>Análise de risco, etapa 2 de 7</span></span><span style="display:flex;flex-direction:column;align-items:flex-end;gap:5px"><span style="display:inline-flex;align-items:center;height:20px;padding:0 6px;border-radius:var(--vp-radius-sm);font:500 11px/1 var(--vp-font-sans);background:var(--vp-color-warning-subtle);color:var(--vp-color-warning-on-subtle);border:1px solid var(--vp-color-warning-border)">2 pendências</span><span style="font:var(--vp-font-caption);color:var(--vp-color-text-muted)">há 2 h</span></span></div>
+    <div style="display:flex;gap:12px;align-items:center;padding:10px 12px"><span style="width:56px;height:40px;border-radius:var(--vp-radius-md);background:var(--vp-color-bg-muted);border:1px solid var(--vp-color-border);display:grid;place-items:center;color:var(--vp-color-text-subtle)"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-file"></use></svg></span><span style="flex:1;display:flex;flex-direction:column;gap:5px"><b style="font-weight:500">Memorial descritivo SPDA rev. C</b><span style="display:flex;gap:6px;align-items:center;font:var(--vp-font-caption);color:var(--vp-color-text-muted)"><span style="display:inline-flex;gap:5px;align-items:center;height:18px;padding:0 6px;border-radius:var(--vp-radius-full);background:var(--vp-color-app-ged-subtle);color:var(--vp-color-text);font-weight:500"><i style="width:5px;height:5px;border-radius:50%;background:var(--vp-color-app-ged)"></i>GED</span>Pasta Galpão Norte</span></span><span style="display:flex;flex-direction:column;align-items:flex-end;gap:5px"><span style="display:inline-flex;align-items:center;height:20px;padding:0 6px;border-radius:var(--vp-radius-sm);font:500 11px/1 var(--vp-font-sans);background:var(--vp-color-info-subtle);color:var(--vp-color-info-on-subtle);border:1px solid var(--vp-color-info-border)">Em revisão</span><span style="font:var(--vp-font-caption);color:var(--vp-color-text-muted)">12/10</span></span></div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ is.table }}" hint-placeholder-val="{{ false }}">
+  <div style="width:500px;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-lg);background:var(--vp-color-bg);overflow:hidden">
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr;padding:9px 14px;background:var(--vp-color-bg-muted);border-bottom:1px solid var(--vp-color-border);font:var(--vp-font-caption);color:var(--vp-color-text-muted)"><span>Nome</span><span>Status</span><span style="text-align:right">Atualizado</span></div>
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr;align-items:center;height:var(--vp-row-height);padding:0 14px;border-bottom:1px solid var(--vp-color-border)"><span>Galpão Industrial Norte</span><span><span style="display:inline-flex;align-items:center;height:20px;padding:0 6px;border-radius:var(--vp-radius-sm);font:500 11px/1 var(--vp-font-sans);background:var(--vp-color-warning-subtle);color:var(--vp-color-warning-on-subtle);border:1px solid var(--vp-color-warning-border)">2 pendências</span></span><span style="text-align:right;font-variant-numeric:tabular-nums">Hoje, 09:40</span></div>
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr;align-items:center;height:var(--vp-row-height);padding:0 14px;border-bottom:1px solid var(--vp-color-border);background:var(--vp-color-selection);box-shadow:inset 2px 0 0 var(--vp-color-primary)"><span style="font-weight:500">Selecionada</span><span><span style="display:inline-flex;align-items:center;height:20px;padding:0 6px;border-radius:var(--vp-radius-sm);font:500 11px/1 var(--vp-font-sans);background:var(--vp-color-info-subtle);color:var(--vp-color-info-on-subtle);border:1px solid var(--vp-color-info-border)">Em revisão</span></span><span style="text-align:right;font-variant-numeric:tabular-nums">12/10/2026</span></div>
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr;align-items:center;gap:16px;height:var(--vp-row-height);padding:0 14px"><i style="height:10px;border-radius:4px;background:var(--vp-color-bg-hover);width:70%"></i><i style="height:10px;border-radius:4px;background:var(--vp-color-bg-hover);width:60%"></i><i style="height:10px;border-radius:4px;background:var(--vp-color-bg-hover);width:80%;justify-self:end"></i></div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ is.dock }}" hint-placeholder-val="{{ false }}">
+  <div data-density="compact" style="display:flex;flex-direction:column;width:280px;height:260px;border-radius:var(--vp-workbench-dock-radius);background:var(--vp-color-bg-elevated);border:1px solid var(--vp-color-border);box-shadow:var(--vp-workbench-dock-shadow);overflow:hidden;font-size:var(--vp-control-font-size)">
+    <div style="display:flex;align-items:center;gap:6px;padding:10px 12px;border-bottom:1px solid var(--vp-color-border)"><b style="flex:1;font:var(--vp-font-panel-title)">Navegador</b><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-search"></use></svg><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-panel-l"></use></svg></div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:2px;padding:8px 12px;color:var(--vp-color-text-muted)"><span style="font:var(--vp-font-caption)">Modelo</span><span style="color:var(--vp-color-text)">Galpão Industrial Norte.ifc</span><span style="font:var(--vp-font-caption);margin-top:8px">Zonas</span><span style="color:var(--vp-color-text)">ZS1 Área de produção</span><span style="color:var(--vp-color-text)">ZS2 Escritórios</span></div>
+    <div style="display:flex;justify-content:space-between;padding:8px 12px;border-top:1px solid var(--vp-color-border)"><span style="display:inline-flex;align-items:center;height:var(--vp-control-height);padding:0 10px;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-md)">Etapa anterior</span><span style="display:inline-flex;align-items:center;height:var(--vp-control-height);padding:0 10px;border-radius:var(--vp-radius-md);background:var(--vp-color-primary);color:var(--vp-color-primary-foreground)">Próxima</span></div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ is.tree }}" hint-placeholder-val="{{ false }}">
+  <div data-density="compact" style="display:flex;flex-direction:column;width:320px;padding:6px 0;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-lg);background:var(--vp-color-bg-elevated);font-size:var(--vp-control-font-size)">
+    <div style="display:flex;align-items:center;gap:6px;height:var(--vp-row-height);padding:0 10px"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-chev-d"></use></svg><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-box"></use></svg><span style="flex:1">Galpão Industrial Norte.ifc</span><span style="color:var(--vp-color-text-subtle)"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-eye"></use></svg></span></div>
+    <div style="display:flex;align-items:center;gap:6px;height:var(--vp-row-height);padding:0 10px 0 28px"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-chev-r"></use></svg><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-layers"></use></svg><span style="flex:1">Cobertura</span><span style="color:var(--vp-color-text-subtle)"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-eye"></use></svg></span></div>
+    <div style="display:flex;align-items:center;gap:8px;height:var(--vp-row-height);padding:0 10px 0 28px;background:var(--vp-color-selection);box-shadow:inset 2px 0 0 var(--vp-color-primary)"><i style="width:9px;height:9px;border-radius:2px;background:var(--vp-viewport-selection)"></i><span style="flex:1;font-weight:500">ZS1 Área de produção</span><span style="color:var(--vp-color-text-subtle)"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-eye"></use></svg></span></div>
+    <div style="display:flex;align-items:center;gap:8px;height:var(--vp-row-height);padding:0 10px 0 28px"><i style="width:9px;height:9px;border-radius:2px;background:var(--vp-viewport-category-2)"></i><span style="flex:1">ZS2 Escritórios</span><span style="color:var(--vp-color-warning)"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-alert"></use></svg></span><span style="color:var(--vp-color-text-subtle)"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-eye"></use></svg></span></div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ is.toolbar3d }}" hint-placeholder-val="{{ false }}">
+  <div data-density="compact" style="display:flex;align-items:center;gap:2px;padding:4px;border-radius:var(--vp-radius-lg);background:var(--vp-color-bg-elevated);border:1px solid var(--vp-color-border);box-shadow:var(--vp-shadow-md)">
+    <span style="width:var(--vp-control-height);height:var(--vp-control-height);display:grid;place-items:center;border-radius:var(--vp-radius-md)"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-home"></use></svg></span>
+    <span style="width:var(--vp-control-height);height:var(--vp-control-height);display:grid;place-items:center;border-radius:var(--vp-radius-md)"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-crosshair"></use></svg></span>
+    <span style="width:var(--vp-control-height);height:var(--vp-control-height);display:grid;place-items:center;border-radius:var(--vp-radius-md);background:var(--vp-color-selection);color:var(--vp-color-primary-text);border:1px solid var(--vp-color-primary-border)"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-orbit"></use></svg></span>
+    <span style="width:var(--vp-control-height);height:var(--vp-control-height);display:grid;place-items:center;border-radius:var(--vp-radius-md)"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-move"></use></svg></span>
+    <i style="width:1px;height:18px;margin:0 4px;background:var(--vp-color-border)"></i>
+    <span style="width:var(--vp-control-height);height:var(--vp-control-height);display:grid;place-items:center;border-radius:var(--vp-radius-md);background:var(--vp-color-selection);color:var(--vp-color-primary-text);border:1px solid var(--vp-color-primary-border)"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-ruler"></use></svg></span>
+    <span style="width:var(--vp-control-height);height:var(--vp-control-height);display:grid;place-items:center;border-radius:var(--vp-radius-md)"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-section"></use></svg></span>
+    <i style="width:1px;height:18px;margin:0 4px;background:var(--vp-color-border)"></i>
+    <span style="width:var(--vp-control-height);height:var(--vp-control-height);display:grid;place-items:center;border-radius:var(--vp-radius-md)"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-camera"></use></svg></span>
+    <span style="width:var(--vp-control-height);height:var(--vp-control-height);display:grid;place-items:center;border-radius:var(--vp-radius-md)"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-view"></use></svg></span>
+  </div>
+</sc-if>
+
+<sc-if value="{{ is.viewcube }}" hint-placeholder-val="{{ false }}">
+  <div style="display:grid;grid-template-columns:48px 48px;grid-template-rows:30px 48px;width:96px;border:1px solid var(--vp-color-border-strong);border-radius:var(--vp-radius-sm);background:var(--vp-color-bg-elevated);font:500 10px/1 var(--vp-font-sans);color:var(--vp-color-text-muted);overflow:hidden">
+    <span style="grid-column:1 / span 2;display:grid;place-items:center;border-bottom:1px solid var(--vp-color-border-strong);background:var(--vp-color-selection);color:var(--vp-color-primary-text)">Topo</span>
+    <span style="display:grid;place-items:center;border-right:1px solid var(--vp-color-border-strong)">Frente</span>
+    <span style="display:grid;place-items:center;background:var(--vp-color-bg-muted)">Direita</span>
+  </div>
+</sc-if>
+
+<sc-if value="{{ is.legend }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex;gap:12px;padding:6px 10px;border-radius:var(--vp-radius-md);background:var(--vp-color-bg-elevated);border:1px solid var(--vp-color-border);font:var(--vp-font-caption)">
+    <span style="display:flex;gap:6px;align-items:center"><i style="width:9px;height:9px;border-radius:2px;background:var(--vp-viewport-selection)"></i>Selecionado</span>
+    <span style="display:flex;gap:6px;align-items:center"><i style="width:9px;height:9px;border-radius:2px;background:var(--vp-viewport-category-2)"></i>Zona</span>
+    <span style="display:flex;gap:6px;align-items:center"><i style="width:9px;height:9px;border-radius:2px;background:var(--vp-viewport-category-4)"></i>Linha</span>
+    <span style="display:flex;gap:6px;align-items:center"><i style="width:9px;height:9px;border-radius:2px;background:var(--vp-viewport-measure)"></i>Medição</span>
+  </div>
+</sc-if>
+
+<sc-if value="{{ is.viewportState }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:320px;padding:22px;border-radius:var(--vp-radius-xl);background:var(--vp-color-bg-elevated);border:1px solid var(--vp-color-border);box-shadow:var(--vp-shadow-lg);text-align:center">
+    <span style="width:28px;height:28px;border-radius:50%;border:3px solid var(--vp-color-primary);border-right-color:transparent;animation:vpspin 0.8s linear infinite"></span>
+    <b style="font:var(--vp-font-section-title)">Abrindo modelo</b><span style="color:var(--vp-color-text-muted)">Galpão Industrial Norte.ifc</span>
+    <div style="width:100%;height:4px;border-radius:2px;background:var(--vp-color-bg-hover);overflow:hidden"><div style="width:62%;height:100%;background:var(--vp-color-primary)"></div></div>
+    <div style="width:100%;display:flex;justify-content:space-between;font:var(--vp-font-caption);color:var(--vp-color-text-muted)"><span>Processando geometria</span><span>38 de 61 MB</span></div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ is.workbar }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex;align-items:center;gap:10px;width:600px;height:44px;padding:0 12px;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-lg);background:var(--vp-color-bg);font-size:13px">
+    <span style="color:var(--vp-color-text-muted)">Início</span><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-chev-r"></use></svg><span style="color:var(--vp-color-text-muted)">SPDA</span><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-chev-r"></use></svg><span style="font-weight:500">Galpão Industrial Norte</span>
+    <span style="display:inline-flex;align-items:center;height:20px;padding:0 6px;border-radius:var(--vp-radius-sm);font:500 11px/1 var(--vp-font-sans);background:var(--vp-color-warning-subtle);color:var(--vp-color-warning-on-subtle);border:1px solid var(--vp-color-warning-border)">2 pendências</span>
+    <span style="flex:1"></span>
+    <span style="display:flex;gap:5px;align-items:center;font:var(--vp-font-caption);color:var(--vp-color-text-muted)"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-check"></use></svg>Salvo há 1 min</span>
+    <span style="display:inline-flex;align-items:center;height:30px;padding:0 10px;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-md)">Relatório</span>
+    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-more"></use></svg>
+  </div>
+</sc-if>
+
+<sc-if value="{{ is.stepProgress }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex;flex-direction:column;gap:10px;width:340px">
+    <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px"><i style="height:4px;border-radius:2px;background:var(--vp-color-primary)"></i><i style="height:4px;border-radius:2px;background:var(--vp-color-primary)"></i><i style="height:4px;border-radius:2px;background:var(--vp-color-bg-hover)"></i><i style="height:4px;border-radius:2px;background:var(--vp-color-bg-hover)"></i><i style="height:4px;border-radius:2px;background:var(--vp-color-bg-hover)"></i><i style="height:4px;border-radius:2px;background:var(--vp-color-bg-hover)"></i><i style="height:4px;border-radius:2px;background:var(--vp-color-bg-hover)"></i></div>
+    <span style="font:var(--vp-font-caption);color:var(--vp-color-text-muted)">Etapa 2 de 7</span>
+    <b style="font:var(--vp-font-section-title)">Zonas ZS</b>
+  </div>
+</sc-if>
+
+<sc-if value="{{ is.stepPanel }}" hint-placeholder-val="{{ false }}">
+  <div data-density="compact" style="display:flex;flex-direction:column;width:320px;border-radius:var(--vp-workbench-dock-radius);background:var(--vp-color-bg-elevated);border:1px solid var(--vp-color-border);box-shadow:var(--vp-shadow-md);overflow:hidden;font-size:var(--vp-control-font-size)">
+    <div style="display:flex;flex-direction:column;gap:10px;padding:12px">
+      <span style="font:var(--vp-font-caption);color:var(--vp-color-text-muted)">Etapa 2 de 7</span><b style="font:var(--vp-font-section-title);margin-top:-6px">Zonas ZS</b>
+      <div style="display:flex;gap:8px;padding:8px 10px;border-radius:var(--vp-radius-md);background:var(--vp-color-warning-subtle);border:1px solid var(--vp-color-warning-border);color:var(--vp-color-warning-on-subtle);font:var(--vp-font-caption)"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><use href="#i-alert"></use></svg>ZS2 Escritórios está sem tipo de piso.</div>
+      <div style="display:flex;flex-direction:column;gap:4px"><span style="font:var(--vp-font-label);font-size:12px">Pessoas na zona</span><div style="display:flex;align-items:center;justify-content:space-between;height:var(--vp-control-height);padding:0 var(--vp-control-padding-x);border:1px solid var(--vp-color-border-strong);border-radius:var(--vp-radius-md);background:var(--vp-color-input-bg)"><span>85</span><span style="font:var(--vp-font-caption);color:var(--vp-color-text-muted)">pessoas</span></div></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;padding:8px 12px;border-top:1px solid var(--vp-color-border)"><span style="display:inline-flex;align-items:center;height:var(--vp-control-height);padding:0 10px;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-md)">Etapa anterior</span><span style="display:inline-flex;align-items:center;height:var(--vp-control-height);padding:0 10px;border-radius:var(--vp-radius-md);background:var(--vp-color-primary);color:var(--vp-color-primary-foreground)">Próxima: Linhas</span></div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ is.miniList }}" hint-placeholder-val="{{ false }}">
+  <div data-density="compact" style="display:flex;flex-direction:column;width:340px;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-md);background:var(--vp-color-bg);overflow:hidden;font-size:var(--vp-control-font-size)">
+    <div style="display:grid;grid-template-columns:28px 1fr auto auto;gap:10px;align-items:center;height:var(--vp-row-height);padding:0 10px;border-bottom:1px solid var(--vp-color-border)"><span style="font:500 11px/1 var(--vp-font-mono);color:var(--vp-color-text-muted)">D1</span><span>Fachada frontal, x 0</span><span style="font-variant-numeric:tabular-nums">8,00 m</span><span style="padding:2px 5px;border-radius:var(--vp-radius-sm);font:500 11px/1 var(--vp-font-sans);background:var(--vp-color-success-subtle);color:var(--vp-color-success-on-subtle);border:1px solid var(--vp-color-success-border)">OK</span></div>
+    <div style="display:grid;grid-template-columns:28px 1fr auto auto;gap:10px;align-items:center;height:var(--vp-row-height);padding:0 10px;border-bottom:1px solid var(--vp-color-border);background:var(--vp-color-selection);box-shadow:inset 2px 0 0 var(--vp-color-primary)"><span style="font:500 11px/1 var(--vp-font-mono);color:var(--vp-color-text-muted)">D3</span><span>Fachada frontal, x 32</span><span style="font-variant-numeric:tabular-nums">8,00 m</span><span style="padding:2px 5px;border-radius:var(--vp-radius-sm);font:500 11px/1 var(--vp-font-sans);background:var(--vp-color-warning-subtle);color:var(--vp-color-warning-on-subtle);border:1px solid var(--vp-color-warning-border)">Espaçamento</span></div>
+    <div style="display:grid;grid-template-columns:28px 1fr auto auto;gap:10px;align-items:center;height:var(--vp-row-height);padding:0 10px"><span style="font:500 11px/1 var(--vp-font-mono);color:var(--vp-color-text-muted)">D4</span><span>Canto nordeste</span><span style="font-variant-numeric:tabular-nums">8,00 m</span><span style="padding:2px 5px;border-radius:var(--vp-radius-sm);font:500 11px/1 var(--vp-font-sans);background:var(--vp-color-success-subtle);color:var(--vp-color-success-on-subtle);border:1px solid var(--vp-color-success-border)">OK</span></div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ is.summary }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex;flex-direction:column;gap:8px;width:320px;padding:12px 14px;border-radius:var(--vp-radius-md);background:var(--vp-color-bg-muted);font-size:13px">
+    <div style="display:flex;justify-content:space-between"><span style="color:var(--vp-color-text-muted)">Nível de proteção</span><b style="font-weight:500">III</b></div>
+    <div style="display:flex;justify-content:space-between"><span style="color:var(--vp-color-text-muted)">Espaçamento máximo</span><b style="font-weight:500;font-variant-numeric:tabular-nums">15,00 m</b></div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ is.sceneTag }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center;font:500 12px/1 var(--vp-font-sans)">
+    <span style="padding:5px 8px;border-radius:var(--vp-radius-sm);background:var(--vp-color-bg);border:1px solid var(--vp-viewport-selection);color:var(--vp-color-text)">ZS1 Área de produção</span>
+    <span style="display:flex;gap:6px;align-items:center;padding:5px 8px;border-radius:var(--vp-radius-sm);background:var(--vp-color-bg);border:1px solid var(--vp-viewport-category-2)"><i style="width:7px;height:7px;border-radius:50%;background:var(--vp-color-warning)"></i>ZS2 Escritórios</span>
+    <span style="padding:5px 8px;border-radius:var(--vp-radius-sm);background:var(--vp-color-bg);border:1px solid var(--vp-color-border-strong)">L1 Energia</span>
+    <span style="padding:4px 7px;border-radius:var(--vp-radius-sm);background:var(--vp-viewport-measure);color:#ffffff;font-weight:600;font-variant-numeric:tabular-nums">48,00 m</span>
+  </div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:640,&quot;height&quot;:360},&quot;cid&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;button&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const id = this.props.cid || 'button';
+    const camel = s => s.replace(/-([a-z0-9])/g, (_, c) => c.toUpperCase());
+    const keys = ['button','icon-button','input','number-unit','select','segmented','option-card','chip-filter','tabs','status','app-chip','banner','tooltip','dialog','toast','progress','skeleton','empty-state','topbar','launcher','context','search','app-card','work-list','table','dock','tree','toolbar3d','viewcube','legend','viewport-state','workbar','step-progress','step-panel','mini-list','summary','scene-tag'];
+    const is = {};
+    keys.forEach(k => { is[camel(k)] = k === id; });
+    return { is };
+  }
+}
+</script>
+</body>
+</html>

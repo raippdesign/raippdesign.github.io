@@ -1,0 +1,418 @@
+/**
+ * Virtual Plant — tokens consolidados (etapa 7, revisado na etapa 10)
+ * Camadas: 1 primitivos (--vp-ref-*) → 2 semânticos → 3 densidade/componente.
+ * Tema claro = :root / [data-theme="light"]. Escuro = [data-theme="dark"]. Preferência system é do Shell.
+ * Densidade confortável = padrão. Compacta = [data-density="compact"] (Workbench).
+ * Preserva os nomes do @vp/ui-kit (vp-reference-tokens.css). Valores preservados, exceto 4 alterados na etapa 10
+ *   por contraste: text-muted (claro), success (claro), warning (claro), primary (escuro). Ver docs/DECISOES-CONTRASTE-ETAPA-10.md.
+ * Gerado junto com vp-tokens.json a partir da mesma definição.
+ */
+
+:root {
+  /* 1. Primitivos */
+  /* Azul (marca) */
+  --vp-ref-blue-300: #93a9ff;
+  --vp-ref-blue-400: #6b82ff;
+  --vp-ref-blue-500: #4d67ff;
+  --vp-ref-blue-550: #4762ff;
+  --vp-ref-blue-600: #0129ff;
+  --vp-ref-blue-700: #001fbf;
+  /* Neutros claros */
+  --vp-ref-gray-0: #ffffff;
+  --vp-ref-gray-50: #f4f5f7;
+  --vp-ref-gray-75: #f3f4f6;
+  --vp-ref-gray-100: #eef0f3;
+  --vp-ref-gray-150: #eceef2;
+  --vp-ref-gray-175: #e8eaef;
+  --vp-ref-gray-200: #e5e7eb;
+  --vp-ref-gray-300: #d1d5db;
+  --vp-ref-gray-400: #9ca3af;
+  --vp-ref-gray-450: #9292a0;
+  --vp-ref-gray-475: #8b919c;
+  --vp-ref-gray-500: #6b7280;
+  --vp-ref-gray-550: #5f6672;
+  --vp-ref-gray-900: #1c1c21;
+  --vp-ref-gray-800: #25282d;
+  /* Neutros escuros */
+  --vp-ref-ink-950: #0b0f14;
+  --vp-ref-ink-900: #0f1419;
+  --vp-ref-ink-875: #10161e;
+  --vp-ref-ink-850: #151b23;
+  --vp-ref-ink-800: #1a222c;
+  --vp-ref-ink-700: #243040;
+  --vp-ref-ink-600: #2f3b4a;
+  --vp-ref-ink-500: #3b4654;
+  --vp-ref-ink-400: #5c6573;
+  --vp-ref-ink-100: #f3f4f6;
+  /* Vermelho */
+  --vp-ref-red-50: #fef2f2;
+  --vp-ref-red-200: #fecaca;
+  --vp-ref-red-400: #f87171;
+  --vp-ref-red-600: #dc2626;
+  --vp-ref-red-800: #991b1b;
+  /* Verde */
+  --vp-ref-green-50: #f0fdf4;
+  --vp-ref-green-200: #bbf7d0;
+  --vp-ref-green-400: #4ade80;
+  --vp-ref-green-600: #16a34a;
+  --vp-ref-green-700: #15803d;
+  --vp-ref-green-800: #166534;
+  /* Amarelo */
+  --vp-ref-yellow-50: #fefce8;
+  --vp-ref-yellow-200: #fef08a;
+  --vp-ref-yellow-400: #facc15;
+  --vp-ref-yellow-600: #ca8a04;
+  --vp-ref-yellow-700: #a16207;
+  --vp-ref-yellow-800: #854d0e;
+  /* Azul-céu (info) */
+  --vp-ref-sky-50: #f0f9ff;
+  --vp-ref-sky-200: #bae6fd;
+  --vp-ref-sky-400: #38bdf8;
+  --vp-ref-sky-700: #0369a1;
+  --vp-ref-sky-800: #075985;
+  /* Apps */
+  --vp-ref-app-spda-600: #6b0dff;
+  --vp-ref-app-spda-400: #9959ff;
+  --vp-ref-app-ged-600: #0b8fd0;
+  --vp-ref-app-ged-400: #0db1ff;
+  --vp-ref-app-identity-600: #8a47f5;
+  --vp-ref-app-identity-400: #b48aff;
+  --vp-ref-app-platform-600: #3d5bf0;
+  --vp-ref-app-platform-400: #6e8bff;
+  /* Visualização 3D */
+  --vp-ref-fuchsia-600: #c026d3;
+  --vp-ref-fuchsia-400: #e879f9;
+  --vp-ref-teal-600: #0d9488;
+  --vp-ref-teal-400: #2dd4bf;
+  --vp-ref-orange-600: #ea580c;
+  --vp-ref-orange-400: #fb923c;
+  --vp-ref-lime-700: #4d7c0f;
+  --vp-ref-lime-400: #a3e635;
+  --vp-ref-stone-500: #78716c;
+  --vp-ref-stone-400: #a8a29e;
+  --vp-ref-slate-600: #475569;
+  --vp-ref-slate-400: #94a3b8;
+
+  /* 2. Fundamentos */
+  /* Tipografia — famílias */
+  --vp-font-sans: ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+  --vp-font-brand: "Barlow", var(--vp-font-sans);
+  --vp-font-mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  --vp-font-numeric: tabular-nums;
+  /* Tipografia — escala */
+  --vp-font-size-xs: 0.75rem;
+  --vp-font-size-sm: 0.875rem;
+  --vp-font-size-base: 1rem;
+  --vp-font-size-lg: 1.125rem;
+  --vp-font-size-xl: 1.5rem;
+  --vp-font-size-2xl: 1.875rem;
+  --vp-font-weight-regular: 400;
+  --vp-font-weight-medium: 500;
+  --vp-font-weight-semibold: 600;
+  --vp-font-weight-bold: 700;
+  --vp-line-height-tight: 1.2;
+  --vp-line-height-snug: 1.35;
+  --vp-line-height-normal: 1.5;
+  --vp-letter-spacing-tight: -0.01em;
+  --vp-letter-spacing-normal: 0;
+  --vp-letter-spacing-wide: 0.04em;
+  /* Tipografia — estilos compostos (usar com font:) */
+  --vp-font-display: 600 1.875rem/1.2 var(--vp-font-brand);
+  --vp-font-page-title: 600 1.5rem/1.2 var(--vp-font-brand);
+  --vp-font-section-title: 600 1.125rem/1.35 var(--vp-font-brand);
+  --vp-font-panel-title: 600 0.875rem/1.35 var(--vp-font-sans);
+  --vp-font-body: 400 1rem/1.5 var(--vp-font-sans);
+  --vp-font-body-sm: 400 0.875rem/1.5 var(--vp-font-sans);
+  --vp-font-label: 500 0.875rem/1.35 var(--vp-font-sans);
+  --vp-font-caption: 400 0.75rem/1.35 var(--vp-font-sans);
+  --vp-font-overline: 600 0.75rem/1.35 var(--vp-font-sans);
+  --vp-font-data: 500 0.875rem/1.35 var(--vp-font-sans);
+  /* Espaçamento */
+  --vp-spacing-0: 0;
+  --vp-spacing-0-5: 0.125rem;
+  --vp-spacing-1: 0.25rem;
+  --vp-spacing-2: 0.5rem;
+  --vp-spacing-3: 0.75rem;
+  --vp-spacing-4: 1rem;
+  --vp-spacing-5: 1.25rem;
+  --vp-spacing-6: 1.5rem;
+  --vp-spacing-8: 2rem;
+  --vp-spacing-10: 2.5rem;
+  --vp-spacing-12: 3rem;
+  --vp-spacing-16: 4rem;
+  --vp-spacing-20: 5rem;
+  /* Bordas e foco */
+  --vp-radius-sm: 0.25rem;
+  --vp-radius-md: 0.375rem;
+  --vp-radius-lg: 0.5rem;
+  --vp-radius-xl: 0.75rem;
+  --vp-radius-full: 9999px;
+  --vp-border-width: 1px;
+  --vp-border-width-strong: 2px;
+  --vp-focus-ring-width: 2px;
+  --vp-focus-ring-offset: 2px;
+  --vp-auth-card-radius: 12px;
+  --vp-auth-control-radius: 8px;
+  --vp-auth-control-height: 44px;
+  /* Elevação */
+  --vp-elevation-flat: none;
+  --vp-elevation-raised: var(--vp-shadow-md);
+  --vp-elevation-overlay: var(--vp-shadow-lg);
+  --vp-elevation-modal: var(--vp-shadow-xl);
+  /* Camadas (z-index) */
+  --vp-z-base: 0;
+  --vp-z-raised: 10;
+  --vp-z-sticky: 100;
+  --vp-z-overlay: 1000;
+  --vp-z-backdrop: 1090;
+  --vp-z-modal: 1100;
+  --vp-z-toast: 1200;
+  --vp-z-tooltip: 1300;
+  /* Movimento */
+  --vp-duration-fast: 120ms;
+  --vp-duration-base: 160ms;
+  --vp-duration-slow: 200ms;
+  --vp-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --vp-ease-enter: cubic-bezier(0, 0, 0, 1);
+  --vp-ease-exit: cubic-bezier(0.3, 0, 1, 1);
+  /* Layout */
+  --vp-layout-columns: 12;
+  --vp-layout-max-width: 80rem;
+  --vp-layout-gutter: var(--vp-spacing-6);
+  --vp-layout-margin: var(--vp-spacing-6);
+  --vp-shell-topbar-height: 3.5rem;
+  --vp-workbench-dock-radius: var(--vp-radius-xl);
+  --vp-workbench-dock-shadow: var(--vp-elevation-raised);
+  --vp-breakpoint-sm: 640px;
+  --vp-breakpoint-md: 768px;
+  --vp-breakpoint-lg: 1024px;
+  --vp-breakpoint-xl: 1280px;
+}
+
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+  /* Superfícies */
+  --vp-color-bg: var(--vp-ref-gray-0);
+  --vp-color-bg-muted: var(--vp-ref-gray-50);
+  --vp-color-bg-hover: var(--vp-ref-gray-100);
+  --vp-color-bg-elevated: var(--vp-ref-gray-0);
+  --vp-color-canvas: var(--vp-color-bg-muted);
+  --vp-color-input-bg: var(--vp-color-bg);
+  --vp-color-overlay: rgb(28 28 33 / 0.48);
+  --vp-color-tooltip-bg: var(--vp-ref-gray-800);
+  --vp-color-tooltip-fg: var(--vp-ref-gray-0);
+  /* Texto */
+  --vp-color-text: var(--vp-ref-gray-900);
+  --vp-color-text-muted: var(--vp-ref-gray-550);
+  --vp-color-text-subtle: var(--vp-ref-gray-450);
+  /* Bordas e foco */
+  --vp-color-border: var(--vp-ref-gray-200);
+  --vp-color-border-strong: var(--vp-ref-gray-475);
+  --vp-color-border-focus: var(--vp-ref-blue-300);
+  --vp-color-focus-ring: var(--vp-color-primary);
+  /* Primário */
+  --vp-color-primary: var(--vp-ref-blue-600);
+  --vp-color-primary-text: var(--vp-color-primary);
+  --vp-color-primary-hover: var(--vp-ref-blue-500);
+  --vp-color-primary-active: var(--vp-ref-blue-700);
+  --vp-color-primary-foreground: var(--vp-ref-gray-0);
+  --vp-color-primary-subtle: color-mix(in srgb, #0129ff 12%, #ffffff);
+  --vp-color-primary-subtle-hover: color-mix(in srgb, #0129ff 18%, #ffffff);
+  --vp-color-primary-border: var(--vp-ref-blue-300);
+  --vp-color-primary-disabled: color-mix(in srgb, #0129ff 40%, #e5e7eb);
+  --vp-color-selection: var(--vp-color-primary-subtle);
+  /* Status */
+  --vp-color-danger: var(--vp-ref-red-600);
+  --vp-color-danger-foreground: var(--vp-ref-gray-0);
+  --vp-color-danger-subtle: var(--vp-ref-red-50);
+  --vp-color-danger-border: var(--vp-ref-red-200);
+  --vp-color-danger-on-subtle: var(--vp-ref-red-800);
+  --vp-color-success: var(--vp-ref-green-700);
+  --vp-color-success-foreground: var(--vp-ref-gray-0);
+  --vp-color-success-subtle: var(--vp-ref-green-50);
+  --vp-color-success-border: var(--vp-ref-green-200);
+  --vp-color-success-on-subtle: var(--vp-ref-green-800);
+  --vp-color-warning: var(--vp-ref-yellow-700);
+  --vp-color-warning-foreground: var(--vp-ref-gray-0);
+  --vp-color-warning-subtle: var(--vp-ref-yellow-50);
+  --vp-color-warning-border: var(--vp-ref-yellow-200);
+  --vp-color-warning-on-subtle: var(--vp-ref-yellow-800);
+  --vp-color-info: var(--vp-ref-sky-700);
+  --vp-color-info-foreground: var(--vp-ref-gray-0);
+  --vp-color-info-subtle: var(--vp-ref-sky-50);
+  --vp-color-info-border: var(--vp-ref-sky-200);
+  --vp-color-info-on-subtle: var(--vp-ref-sky-800);
+  /* Apps (somente identificação) */
+  --vp-color-app-spda: var(--vp-ref-app-spda-600);
+  --vp-color-app-ged: var(--vp-ref-app-ged-600);
+  --vp-color-app-identity: var(--vp-ref-app-identity-600);
+  --vp-color-app-platform: var(--vp-ref-app-platform-600);
+  --vp-color-app-foreground: var(--vp-ref-gray-0);
+  --vp-color-app-spda-subtle: color-mix(in srgb, var(--vp-color-app-spda) 10%, var(--vp-color-bg));
+  --vp-color-app-ged-subtle: color-mix(in srgb, var(--vp-color-app-ged) 10%, var(--vp-color-bg));
+  --vp-color-app-identity-subtle: color-mix(in srgb, var(--vp-color-app-identity) 10%, var(--vp-color-bg));
+  --vp-color-app-platform-subtle: color-mix(in srgb, var(--vp-color-app-platform) 10%, var(--vp-color-bg));
+  /* Viewport 3D */
+  --vp-viewport-bg: var(--vp-color-canvas);
+  --vp-viewport-grid: var(--vp-color-border);
+  --vp-viewport-grid-major: var(--vp-ref-gray-300);
+  --vp-viewport-selection: var(--vp-color-primary);
+  --vp-viewport-selection-fill: color-mix(in srgb, var(--vp-color-primary) 20%, transparent);
+  --vp-viewport-hover: var(--vp-color-primary-hover);
+  --vp-viewport-measure: var(--vp-ref-fuchsia-600);
+  --vp-viewport-snap: var(--vp-ref-fuchsia-600);
+  --vp-viewport-category-1: var(--vp-ref-teal-600);
+  --vp-viewport-category-2: var(--vp-ref-orange-600);
+  --vp-viewport-category-3: var(--vp-ref-lime-700);
+  --vp-viewport-category-4: var(--vp-ref-slate-600);
+  --vp-viewport-category-5: var(--vp-ref-stone-500);
+  /* Superfícies específicas (mantidas da referência) */
+  --vp-auth-canvas: var(--vp-ref-gray-150);
+  --vp-auth-panel: var(--vp-ref-gray-0);
+  --vp-auth-hero: var(--vp-ref-gray-175);
+  --vp-auth-input-bg: var(--vp-ref-gray-0);
+  --vp-auth-input-border: var(--vp-ref-gray-300);
+  --vp-workbench-rail-bg: var(--vp-ref-gray-75);
+  --vp-workbench-handle: var(--vp-ref-gray-300);
+  --vp-workbench-handle-active: var(--vp-ref-blue-300);
+  /* Sombras */
+  --vp-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --vp-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --vp-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --vp-shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.12), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  /* Superfícies */
+  --vp-color-bg: var(--vp-ref-ink-900);
+  --vp-color-bg-muted: var(--vp-ref-ink-800);
+  --vp-color-bg-hover: var(--vp-ref-ink-700);
+  --vp-color-bg-elevated: var(--vp-ref-ink-850);
+  --vp-color-canvas: var(--vp-color-bg);
+  --vp-color-input-bg: var(--vp-color-bg);
+  --vp-color-overlay: rgb(0 0 0 / 0.64);
+  --vp-color-tooltip-bg: var(--vp-ref-ink-500);
+  --vp-color-tooltip-fg: var(--vp-ref-ink-100);
+  /* Texto */
+  --vp-color-text: var(--vp-ref-ink-100);
+  --vp-color-text-muted: var(--vp-ref-gray-400);
+  --vp-color-text-subtle: var(--vp-ref-gray-500);
+  /* Bordas e foco */
+  --vp-color-border: var(--vp-ref-ink-600);
+  --vp-color-border-strong: var(--vp-ref-ink-400);
+  --vp-color-border-focus: var(--vp-ref-blue-500);
+  --vp-color-focus-ring: var(--vp-color-primary);
+  /* Primário */
+  --vp-color-primary: var(--vp-ref-blue-550);
+  --vp-color-primary-text: var(--vp-ref-blue-400);
+  --vp-color-primary-hover: var(--vp-ref-blue-400);
+  --vp-color-primary-active: var(--vp-ref-blue-600);
+  --vp-color-primary-foreground: var(--vp-ref-gray-0);
+  --vp-color-primary-subtle: color-mix(in srgb, #4d67ff 18%, #0f1419);
+  --vp-color-primary-subtle-hover: color-mix(in srgb, #4d67ff 26%, #0f1419);
+  --vp-color-primary-border: color-mix(in srgb, #4d67ff 45%, #2f3b4a);
+  --vp-color-primary-disabled: color-mix(in srgb, #4d67ff 35%, #1a222c);
+  --vp-color-selection: var(--vp-color-primary-subtle);
+  /* Status */
+  --vp-color-danger: var(--vp-ref-red-400);
+  --vp-color-danger-foreground: var(--vp-ref-ink-900);
+  --vp-color-danger-subtle: color-mix(in srgb, #f87171 16%, #0f1419);
+  --vp-color-danger-border: color-mix(in srgb, #f87171 35%, #2f3b4a);
+  --vp-color-danger-on-subtle: var(--vp-ref-red-400);
+  --vp-color-success: var(--vp-ref-green-400);
+  --vp-color-success-foreground: var(--vp-ref-ink-900);
+  --vp-color-success-subtle: color-mix(in srgb, #4ade80 14%, #0f1419);
+  --vp-color-success-border: color-mix(in srgb, #4ade80 32%, #2f3b4a);
+  --vp-color-success-on-subtle: var(--vp-ref-green-400);
+  --vp-color-warning: var(--vp-ref-yellow-400);
+  --vp-color-warning-foreground: var(--vp-ref-ink-900);
+  --vp-color-warning-subtle: color-mix(in srgb, #facc15 14%, #0f1419);
+  --vp-color-warning-border: color-mix(in srgb, #facc15 32%, #2f3b4a);
+  --vp-color-warning-on-subtle: var(--vp-ref-yellow-400);
+  --vp-color-info: var(--vp-ref-sky-400);
+  --vp-color-info-foreground: var(--vp-ref-ink-900);
+  --vp-color-info-subtle: color-mix(in srgb, #38bdf8 14%, #0f1419);
+  --vp-color-info-border: color-mix(in srgb, #38bdf8 32%, #2f3b4a);
+  --vp-color-info-on-subtle: var(--vp-ref-sky-400);
+  /* Apps (somente identificação) */
+  --vp-color-app-spda: var(--vp-ref-app-spda-400);
+  --vp-color-app-ged: var(--vp-ref-app-ged-400);
+  --vp-color-app-identity: var(--vp-ref-app-identity-400);
+  --vp-color-app-platform: var(--vp-ref-app-platform-400);
+  --vp-color-app-foreground: var(--vp-ref-ink-900);
+  --vp-color-app-spda-subtle: color-mix(in srgb, var(--vp-color-app-spda) 18%, var(--vp-color-bg));
+  --vp-color-app-ged-subtle: color-mix(in srgb, var(--vp-color-app-ged) 18%, var(--vp-color-bg));
+  --vp-color-app-identity-subtle: color-mix(in srgb, var(--vp-color-app-identity) 18%, var(--vp-color-bg));
+  --vp-color-app-platform-subtle: color-mix(in srgb, var(--vp-color-app-platform) 18%, var(--vp-color-bg));
+  /* Viewport 3D */
+  --vp-viewport-bg: var(--vp-color-canvas);
+  --vp-viewport-grid: var(--vp-color-border);
+  --vp-viewport-grid-major: var(--vp-ref-ink-500);
+  --vp-viewport-selection: var(--vp-color-primary);
+  --vp-viewport-selection-fill: color-mix(in srgb, var(--vp-color-primary) 28%, transparent);
+  --vp-viewport-hover: var(--vp-color-primary-hover);
+  --vp-viewport-measure: var(--vp-ref-fuchsia-400);
+  --vp-viewport-snap: var(--vp-ref-fuchsia-400);
+  --vp-viewport-category-1: var(--vp-ref-teal-400);
+  --vp-viewport-category-2: var(--vp-ref-orange-400);
+  --vp-viewport-category-3: var(--vp-ref-lime-400);
+  --vp-viewport-category-4: var(--vp-ref-slate-400);
+  --vp-viewport-category-5: var(--vp-ref-stone-400);
+  /* Superfícies específicas (mantidas da referência) */
+  --vp-auth-canvas: var(--vp-ref-ink-950);
+  --vp-auth-panel: var(--vp-ref-ink-850);
+  --vp-auth-hero: var(--vp-ref-ink-875);
+  --vp-auth-input-bg: var(--vp-ref-ink-900);
+  --vp-auth-input-border: var(--vp-ref-ink-600);
+  --vp-workbench-rail-bg: var(--vp-ref-ink-850);
+  --vp-workbench-handle: var(--vp-ref-ink-500);
+  --vp-workbench-handle-active: var(--vp-ref-blue-500);
+  /* Sombras */
+  --vp-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.4);
+  --vp-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.45), 0 2px 4px -2px rgb(0 0 0 / 0.35);
+  --vp-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.5), 0 4px 6px -4px rgb(0 0 0 / 0.4);
+  --vp-shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.55), 0 8px 10px -6px rgb(0 0 0 / 0.45);
+}
+
+:root,
+[data-density="comfortable"] {
+  /* 3. Densidade confortável — Shell, Home, listas */
+  --vp-control-height: 2.5rem;
+  --vp-control-height-sm: 2rem;
+  --vp-control-padding-x: var(--vp-spacing-3);
+  --vp-control-gap: var(--vp-spacing-2);
+  --vp-control-font-size: var(--vp-font-size-sm);
+  --vp-icon-size: 1.25rem;
+  --vp-icon-size-sm: 1rem;
+  --vp-row-height: 2.5rem;
+  --vp-stack-gap: var(--vp-spacing-4);
+  --vp-panel-padding: var(--vp-spacing-4);
+}
+
+[data-density="compact"] {
+  /* 3. Densidade compacta — Workbench */
+  --vp-control-height: 2rem;
+  --vp-control-height-sm: 1.75rem;
+  --vp-control-padding-x: var(--vp-spacing-2);
+  --vp-control-gap: var(--vp-spacing-1);
+  --vp-control-font-size: 0.8125rem;
+  --vp-icon-size: 1rem;
+  --vp-icon-size-sm: 0.875rem;
+  --vp-row-height: 1.75rem;
+  --vp-stack-gap: var(--vp-spacing-3);
+  --vp-panel-padding: var(--vp-spacing-3);
+}
+
+@media (max-width: 767px) {
+  :root { --vp-layout-margin: var(--vp-spacing-4); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --vp-duration-fast: 0ms;
+    --vp-duration-base: 0ms;
+    --vp-duration-slow: 0ms;
+  }
+}

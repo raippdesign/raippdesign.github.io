@@ -1,0 +1,26 @@
+Virtual Plant Design System — portal
+
+Como publicar
+1. Envie o conteúdo desta pasta (não a pasta-mãe) para qualquer hospedagem estática:
+   servidor web interno, Nginx/Apache, S3, Netlify, Vercel, GitHub Pages etc.
+2. Abra o endereço publicado. O arquivo inicial é index.html.
+
+Testar no computador
+  Na pasta, rode:  python3 -m http.server 8000
+  Abra:            http://localhost:8000
+  (Abrir o index.html com duplo clique pode não funcionar: o navegador bloqueia
+   o carregamento de VPSpecimen.dc.html via file://.)
+
+Conteúdo
+  index.html            portal (navegação, busca Ctrl K, páginas)
+  VPSpecimen.dc.html    exemplos ao vivo dos 37 componentes
+  support.js            runtime da página
+  vp-docs.js            dados: tokens, fichas, telas, estados, contraste, ícones
+  vp-tokens.css         tokens oficiais v10.0.0
+  assets/               logo, capturas de telas e estados
+
+Internet
+  A fonte Barlow vem do Google Fonts. Sem internet, os títulos usam a fonte do sistema.
+
+Atualizar conteúdo
+  Tokens: substitua vp-tokens.css. Fichas e textos: edite vp-docs.js.

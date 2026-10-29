@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="vp-tokens.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap">
+<script src="vp-docs.js"></script>
+<style>
+html,body{margin:0;height:100%;overflow:hidden}
+*{box-sizing:border-box}
+a{color:var(--vp-color-primary-text);text-decoration:none}
+a:hover{color:var(--vp-color-primary-hover);text-decoration:underline}
+button{font:inherit;color:inherit}
+@keyframes vpspin{to{transform:rotate(360deg)}}
+@keyframes vpfade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+
+<div data-theme="{{ theme }}" data-density="comfortable" style="height:100vh;display:grid;grid-template-rows:56px minmax(0,1fr);background:var(--vp-color-bg);color:var(--vp-color-text);font-family:var(--vp-font-sans);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased">
+  <div ref="{{ spriteRef }}" style="position:absolute;width:0;height:0;overflow:hidden"></div>
+
+  <header style="display:flex;align-items:center;gap:16px;padding:0 16px 0 20px;border-bottom:1px solid var(--vp-color-border);background:var(--vp-color-bg);position:relative;z-index:20">
+    <sc-if value="{{ showMenuBtn }}" hint-placeholder-val="{{ false }}">
+      <button onClick="{{ toggleSide }}" aria-label="Menu" style="width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-md);background:transparent;cursor:pointer"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-panel-l"></use></svg></button>
+    </sc-if>
+    <button onClick="{{ goHome }}" style="display:flex;align-items:center;gap:10px;border:0;background:transparent;padding:0;cursor:pointer">
+      <img src="{{ markSrc }}" alt="" style="width:22px;height:22px;object-fit:contain">
+      <span style="font:600 17px/1 var(--vp-font-brand);letter-spacing:-0.01em">Virtual Plant</span>
+      <span style="width:1px;height:16px;background:var(--vp-color-border)"></span>
+      <span style="font:500 14px/1 var(--vp-font-brand);color:var(--vp-color-text-muted)">Design System</span>
+    </button>
+    <span style="padding:3px 7px;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-full);font:500 11px/1 var(--vp-font-mono);color:var(--vp-color-text-muted)">v10.0.0</span>
+    <div style="flex:1;display:flex;justify-content:center;min-width:0">
+      <button onClick="{{ openPalette }}" style="display:flex;align-items:center;gap:10px;width:100%;max-width:440px;height:36px;padding:0 8px 0 12px;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-lg);background:var(--vp-color-bg-muted);color:var(--vp-color-text-muted);cursor:pointer;text-align:left" style-hover="border-color:var(--vp-color-border-strong)">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-search"></use></svg>
+        <span style="flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Buscar componentes, tokens e telas</span>
+        <kbd style="padding:3px 6px;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-sm);background:var(--vp-color-bg);font:500 11px/1 var(--vp-font-mono)">Ctrl K</kbd>
+      </button>
+    </div>
+    <div role="radiogroup" aria-label="Tema" style="display:flex;padding:3px;gap:2px;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-lg);background:var(--vp-color-bg-muted)">
+      <button onClick="{{ setLight }}" aria-label="Tema claro" style="display:flex;align-items:center;gap:6px;height:28px;padding:0 10px;border:0;border-radius:var(--vp-radius-md);cursor:pointer;font-size:13px;background:{{ lightBtn.bg }};color:{{ lightBtn.fg }};box-shadow:{{ lightBtn.sh }}"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-sun"></use></svg>Claro</button>
+      <button onClick="{{ setDark }}" aria-label="Tema escuro" style="display:flex;align-items:center;gap:6px;height:28px;padding:0 10px;border:0;border-radius:var(--vp-radius-md);cursor:pointer;font-size:13px;background:{{ darkBtn.bg }};color:{{ darkBtn.fg }};box-shadow:{{ darkBtn.sh }}"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-moon"></use></svg>Escuro</button>
+    </div>
+  </header>
+
+  <div style="display:grid;grid-template-columns:{{ layoutCols }};min-height:0;position:relative">
+    <sc-if value="{{ showSidebar }}" hint-placeholder-val="{{ true }}">
+      <nav aria-label="Navegação" style="overflow:auto;border-right:1px solid var(--vp-color-border);background:var(--vp-color-bg);top:0;left:0;bottom:0;z-index:30;position:{{ side.pos }};width:{{ side.w }};box-shadow:{{ side.sh }}">
+        <div style="padding:16px 14px 8px;position:sticky;top:0;background:var(--vp-color-bg);z-index:2">
+          <div style="display:flex;align-items:center;gap:8px;height:34px;padding:0 10px;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-md);color:var(--vp-color-text-subtle)">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-search"></use></svg>
+            <input value="{{ sideFilter }}" onChange="{{ onSideFilter }}" placeholder="Filtrar menu" aria-label="Filtrar menu" style="flex:1;min-width:0;border:0;outline:0;background:transparent;color:var(--vp-color-text);font:400 13px/1 var(--vp-font-sans)">
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;padding:4px 10px 32px">
+          <sc-for list="{{ navGroups }}" as="g" hint-placeholder-count="5">
+            <div style="display:flex;flex-direction:column;margin-top:{{ g.mt }}">
+              <sc-if value="{{ g.collapsible }}" hint-placeholder-val="{{ false }}">
+                <button onClick="{{ g.toggle }}" style="display:flex;align-items:center;gap:6px;height:28px;padding:0 6px;border:0;background:transparent;cursor:pointer;color:var(--vp-color-text);font:600 13px/1 var(--vp-font-sans);text-align:left;border-radius:var(--vp-radius-sm)" style-hover="background:var(--vp-color-bg-hover)">
+                  <span style="display:grid;place-items:center;width:14px;color:var(--vp-color-text-subtle);transform:{{ g.chev }};transition:transform var(--vp-duration-fast) var(--vp-ease-standard)"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-chev-r"></use></svg></span>
+                  <span style="flex:1">{{ g.title }}</span>
+                  <span style="font:500 11px/1 var(--vp-font-mono);color:var(--vp-color-text-subtle)">{{ g.count }}</span>
+                </button>
+              </sc-if>
+              <sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">
+                <span style="padding:0 6px 6px;font:600 11px/1 var(--vp-font-sans);letter-spacing:0.08em;text-transform:uppercase;color:var(--vp-color-text-subtle)">{{ g.title }}</span>
+              </sc-if>
+              <sc-if value="{{ g.open }}" hint-placeholder-val="{{ true }}">
+                <div style="display:flex;flex-direction:column;gap:1px;padding-left:{{ g.indent }}">
+                  <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="4">
+                    <button onClick="{{ it.go }}" style="display:flex;align-items:center;gap:8px;min-height:30px;padding:5px 8px;border:0;border-radius:var(--vp-radius-md);cursor:pointer;text-align:left;font-size:13.5px;line-height:1.3;background:{{ it.bg }};color:{{ it.fg }};font-weight:{{ it.fw }}" style-hover="background:var(--vp-color-bg-hover);color:var(--vp-color-text)">
+                      <span style="flex:1">{{ it.label }}</span>
+                      <span style="font:500 11px/1 var(--vp-font-mono);color:var(--vp-color-text-subtle)">{{ it.count }}</span>
+                    </button>
+                  </sc-for>
+                </div>
+              </sc-if>
+            </div>
+          </sc-for>
+          <sc-if value="{{ sideEmpty }}" hint-placeholder-val="{{ false }}">
+            <span style="padding:12px 8px;color:var(--vp-color-text-muted);font-size:13px">Nada encontrado no menu.</span>
+          </sc-if>
+        </div>
+      </nav>
+    </sc-if>
+
+    <main ref="{{ mainRef }}" onScroll="{{ onMainScroll }}" style="overflow:auto;min-width:0;position:relative">
+      <div style="max-width:1180px;margin:0 auto;padding:36px 48px 96px">
+
+        <sc-if value="{{ hasCrumbs }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:14px;font-size:13px;color:var(--vp-color-text-muted)">
+            <sc-for list="{{ crumbs }}" as="cr" hint-placeholder-count="2">
+              <button onClick="{{ cr.go }}" style="border:0;background:transparent;padding:0;cursor:pointer;color:var(--vp-color-text-muted)" style-hover="color:var(--vp-color-text)">{{ cr.label }}</button>
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-chev-r"></use></svg>
+            </sc-for>
+            <span style="color:var(--vp-color-text)">{{ crumbLast }}</span>
+          </div>
+        </sc-if>
+
+        <!-- INÍCIO -->
+        <sc-if value="{{ pg.home }}" hint-placeholder-val="{{ true }}">
+          <section data-screen-label="Início" style="display:flex;flex-direction:column;gap:56px;animation:vpfade var(--vp-duration-slow) var(--vp-ease-enter)">
+            <div style="display:flex;flex-direction:column;gap:20px;padding-top:24px;max-width:780px">
+              <span style="font:600 12px/1 var(--vp-font-sans);letter-spacing:0.1em;text-transform:uppercase;color:var(--vp-color-primary-text)">Design System · versão 10.0.0</span>
+              <h1 style="margin:0;font:600 56px/1.02 var(--vp-font-brand);letter-spacing:-0.025em;text-wrap:balance">Tokens, componentes e telas da plataforma Virtual Plant.</h1>
+              <p style="margin:0;font-size:18px;line-height:1.55;color:var(--vp-color-text-muted);max-width:640px;text-wrap:pretty">{{ intros.inicio }}</p>
+              <button onClick="{{ openPalette }}" style="margin-top:8px;display:flex;align-items:center;gap:12px;max-width:520px;height:52px;padding:0 10px 0 16px;border:1px solid var(--vp-color-border-strong);border-radius:var(--vp-radius-xl);background:var(--vp-color-bg);cursor:pointer;color:var(--vp-color-text-muted);font-size:15px;text-align:left;box-shadow:var(--vp-shadow-sm)" style-hover="border-color:var(--vp-color-primary)">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-search"></use></svg>
+                <span style="flex:1">Buscar pelo nome, classe CSS, token ou valor hex</span>
+                <kbd style="padding:4px 7px;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-sm);background:var(--vp-color-bg-muted);font:500 12px/1 var(--vp-font-mono)">Ctrl K</kbd>
+              </button>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-xl);overflow:hidden">
+              <sc-for list="{{ homeTiles }}" as="t" hint-placeholder-count="4">
+                <button onClick="{{ t.go }}" style="display:flex;flex-direction:column;gap:10px;padding:24px;border:0;border-right:1px solid var(--vp-color-border);background:var(--vp-color-bg);cursor:pointer;text-align:left;margin-right:-1px" style-hover="background:var(--vp-color-bg-muted)">
+                  <span style="font:600 44px/1 var(--vp-font-brand);letter-spacing:-0.03em;font-variant-numeric:tabular-nums">{{ t.n }}</span>
+                  <span style="font:600 16px/1.2 var(--vp-font-brand)">{{ t.label }}</span>
+                  <span style="font-size:13px;color:var(--vp-color-text-muted);text-wrap:pretty">{{ t.desc }}</span>
+                </button>
+              </sc-for>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:16px">
+              <h2 style="margin:0;font:600 22px/1.2 var(--vp-font-brand);letter-spacing:-0.01em">Componentes por camada</h2>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px">
+                <sc-for list="{{ layerCards }}" as="l" hint-placeholder-count="4">
+                  <div style="display:flex;flex-direction:column;gap:12px;padding:20px;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-xl)">
+                    <button onClick="{{ l.go }}" style="display:flex;align-items:baseline;justify-content:space-between;border:0;background:transparent;padding:0;cursor:pointer;text-align:left">
+                      <span style="font:600 17px/1.2 var(--vp-font-brand)">{{ l.layer }}</span>
+                      <span style="font:500 12px/1 var(--vp-font-mono);color:var(--vp-color-text-subtle)">{{ l.count }}</span>
+                    </button>
+                    <span style="font-size:13px;color:var(--vp-color-text-muted)">{{ l.desc }}</span>
+                    <div style="display:flex;flex-wrap:wrap;gap:6px">
+                      <sc-for list="{{ l.items }}" as="ci" hint-placeholder-count="5">
+                        <button onClick="{{ ci.go }}" style="height:26px;padding:0 9px;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-full);background:var(--vp-color-bg);cursor:pointer;font-size:12.5px" style-hover="border-color:var(--vp-color-primary-border);color:var(--vp-color-primary-text)">{{ ci.name }}</button>
+                      </sc-for>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;align-items:start">
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <h2 style="margin:0;font:600 22px/1.2 var(--vp-font-brand);letter-spacing:-0.01em">Começar</h2>
+                <p style="margin:0;color:var(--vp-color-text-muted)">Carregue os tokens e escolha tema e densidade no elemento raiz. O Workbench usa densidade compacta.</p>
+                <div style="position:relative;border-radius:var(--vp-radius-lg);background:var(--vp-color-bg-muted);border:1px solid var(--vp-color-border)">
+                  <pre style="margin:0;padding:16px 18px;overflow:auto;font:400 12.5px/1.7 var(--vp-font-mono);color:var(--vp-color-text)">{{ startCode }}</pre>
+                  <button onClick="{{ copyStart }}" style="position:absolute;top:8px;right:8px;height:28px;padding:0 10px;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-md);background:var(--vp-color-bg);cursor:pointer;font-size:12px">Copiar</button>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <h2 style="margin:0;font:600 22px/1.2 var(--vp-font-brand);letter-spacing:-0.01em">Ainda sem ficha final</h2>
+                <p style="margin:0;color:var(--vp-color-text-muted)">Componentes conhecidos que não entraram nesta versão.</p>
+                <div style="display:flex;flex-direction:column;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-lg)">
+                  <sc-for list="{{ pending }}" as="pd" hint-placeholder-count="4">
+                    <div style="display:flex;flex-direction:column;gap:2px;padding:12px 16px;border-top:{{ pd.bt }}">
+                      <span style="font-weight:500">{{ pd.name }}</span>
+                      <span style="font-size:13px;color:var(--vp-color-text-muted)">{{ pd.reason }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+          </section>
+        </sc-if>
+
+        <!-- PÁGINA COM TÍTULO PADRÃO -->
+        <sc-if value="{{ hasPageHead }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:36px;max-width:760px">
+            <h1 style="margin:0;font:600 44px/1.05 var(--vp-font-brand);letter-spacing:-0.025em">{{ pageTitle }}</h1>
+            <p style="margin:0;font-size:17px;line-height:1.55;color:var(--vp-color-text-muted);text-wrap:pretty">{{ pageIntro }}</p>
+          </div>
+        </sc-if>
+
+        <!-- PRINCÍPIOS -->
+        <sc-if value="{{ pg.principios }}" hint-placeholder-val="{{ false }}">
+          <section data-screen-label="Princípios" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));border-top:1px solid var(--vp-color-border);border-left:1px solid var(--vp-color-border)">
+            <sc-for list="{{ principles }}" as="p" hint-placeholder-count="9">
+              <div style="display:flex;flex-direction:column;gap:10px;padding:24px;border-right:1px solid var(--vp-color-border);border-bottom:1px solid var(--vp-color-border)">
+                <span style="font:500 12px/1 var(--vp-font-mono);color:var(--vp-color-primary-text)">{{ p.n }}</span>
+                <span style="font:600 19px/1.25 var(--vp-font-brand);letter-spacing:-0.01em">{{ p.title }}</span>
+                <span style="color:var(--vp-color-text-muted);text-wrap:pretty">{{ p.text }}</span>
+              </div>
+            </sc-for>
+          </section>
+        </sc-if>
+
+        <!-- DENSIDADE: comparação -->
+        <sc-if value="{{ pg.densidade }}" hint-placeholder-val="{{ false }}">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-bottom:40px">
+            <div data-density="comfortable" style="display:flex;flex-direction:column;gap:14px;padding:24px;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-xl);background-color:var(--vp-color-canvas);background-image:radial-gradient(var(--vp-color-border) 1px,transparent 1px);background-size:16px 16px">
+              <span style="font:500 12px/1 var(--vp-font-mono);color:var(--vp-color-text-muted)">data-density="comfortable" · Shell</span>
+              <div style="display:flex;gap:8px"><span style="flex:1;display:flex;align-items:center;height:var(--vp-control-height);padding:0 var(--vp-control-padding-x);border:1px solid var(--vp-color-border-strong);border-radius:var(--vp-radius-md);background:var(--vp-color-input-bg);font-size:var(--vp-control-font-size)">ZS1 Área de produção</span><span style="display:inline-flex;align-items:center;height:var(--vp-control-height);padding:0 var(--vp-control-padding-x);border-radius:var(--vp-radius-md);background:var(--vp-color-primary);color:var(--vp-color-primary-foreground);font:500 var(--vp-control-font-size)/1 var(--vp-font-sans)">Salvar</span></div>
+              <div style="display:flex;align-items:center;height:var(--vp-row-height);padding:0 var(--vp-control-padding-x);border-radius:var(--vp-radius-md);background:var(--vp-color-selection);font-size:var(--vp-control-font-size)">Linha selecionada · 40px</div>
+            </div>
+            <div data-density="compact" style="display:flex;flex-direction:column;gap:14px;padding:24px;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-xl);background-color:var(--vp-color-canvas);background-image:radial-gradient(var(--vp-color-border) 1px,transparent 1px);background-size:16px 16px">
+              <span style="font:500 12px/1 var(--vp-font-mono);color:var(--vp-color-text-muted)">data-density="compact" · Workbench</span>
+              <div style="display:flex;gap:8px"><span style="flex:1;display:flex;align-items:center;height:var(--vp-control-height);padding:0 var(--vp-control-padding-x);border:1px solid var(--vp-color-border-strong);border-radius:var(--vp-radius-md);background:var(--vp-color-input-bg);font-size:var(--vp-control-font-size)">ZS1 Área de produção</span><span style="display:inline-flex;align-items:center;height:var(--vp-control-height);padding:0 var(--vp-control-padding-x);border-radius:var(--vp-radius-md);background:var(--vp-color-primary);color:var(--vp-color-primary-foreground);font:500 var(--vp-control-font-size)/1 var(--vp-font-sans)">Salvar</span></div>
+              <div style="display:flex;align-items:center;height:var(--vp-row-height);padding:0 var(--vp-control-padding-x);border-radius:var(--vp-radius-md);background:var(--vp-color-selection);font-size:var(--vp-control-font-size)">Linha selecionada · 28px</div>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- TOKENS -->
+        <sc-if value="{{ pg.tokens }}" hint-placeholder-val="{{ false }}">
+          <section data-screen-label="Tokens" style="display:flex;flex-direction:column;gap:44px">
+            <sc-for list="{{ tokenGroups }}" as="tg" hint-placeholder-count="3">
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <div style="display:flex;align-items:baseline;gap:10px">
+                  <h2 style="margin:0;font:600 20px/1.2 var(--vp-font-brand);letter-spacing:-0.01em">{{ tg.title }}</h2>
+                  <span style="font:500 12px/1 var(--vp-font-mono);color:var(--vp-color-text-subtle)">{{ tg.count }}</span>
+                  <span style="font-size:12.5px;color:var(--vp-color-text-subtle)">{{ tg.note }}</span>
+                </div>
+                <div style="border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-lg);overflow:hidden">
+                  <div style="display:grid;grid-template-columns:{{ tg.cols }};gap:16px;padding:9px 16px;background:var(--vp-color-bg-muted);border-bottom:1px solid var(--vp-color-border);font:500 12px/1.3 var(--vp-font-sans);color:var(--vp-color-text-muted)">
+                    <span>{{ tg.h0 }}</span><span>Token</span><span>{{ tg.h1 }}</span><span>{{ tg.h2 }}</span>
+                  </div>
+                  <sc-for list="{{ tg.rows }}" as="r" hint-placeholder-count="6">
+                    <div id="{{ r.anchor }}" style="display:grid;grid-template-columns:{{ tg.cols }};gap:16px;align-items:center;min-height:52px;padding:8px 16px;border-top:{{ r.bt }};background:{{ r.bg }};transition:background var(--vp-duration-slow) var(--vp-ease-standard)">
+                      <div style="display:flex;align-items:center;min-width:0">
+                        <sc-if value="{{ r.vColor }}" hint-placeholder-val="{{ false }}">
+                          <div style="display:flex;width:72px;height:32px;border-radius:var(--vp-radius-md);overflow:hidden;border:1px solid var(--vp-color-border)">
+                            <span data-theme="light" style="flex:1;background:var({{ r.name }})"></span>
+                            <span data-theme="dark" style="flex:1;background:var({{ r.name }})"></span>
+                          </div>
+                        </sc-if>
+                        <sc-if value="{{ r.vOther }}" hint-placeholder-val="{{ false }}">
+                          <span style="display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;line-height:1;min-width:{{ r.z.mw }};width:{{ r.z.w }};height:{{ r.z.h }};background:{{ r.z.bg }};border:{{ r.z.bd }};border-radius:{{ r.z.rad }};box-shadow:{{ r.z.sh }};font:{{ r.z.font }};font-size:{{ r.z.fs }};font-family:{{ r.z.ff }};font-weight:{{ r.z.fw }}">{{ r.z.txt }}</span>
+                        </sc-if>
+                      </div>
+                      <button onClick="{{ r.copy }}" title="Copiar var({{ r.name }})" style="justify-self:start;max-width:100%;padding:3px 6px;margin-left:-6px;border:0;border-radius:var(--vp-radius-sm);background:transparent;cursor:copy;font:500 12.5px/1.4 var(--vp-font-mono);color:var(--vp-color-text);text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" style-hover="background:var(--vp-color-bg-hover)">{{ r.name }}</button>
+                      <span title="{{ r.v1 }}" style="font:400 12.5px/1.4 var(--vp-font-mono);color:var(--vp-color-text-muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ r.v1 }}</span>
+                      <span title="{{ r.v2 }}" style="font:400 12.5px/1.4 var(--vp-font-mono);color:var(--vp-color-text-muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ r.v2 }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </section>
+        </sc-if>
+
+        <!-- CONTRASTE -->
+        <sc-if value="{{ pg.contraste }}" hint-placeholder-val="{{ false }}">
+          <section data-screen-label="Contraste" style="display:flex;flex-direction:column;gap:20px">
+            <div style="display:flex;gap:6px;flex-wrap:wrap">
+              <sc-for list="{{ ctTabs }}" as="ct" hint-placeholder-count="4">
+                <button onClick="{{ ct.go }}" style="display:flex;gap:8px;align-items:center;height:32px;padding:0 12px;border-radius:var(--vp-radius-full);cursor:pointer;font-size:13px;border:1px solid {{ ct.bd }};background:{{ ct.bg }};color:{{ ct.fg }}">{{ ct.label }} <span style="font:500 11px/1 var(--vp-font-mono);opacity:0.8">{{ ct.n }}</span></button>
+              </sc-for>
+            </div>
+            <div style="border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-lg);overflow:hidden">
+              <div style="display:grid;grid-template-columns:64px minmax(0,1.4fr) minmax(0,1.4fr) 70px 90px minmax(0,1.2fr);gap:16px;padding:9px 16px;background:var(--vp-color-bg-muted);border-bottom:1px solid var(--vp-color-border);font:500 12px/1.3 var(--vp-font-sans);color:var(--vp-color-text-muted)"><span>Amostra</span><span>Texto</span><span>Fundo</span><span>Razão</span><span>Resultado</span><span>Uso</span></div>
+              <sc-for list="{{ ctRows }}" as="cr" hint-placeholder-count="8">
+                <div style="display:grid;grid-template-columns:64px minmax(0,1.4fr) minmax(0,1.4fr) 70px 90px minmax(0,1.2fr);gap:16px;align-items:center;padding:10px 16px;border-top:{{ cr.bt }}">
+                  <span style="display:grid;place-items:center;width:48px;height:32px;border-radius:var(--vp-radius-md);border:1px solid var(--vp-color-border);font:600 15px/1 var(--vp-font-brand);background:{{ cr.bgv }};color:{{ cr.fgv }}">Aa</span>
+                  <span style="display:flex;flex-direction:column;min-width:0"><span style="font:500 12px/1.4 var(--vp-font-mono);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ cr.fg }}</span><span style="font:400 11.5px/1.4 var(--vp-font-mono);color:var(--vp-color-text-subtle)">{{ cr.fgv }} · {{ cr.theme }}</span></span>
+                  <span style="display:flex;flex-direction:column;min-width:0"><span style="font:500 12px/1.4 var(--vp-font-mono);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ cr.bgn }}</span><span style="font:400 11.5px/1.4 var(--vp-font-mono);color:var(--vp-color-text-subtle)">{{ cr.bgv }}</span></span>
+                  <span style="font:600 13px/1 var(--vp-font-sans);font-variant-numeric:tabular-nums">{{ cr.ratio }}</span>
+                  <span style="justify-self:start;display:inline-flex;align-items:center;height:22px;padding:0 7px;border-radius:var(--vp-radius-sm);font:500 12px/1 var(--vp-font-sans);background:{{ cr.sb }};color:{{ cr.sf }};border:1px solid {{ cr.sd }}">{{ cr.result }}</span>
+                  <span style="font-size:13px;color:var(--vp-color-text-muted)">{{ cr.usage }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </section>
+        </sc-if>
+
+        <!-- ÍNDICE DE COMPONENTES -->
+        <sc-if value="{{ pg.componentes }}" hint-placeholder-val="{{ false }}">
+          <section data-screen-label="Componentes" style="display:flex;flex-direction:column;gap:28px">
+            <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;position:sticky;top:-36px;z-index:5;padding:12px 0;margin:-12px 0;background:var(--vp-color-bg)">
+              <div style="display:flex;gap:6px;flex-wrap:wrap">
+                <sc-for list="{{ layerTabs }}" as="lt" hint-placeholder-count="5">
+                  <button onClick="{{ lt.go }}" style="display:flex;gap:8px;align-items:center;height:32px;padding:0 12px;border-radius:var(--vp-radius-full);cursor:pointer;font-size:13px;border:1px solid {{ lt.bd }};background:{{ lt.bg }};color:{{ lt.fg }};font-weight:{{ lt.fw }}">{{ lt.label }} <span style="font:500 11px/1 var(--vp-font-mono);opacity:0.75">{{ lt.n }}</span></button>
+                </sc-for>
+              </div>
+              <div style="flex:1"></div>
+              <div style="display:flex;align-items:center;gap:8px;width:260px;height:34px;padding:0 10px;border:1px solid var(--vp-color-border-strong);border-radius:var(--vp-radius-md);color:var(--vp-color-text-subtle)">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-search"></use></svg>
+                <input value="{{ compQ }}" onChange="{{ onCompQ }}" placeholder="Nome, classe ou uso" aria-label="Filtrar componentes" style="flex:1;min-width:0;border:0;outline:0;background:transparent;color:var(--vp-color-text);font:400 13px/1 var(--vp-font-sans)">
+              </div>
+            </div>
+            <sc-for list="{{ compGroups }}" as="cg" hint-placeholder-count="2">
+              <div style="display:flex;flex-direction:column;gap:14px">
+                <div style="display:flex;align-items:baseline;gap:10px;padding-bottom:10px;border-bottom:1px solid var(--vp-color-border)">
+                  <h2 style="margin:0;font:600 20px/1.2 var(--vp-font-brand)">{{ cg.layer }}</h2>
+                  <span style="font:500 12px/1 var(--vp-font-mono);color:var(--vp-color-text-subtle)">{{ cg.count }}</span>
+                  <span style="font-size:13px;color:var(--vp-color-text-muted)">{{ cg.desc }}</span>
+                </div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px">
+                  <sc-for list="{{ cg.items }}" as="c" hint-placeholder-count="6">
+                    <button onClick="{{ c.go }}" style="display:flex;flex-direction:column;padding:0;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-xl);background:var(--vp-color-bg);cursor:pointer;text-align:left;overflow:hidden;transition:border-color var(--vp-duration-base) var(--vp-ease-standard),box-shadow var(--vp-duration-base) var(--vp-ease-standard)" style-hover="border-color:var(--vp-color-border-strong);box-shadow:var(--vp-shadow-md)">
+                      <div style="height:150px;display:flex;align-items:center;justify-content:center;overflow:hidden;pointer-events:none;border-bottom:1px solid var(--vp-color-border);background-color:var(--vp-color-canvas);background-image:radial-gradient(var(--vp-color-border) 1px,transparent 1px);background-size:14px 14px">
+                        <div style="flex:none;transform:scale(0.5);transform-origin:center">
+                          <dc-import name="VPSpecimen" cid="{{ c.id }}" hint-size="400px,220px"></dc-import>
+                        </div>
+                      </div>
+                      <div style="display:flex;flex-direction:column;gap:4px;padding:14px 16px 16px">
+                        <span style="font:600 15px/1.25 var(--vp-font-brand)">{{ c.name }}</span>
+                        <span style="font-size:12.5px;line-height:1.45;color:var(--vp-color-text-muted);text-wrap:pretty">{{ c.usage }}</span>
+                      </div>
+                    </button>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+            <sc-if value="{{ compEmpty }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:48px;text-align:center;color:var(--vp-color-text-muted);border:1px dashed var(--vp-color-border);border-radius:var(--vp-radius-xl)">Nenhum componente corresponde ao filtro.</div>
+            </sc-if>
+          </section>
+        </sc-if>
+
+        <!-- PÁGINA DE COMPONENTE -->
+        <sc-if value="{{ pg.comp }}" hint-placeholder-val="{{ false }}">
+          <section data-screen-label="Componente" style="display:grid;grid-template-columns:{{ compCols }};gap:56px;align-items:start">
+            <div style="display:flex;flex-direction:column;gap:48px;min-width:0">
+              <div style="display:flex;flex-direction:column;gap:14px">
+                <div style="display:flex;align-items:center;gap:8px">
+                  <span style="display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:var(--vp-radius-full);background:var(--vp-color-selection);color:var(--vp-color-primary-text);font:500 12px/1 var(--vp-font-sans)">{{ comp.layer }}</span>
+                  <span style="font:500 12px/1 var(--vp-font-mono);color:var(--vp-color-text-subtle)">{{ comp.pos }}</span>
+                </div>
+                <h1 style="margin:0;font:600 48px/1.05 var(--vp-font-brand);letter-spacing:-0.025em">{{ comp.name }}</h1>
+                <p style="margin:0;font-size:18px;line-height:1.55;color:var(--vp-color-text-muted);max-width:680px;text-wrap:pretty">{{ comp.usage }}</p>
+              </div>
+
+              <div id="sec-exemplo" style="display:flex;flex-direction:column;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-xl);overflow:hidden">
+                <div style="display:flex;align-items:center;gap:12px;padding:0 12px 0 6px;border-bottom:1px solid var(--vp-color-border);background:var(--vp-color-bg);flex-wrap:wrap">
+                  <div role="tablist" style="display:flex">
+                    <sc-for list="{{ stageTabs }}" as="st" hint-placeholder-count="2">
+                      <button onClick="{{ st.go }}" role="tab" style="height:44px;padding:0 12px;border:0;background:transparent;cursor:pointer;font-size:13.5px;margin-bottom:-1px;border-bottom:2px solid {{ st.bd }};color:{{ st.fg }};font-weight:{{ st.fw }}">{{ st.label }}</button>
+                    </sc-for>
+                  </div>
+                  <div style="flex:1"></div>
+                  <div style="display:flex;padding:2px;gap:2px;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-md);background:var(--vp-color-bg-muted)">
+                    <sc-for list="{{ stageThemeOpts }}" as="o" hint-placeholder-count="3">
+                      <button onClick="{{ o.go }}" style="height:26px;padding:0 9px;border:0;border-radius:var(--vp-radius-sm);cursor:pointer;font-size:12px;background:{{ o.bg }};color:{{ o.fg }};box-shadow:{{ o.sh }}">{{ o.label }}</button>
+                    </sc-for>
+                  </div>
+                  <div style="display:flex;padding:2px;gap:2px;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-md);background:var(--vp-color-bg-muted)">
+                    <sc-for list="{{ stageDensityOpts }}" as="o" hint-placeholder-count="2">
+                      <button onClick="{{ o.go }}" style="height:26px;padding:0 9px;border:0;border-radius:var(--vp-radius-sm);cursor:pointer;font-size:12px;background:{{ o.bg }};color:{{ o.fg }};box-shadow:{{ o.sh }}">{{ o.label }}</button>
+                    </sc-for>
+                  </div>
+                </div>
+                <sc-if value="{{ showExemplo }}" hint-placeholder-val="{{ true }}">
+                  <div data-theme="{{ stageThemeAttr }}" data-density="{{ stageDensity }}" style="display:flex;align-items:center;justify-content:center;min-height:320px;padding:56px 32px;overflow:auto;color:var(--vp-color-text);background-color:var(--vp-color-canvas);background-image:radial-gradient(var(--vp-color-border) 1px,transparent 1px);background-size:16px 16px">
+                    <dc-import name="VPSpecimen" cid="{{ comp.id }}" hint-size="480px,240px"></dc-import>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ showCodigo }}" hint-placeholder-val="{{ false }}">
+                  <div style="position:relative;background:var(--vp-color-bg-muted)">
+                    <pre style="margin:0;min-height:320px;padding:20px 24px;overflow:auto;font:400 12.5px/1.75 var(--vp-font-mono);color:var(--vp-color-text)">{{ codeText }}</pre>
+                    <button onClick="{{ copyCode }}" style="position:absolute;top:12px;right:12px;height:30px;padding:0 12px;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-md);background:var(--vp-color-bg);cursor:pointer;font-size:12px">Copiar</button>
+                  </div>
+                </sc-if>
+              </div>
+
+              <div id="sec-espec" style="display:flex;flex-direction:column;gap:16px">
+                <h2 style="margin:0;font:600 22px/1.2 var(--vp-font-brand);letter-spacing:-0.01em">Especificação</h2>
+                <div style="display:flex;flex-direction:column;border-top:1px solid var(--vp-color-border)">
+                  <sc-for list="{{ specRows }}" as="sr" hint-placeholder-count="5">
+                    <div style="display:grid;grid-template-columns:160px minmax(0,1fr);gap:24px;padding:14px 0;border-bottom:1px solid var(--vp-color-border)">
+                      <span style="font-size:13px;color:var(--vp-color-text-muted)">{{ sr.k }}</span>
+                      <span style="text-wrap:pretty">{{ sr.v }}</span>
+                    </div>
+                  </sc-for>
+                  <div style="display:grid;grid-template-columns:160px minmax(0,1fr);gap:24px;padding:14px 0;border-bottom:1px solid var(--vp-color-border)">
+                    <span style="font-size:13px;color:var(--vp-color-text-muted)">Classes CSS</span>
+                    <div style="display:flex;flex-wrap:wrap;gap:6px">
+                      <sc-for list="{{ comp.classes }}" as="cl" hint-placeholder-count="3">
+                        <button onClick="{{ cl.copy }}" style="height:24px;padding:0 8px;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-sm);background:var(--vp-color-bg-muted);cursor:copy;font:500 12px/1 var(--vp-font-mono)" style-hover="border-color:var(--vp-color-border-strong)">{{ cl.name }}</button>
+                      </sc-for>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div id="sec-uso" style="display:flex;flex-direction:column;gap:16px">
+                <h2 style="margin:0;font:600 22px/1.2 var(--vp-font-brand);letter-spacing:-0.01em">Fazer e evitar</h2>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px">
+                  <div style="display:flex;flex-direction:column;gap:10px;padding:20px;border-radius:var(--vp-radius-xl);background:var(--vp-color-success-subtle);border:1px solid var(--vp-color-success-border)">
+                    <span style="display:flex;gap:8px;align-items:center;font:600 14px/1 var(--vp-font-sans);color:var(--vp-color-success-on-subtle)"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><use href="#i-check"></use></svg>Fazer</span>
+                    <span style="color:var(--vp-color-text);text-wrap:pretty">{{ comp.do }}</span>
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:10px;padding:20px;border-radius:var(--vp-radius-xl);background:var(--vp-color-danger-subtle);border:1px solid var(--vp-color-danger-border)">
+                    <span style="display:flex;gap:8px;align-items:center;font:600 14px/1 var(--vp-font-sans);color:var(--vp-color-danger-on-subtle)"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><use href="#i-x"></use></svg>Evitar</span>
+                    <span style="color:var(--vp-color-text);text-wrap:pretty">{{ comp.dont }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div id="sec-a11y" style="display:flex;flex-direction:column;gap:16px">
+                <h2 style="margin:0;font:600 22px/1.2 var(--vp-font-brand);letter-spacing:-0.01em">Acessibilidade</h2>
+                <p style="margin:0;max-width:720px;text-wrap:pretty">{{ comp.a11y }}</p>
+              </div>
+
+              <div id="sec-tokens" style="display:flex;flex-direction:column;gap:16px">
+                <div style="display:flex;align-items:baseline;gap:10px"><h2 style="margin:0;font:600 22px/1.2 var(--vp-font-brand);letter-spacing:-0.01em">Tokens</h2><span style="font-size:13px;color:var(--vp-color-text-subtle)">Clique para copiar</span></div>
+                <div style="border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-lg);overflow:hidden">
+                  <div style="display:grid;grid-template-columns:40px minmax(0,1.6fr) minmax(0,1fr) minmax(0,1fr);gap:14px;padding:9px 14px;background:var(--vp-color-bg-muted);font:500 12px/1.3 var(--vp-font-sans);color:var(--vp-color-text-muted)"><span></span><span>Token</span><span>Claro / padrão</span><span>Escuro / compacto</span></div>
+                  <sc-for list="{{ compTokens }}" as="tk" hint-placeholder-count="4">
+                    <div style="display:grid;grid-template-columns:40px minmax(0,1.6fr) minmax(0,1fr) minmax(0,1fr);gap:14px;align-items:center;padding:8px 14px;border-top:1px solid var(--vp-color-border)">
+                      <span style="display:flex;width:28px;height:20px;border-radius:var(--vp-radius-sm);overflow:hidden;border:1px solid var(--vp-color-border);opacity:{{ tk.swOp }}"><span data-theme="light" style="flex:1;background:var({{ tk.name }})"></span><span data-theme="dark" style="flex:1;background:var({{ tk.name }})"></span></span>
+                      <button onClick="{{ tk.copy }}" style="justify-self:start;max-width:100%;padding:2px 6px;margin-left:-6px;border:0;border-radius:var(--vp-radius-sm);background:transparent;cursor:copy;font:500 12.5px/1.4 var(--vp-font-mono);text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" style-hover="background:var(--vp-color-bg-hover)">{{ tk.name }}</button>
+                      <span title="{{ tk.v1 }}" style="font:400 12px/1.4 var(--vp-font-mono);color:var(--vp-color-text-muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ tk.v1 }}</span>
+                      <span title="{{ tk.v2 }}" style="font:400 12px/1.4 var(--vp-font-mono);color:var(--vp-color-text-muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ tk.v2 }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+
+              <sc-if value="{{ hasCompScreens }}" hint-placeholder-val="{{ false }}">
+                <div id="sec-telas" style="display:flex;flex-direction:column;gap:16px">
+                  <h2 style="margin:0;font:600 22px/1.2 var(--vp-font-brand);letter-spacing:-0.01em">Usado em</h2>
+                  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px">
+                    <sc-for list="{{ compScreens }}" as="s" hint-placeholder-count="3">
+                      <button onClick="{{ s.go }}" style="display:flex;flex-direction:column;padding:0;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-lg);background:var(--vp-color-bg);cursor:pointer;overflow:hidden;text-align:left" style-hover="border-color:var(--vp-color-border-strong);box-shadow:var(--vp-shadow-md)">
+                        <img src="{{ s.img }}" alt="" style="display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top left;border-bottom:1px solid var(--vp-color-border);background:var(--vp-color-bg-muted)">
+                        <span style="display:flex;flex-direction:column;gap:2px;padding:10px 12px"><span style="font-weight:500;font-size:13.5px">{{ s.label }}</span><span style="font-size:12px;color:var(--vp-color-text-muted)">{{ s.sub }}</span></span>
+                      </button>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-if>
+
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;padding-top:8px">
+                <sc-if value="{{ prev.has }}" hint-placeholder-val="{{ false }}">
+                  <button onClick="{{ prev.go }}" style="display:flex;flex-direction:column;gap:4px;padding:16px 18px;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-lg);background:var(--vp-color-bg);cursor:pointer;text-align:left" style-hover="border-color:var(--vp-color-primary-border)"><span style="font-size:12px;color:var(--vp-color-text-muted)">Anterior</span><span style="font:600 15px/1.2 var(--vp-font-brand)">{{ prev.label }}</span></button>
+                </sc-if>
+                <sc-if value="{{ prev.none }}" hint-placeholder-val="{{ false }}"><span></span></sc-if>
+                <sc-if value="{{ next.has }}" hint-placeholder-val="{{ false }}">
+                  <button onClick="{{ next.go }}" style="display:flex;flex-direction:column;gap:4px;align-items:flex-end;padding:16px 18px;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-lg);background:var(--vp-color-bg);cursor:pointer;text-align:right" style-hover="border-color:var(--vp-color-primary-border)"><span style="font-size:12px;color:var(--vp-color-text-muted)">Próximo</span><span style="font:600 15px/1.2 var(--vp-font-brand)">{{ next.label }}</span></button>
+                </sc-if>
+              </div>
+            </div>
+
+            <sc-if value="{{ showRail }}" hint-placeholder-val="{{ false }}">
+              <aside style="position:sticky;top:0;display:flex;flex-direction:column;gap:2px;padding-top:8px">
+                <span style="padding:0 10px 8px;font:600 11px/1 var(--vp-font-sans);letter-spacing:0.08em;text-transform:uppercase;color:var(--vp-color-text-subtle)">Nesta página</span>
+                <sc-for list="{{ rail }}" as="ra" hint-placeholder-count="6">
+                  <button onClick="{{ ra.go }}" style="height:28px;padding:0 10px;border:0;background:transparent;cursor:pointer;text-align:left;font-size:13px;border-left:1px solid {{ ra.bd }};color:{{ ra.fg }}" style-hover="color:var(--vp-color-text)">{{ ra.label }}</button>
+                </sc-for>
+                <div style="margin-top:20px;padding:12px 10px;border-top:1px solid var(--vp-color-border);display:flex;flex-direction:column;gap:6px">
+                  <span style="font-size:12px;color:var(--vp-color-text-subtle)">Arquivo de referência</span>
+                  <span style="font:500 11.5px/1.4 var(--vp-font-mono);color:var(--vp-color-text-muted);word-break:break-all">design/plataforma/plataforma.css</span>
+                </div>
+              </aside>
+            </sc-if>
+          </section>
+        </sc-if>
+
+        <!-- TELAS -->
+        <sc-if value="{{ pg.telas }}" hint-placeholder-val="{{ false }}">
+          <section data-screen-label="Telas" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px">
+            <sc-for list="{{ screenCards }}" as="s" hint-placeholder-count="6">
+              <button onClick="{{ s.go }}" style="display:flex;flex-direction:column;padding:0;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-xl);background:var(--vp-color-bg);cursor:pointer;overflow:hidden;text-align:left" style-hover="border-color:var(--vp-color-border-strong);box-shadow:var(--vp-shadow-md)">
+                <img src="{{ s.img }}" alt="" style="display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top left;border-bottom:1px solid var(--vp-color-border);background:var(--vp-color-bg-muted)">
+                <span style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px">
+                  <span style="display:flex;flex-direction:column;gap:2px"><span style="font:600 15px/1.25 var(--vp-font-brand)">{{ s.label }}</span><span style="font-size:12.5px;color:var(--vp-color-text-muted)">{{ s.desc }}</span></span>
+                  <span style="font:500 11px/1 var(--vp-font-mono);color:var(--vp-color-text-subtle);white-space:nowrap">{{ s.nComp }}</span>
+                </span>
+              </button>
+            </sc-for>
+          </section>
+        </sc-if>
+
+        <sc-if value="{{ pg.tela }}" hint-placeholder-val="{{ false }}">
+          <section data-screen-label="Tela" style="display:flex;flex-direction:column;gap:32px">
+            <div style="border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-xl);overflow:hidden;background:var(--vp-color-bg-muted)">
+              <img src="{{ scr.img }}" alt="{{ scr.label }}" style="display:block;width:100%">
+            </div>
+            <div style="display:flex;gap:10px;align-items:center;font-size:13px;color:var(--vp-color-text-muted)"><span>Arquivo</span><span style="font:500 12.5px/1 var(--vp-font-mono);color:var(--vp-color-text)">{{ scr.file }}</span></div>
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <h2 style="margin:0;font:600 22px/1.2 var(--vp-font-brand)">Componentes nesta tela</h2>
+              <div style="display:flex;flex-wrap:wrap;gap:8px">
+                <sc-for list="{{ scr.comps }}" as="ci" hint-placeholder-count="8">
+                  <button onClick="{{ ci.go }}" style="display:flex;gap:8px;align-items:center;height:32px;padding:0 12px;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-full);background:var(--vp-color-bg);cursor:pointer;font-size:13px" style-hover="border-color:var(--vp-color-primary-border);color:var(--vp-color-primary-text)">{{ ci.name }}<span style="font-size:11px;color:var(--vp-color-text-subtle)">{{ ci.layer }}</span></button>
+                </sc-for>
+              </div>
+            </div>
+            <sc-if value="{{ scr.hasStates }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:14px">
+                <h2 style="margin:0;font:600 22px/1.2 var(--vp-font-brand)">Estados desta tela</h2>
+                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px">
+                  <sc-for list="{{ scr.states }}" as="s" hint-placeholder-count="3">
+                    <button onClick="{{ s.go }}" style="display:flex;flex-direction:column;padding:0;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-lg);background:var(--vp-color-bg);cursor:pointer;overflow:hidden;text-align:left" style-hover="border-color:var(--vp-color-border-strong)">
+                      <img src="{{ s.img }}" alt="" style="display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top left;border-bottom:1px solid var(--vp-color-border)">
+                      <span style="padding:10px 12px;font-weight:500;font-size:13.5px">{{ s.label }}</span>
+                    </button>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+          </section>
+        </sc-if>
+
+        <!-- ESTADOS -->
+        <sc-if value="{{ pg.estados }}" hint-placeholder-val="{{ false }}">
+          <section data-screen-label="Estados" style="display:flex;flex-direction:column;gap:36px">
+            <sc-for list="{{ stateGroups }}" as="sg" hint-placeholder-count="4">
+              <div style="display:flex;flex-direction:column;gap:14px">
+                <div style="display:flex;align-items:baseline;gap:10px;padding-bottom:10px;border-bottom:1px solid var(--vp-color-border)"><h2 style="margin:0;font:600 20px/1.2 var(--vp-font-brand)">{{ sg.screen }}</h2><span style="font:500 12px/1 var(--vp-font-mono);color:var(--vp-color-text-subtle)">{{ sg.count }}</span></div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px">
+                  <sc-for list="{{ sg.items }}" as="s" hint-placeholder-count="3">
+                    <button onClick="{{ s.go }}" style="display:flex;flex-direction:column;padding:0;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-lg);background:var(--vp-color-bg);cursor:pointer;overflow:hidden;text-align:left" style-hover="border-color:var(--vp-color-border-strong);box-shadow:var(--vp-shadow-md)">
+                      <img src="{{ s.img }}" alt="" style="display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top left;border-bottom:1px solid var(--vp-color-border)">
+                      <span style="padding:12px 14px;font-weight:500;font-size:14px">{{ s.label }}</span>
+                    </button>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </section>
+        </sc-if>
+
+        <sc-if value="{{ pg.estado }}" hint-placeholder-val="{{ false }}">
+          <section data-screen-label="Estado" style="display:flex;flex-direction:column;gap:24px">
+            <div style="border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-xl);overflow:hidden"><img src="{{ st.img }}" alt="{{ st.label }}" style="display:block;width:100%"></div>
+            <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--vp-color-text-muted)">
+              <span>Arquivo <span style="font:500 12.5px/1 var(--vp-font-mono);color:var(--vp-color-text)">{{ st.file }}</span></span>
+              <button onClick="{{ st.goScreen }}" style="height:32px;padding:0 12px;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-md);background:var(--vp-color-bg);cursor:pointer;font-size:13px">Ver tela {{ st.screen }}</button>
+            </div>
+          </section>
+        </sc-if>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- PALETA DE BUSCA -->
+  <sc-if value="{{ paletteOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closePalette }}" style="position:fixed;inset:0;z-index:100;background:var(--vp-color-overlay);display:flex;justify-content:center;align-items:flex-start;padding:10vh 16px 16px">
+      <div onClick="{{ stop }}" role="dialog" aria-label="Buscar" style="width:100%;max-width:640px;max-height:70vh;display:flex;flex-direction:column;border-radius:var(--vp-radius-xl);background:var(--vp-color-bg-elevated);border:1px solid var(--vp-color-border);box-shadow:var(--vp-shadow-xl);overflow:hidden;animation:vpfade var(--vp-duration-base) var(--vp-ease-enter)">
+        <div style="display:flex;align-items:center;gap:12px;height:56px;padding:0 16px;border-bottom:1px solid var(--vp-color-border);color:var(--vp-color-text-muted)">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-search"></use></svg>
+          <input ref="{{ paletteInput }}" value="{{ q }}" onChange="{{ onQ }}" onKeyDown="{{ onQKey }}" placeholder="Componente, classe, token, valor hex ou tela" aria-label="Buscar" style="flex:1;min-width:0;border:0;outline:0;background:transparent;color:var(--vp-color-text);font:400 16px/1 var(--vp-font-sans)">
+          <kbd style="padding:3px 6px;border:1px solid var(--vp-color-border);border-radius:var(--vp-radius-sm);font:500 11px/1 var(--vp-font-mono)">Esc</kbd>
+        </div>
+        <div style="overflow:auto;padding:8px">
+          <sc-for list="{{ results }}" as="rs" hint-placeholder-count="0">
+            <sc-if value="{{ rs.showHeader }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:10px 10px 6px;font:600 11px/1 var(--vp-font-sans);letter-spacing:0.08em;text-transform:uppercase;color:var(--vp-color-text-subtle)">{{ rs.type }}</div>
+            </sc-if>
+            <button onClick="{{ rs.go }}" onMouseEnter="{{ rs.hover }}" style="display:flex;align-items:center;gap:12px;width:100%;min-height:44px;padding:8px 10px;border:0;border-radius:var(--vp-radius-md);cursor:pointer;text-align:left;background:{{ rs.bg }}">
+              <span style="width:28px;height:28px;flex:none;display:grid;place-items:center;border-radius:var(--vp-radius-md);border:1px solid var(--vp-color-border);background:var(--vp-color-bg);color:var(--vp-color-text-muted)"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="{{ rs.icon }}"></use></svg></span>
+              <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:1px">
+                <span style="font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:{{ rs.ff }};font-size:{{ rs.fs }}">{{ rs.title }}</span>
+                <span style="font-size:12px;color:var(--vp-color-text-muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ rs.sub }}</span>
+              </span>
+              <sc-if value="{{ rs.isActive }}" hint-placeholder-val="{{ false }}"><span style="font:500 11px/1 var(--vp-font-mono);color:var(--vp-color-text-subtle)">Enter</span></sc-if>
+            </button>
+          </sc-for>
+          <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:32px 16px;text-align:center;color:var(--vp-color-text-muted)">Nada encontrado para “{{ q }}”.</div>
+          </sc-if>
+        </div>
+        <div style="display:flex;gap:16px;padding:10px 16px;border-top:1px solid var(--vp-color-border);font-size:12px;color:var(--vp-color-text-subtle)">
+          <span>↑ ↓ navegar</span><span>Enter abrir</span><span>Esc fechar</span><span style="flex:1"></span><span>{{ resultCount }}</span>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+    <div role="status" style="position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:120;display:flex;gap:10px;align-items:center;padding:10px 14px;border-radius:var(--vp-radius-lg);background:var(--vp-color-tooltip-bg);color:var(--vp-color-tooltip-fg);box-shadow:var(--vp-shadow-lg);font-size:13px">
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><use href="#i-check"></use></svg>
+      <span>Copiado <span style="font-family:var(--vp-font-mono)">{{ toast }}</span></span>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;defaultTheme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;light&quot;,&quot;dark&quot;],&quot;default&quot;:&quot;light&quot;,&quot;tsType&quot;:&quot;'light' | 'dark'&quot;}}">
+class Component extends DCLogic {
+  state = (() => {
+    let s = {}; try { s = JSON.parse(localStorage.getItem('vpds-state') || '{}'); } catch (e) {}
+    return { ready: !!window.VP_DOCS, route: s.route || 'inicio', theme: s.theme || this.props.defaultTheme || 'light',
+      sideFilter: '', open: { Primitivas: true, Shell: true, Workbench: true, SPDA: true, Telas: false, Estados: false },
+      palette: false, q: '', idx: 0, stageTheme: 'page', stageDensity: 'comfortable', stageTab: 'exemplo',
+      layer: 'Todas', compQ: '', ct: 'todos', toast: '', flash: '', w: window.innerWidth, sideOpen: false, rail: 'sec-exemplo' };
+  })();
+  mainRef = React.createRef(); paletteInput = React.createRef(); spriteRef = React.createRef();
+
+  componentDidMount() {
+    const boot = () => {
+      if (!window.VP_DOCS) { this.bt = setTimeout(boot, 40); return; }
+      if (this.spriteRef.current && window.VP_SPRITE && !this.spriteRef.current.firstChild) this.spriteRef.current.innerHTML = window.VP_SPRITE;
+      this.setState({ ready: true });
+    };
+    boot();
+    this.onKey = e => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); this.state.palette ? this.closeP() : this.openP(); }
+      else if (e.key === 'Escape' && this.state.palette) this.closeP();
+      else if (e.key === '/' && !this.state.palette && !/INPUT|TEXTAREA/.test(document.activeElement && document.activeElement.tagName)) { e.preventDefault(); this.openP(); }
+    };
+    this.onResize = () => this.setState({ w: window.innerWidth });
+    window.addEventListener('keydown', this.onKey); window.addEventListener('resize', this.onResize);
+  }
+  componentWillUnmount() { clearTimeout(this.bt); window.removeEventListener('keydown', this.onKey); window.removeEventListener('resize', this.onResize); }
+  componentDidUpdate() {
+    if (this.spriteRef.current && window.VP_SPRITE && !this.spriteRef.current.firstChild) this.spriteRef.current.innerHTML = window.VP_SPRITE;
+  }
+
+  norm(s) { return (s || '').toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''); }
+  save() { try { localStorage.setItem('vpds-state', JSON.stringify({ route: this.state.route, theme: this.state.theme })); } catch (e) {} }
+  openP() { this.setState({ palette: true, q: '', idx: 0 }, () => setTimeout(() => this.paletteInput.current && this.paletteInput.current.focus(), 20)); }
+  closeP() { this.setState({ palette: false }); }
+  copy(text) {
+    try { navigator.clipboard.writeText(text); } catch (e) {}
+    clearTimeout(this.tt); this.setState({ toast: text }); this.tt = setTimeout(() => this.setState({ toast: '' }), 1600);
+  }
+  go(route, token) {
+    const changed = route !== this.state.route;
+    this.setState({ route, palette: false, sideOpen: false, stageTab: changed ? 'exemplo' : this.state.stageTab, rail: 'sec-exemplo' }, () => {
+      this.save();
+      const m = this.mainRef.current; if (!m) return;
+      if (token) {
+        setTimeout(() => {
+          const el = document.getElementById('tok-' + token.replace(/^--/, ''));
+          if (el) m.scrollTo({ top: el.getBoundingClientRect().top - m.getBoundingClientRect().top + m.scrollTop - 140, behavior: 'smooth' });
+          clearTimeout(this.ft); this.setState({ flash: token }); this.ft = setTimeout(() => this.setState({ flash: '' }), 2000);
+        }, 60);
+      } else if (changed) m.scrollTo({ top: 0 });
+    });
+  }
+  scrollToSec(id) {
+    const m = this.mainRef.current, el = document.getElementById(id); if (!m || !el) return;
+    m.scrollTo({ top: el.getBoundingClientRect().top - m.getBoundingClientRect().top + m.scrollTop - 24, behavior: 'smooth' });
+  }
+
+  get D() { return window.VP_DOCS; }
+  pageMeta() {
+    return {
+      inicio: ['Início', 'Visão geral'], principios: ['Princípios', 'Visão geral'],
+      cores: ['Cores', 'Fundamentos'], tipografia: ['Tipografia', 'Fundamentos'], espacamento: ['Espaçamento', 'Fundamentos'],
+      forma: ['Forma e elevação', 'Fundamentos'], movimento: ['Movimento e layout', 'Fundamentos'], densidade: ['Densidade', 'Fundamentos'], contraste: ['Contraste', 'Fundamentos'],
+      componentes: ['Componentes', null], telas: ['Telas', null], estados: ['Estados', null]
+    };
+  }
+  tokenPageOf(t) {
+    const g = t.group;
+    if (t.kind === 'comfortable') return 'densidade';
+    if (t.kind === 'light') return g === 'Sombras' ? 'forma' : 'cores';
+    if (/^Tipografia/.test(g)) return 'tipografia';
+    if (g === 'Espaçamento') return 'espacamento';
+    if (['Bordas e foco', 'Elevação', 'Camadas (z-index)'].includes(g)) return 'forma';
+    if (['Movimento', 'Layout'].includes(g)) return 'movimento';
+    return 'cores';
+  }
+  expandTokens(str) {
+    const D = this.D, out = []; let base = '';
+    (str || '').replace(/\([^)]*\)/g, '').split(/,\s*/).forEach(p => {
+      p = p.trim(); if (!p) return;
+      if (p.startsWith('--')) {
+        if (p.endsWith('*')) { const pre = p.slice(0, -1); D.tokens.forEach(t => { if (t.name.startsWith(pre)) out.push(t.name); }); base = pre.replace(/-$/, ''); }
+        else { out.push(p.split(/\s/)[0]); base = p.split(/\s/)[0]; }
+      } else if (p.startsWith('-')) out.push(base + p.split(/\s/)[0]);
+    });
+    return [...new Set(out)];
+  }
+  buildIndex() {
+    if (this.idxCache) return this.idxCache;
+    const D = this.D, n = s => this.norm(s), items = [], pm = this.pageMeta();
+    Object.entries(pm).forEach(([k, [label, grp]]) => items.push({ type: 'Páginas', title: label, sub: grp || 'Seção', route: k, icon: '#i-file', hay: n(label + ' ' + (grp || '')) }));
+    D.components.forEach(c => items.push({ type: 'Componentes', title: c.name, sub: c.layer + ' · ' + c.usage, route: 'c/' + c.id, icon: '#i-box', hay: n([c.name, c.id, c.usage, c.css, c.anatomy, c.layer, c.variants].join(' ')) }));
+    D.tokens.forEach(t => items.push({ type: 'Tokens', title: t.name, sub: t.dark && t.dark !== t.light ? t.light + '  ·  escuro ' + t.dark : t.light, route: this.tokenPageOf(t), token: t.name, icon: '#i-palette', mono: true, hay: n([t.name, t.light, t.dark, t.group].join(' ')) }));
+    D.screens.forEach(s => items.push({ type: 'Telas', title: s.label, sub: s.desc, route: 't/' + s.id, icon: '#i-view', hay: n(s.label + ' ' + s.desc + ' ' + s.id) }));
+    D.states.forEach(s => items.push({ type: 'Estados', title: s.screen + ' — ' + s.label, sub: s.file, route: 'e/' + s.id, icon: '#i-alert', hay: n(s.screen + ' ' + s.label + ' ' + s.id) }));
+    return (this.idxCache = items);
+  }
+  search(q) {
+    const words = this.norm(q).split(/\s+/).filter(Boolean), all = this.buildIndex();
+    if (!words.length) {
+      const pick = ['inicio', 'componentes', 'cores', 'tipografia', 'telas', 'c/button', 'c/input', 'c/table', 'c/tree'];
+      return all.filter(i => pick.includes(i.route) && !i.token).slice(0, 9);
+    }
+    const order = ['Componentes', 'Tokens', 'Páginas', 'Telas', 'Estados'];
+    const res = all.filter(i => words.every(w => i.hay.includes(w))).map(i => {
+      const t = this.norm(i.title); let s = 0;
+      if (t === words.join(' ')) s += 100; if (t.startsWith(words[0])) s += 40; if (t.includes(words[0])) s += 15;
+      return { ...i, s };
+    });
+    const byType = {}; res.forEach(r => (byType[r.type] = byType[r.type] || []).push(r));
+    let out = []; order.forEach(t => { if (byType[t]) out = out.concat(byType[t].sort((a, b) => b.s - a.s).slice(0, t === 'Tokens' ? 12 : 8)); });
+    return out;
+  }
+
+  seg(active) {
+    return active ? { bg: 'var(--vp-color-bg)', fg: 'var(--vp-color-text)', sh: 'var(--vp-shadow-sm)' } : { bg: 'transparent', fg: 'var(--vp-color-text-muted)', sh: 'none' };
+  }
+  pill(active) {
+    return active ? { bd: 'var(--vp-color-primary-border)', bg: 'var(--vp-color-selection)', fg: 'var(--vp-color-primary-text)', fw: 500 } : { bd: 'var(--vp-color-border)', bg: 'var(--vp-color-bg)', fg: 'var(--vp-color-text-muted)', fw: 400 };
+  }
+
+  renderVals() {
+    const st = this.state, D = this.D, ready = st.ready && !!D;
+    const route = st.route, isDark = st.theme === 'dark';
+    const narrow = st.w < 900, showRail = st.w >= 1240;
+    const base = {
+      theme: st.theme, spriteRef: this.spriteRef, mainRef: this.mainRef, paletteInput: this.paletteInput,
+      markSrc: isDark ? 'assets/vp-mark-white.png' : 'assets/vp-mark-ink.png',
+      lightBtn: this.seg(!isDark), darkBtn: this.seg(isDark),
+      setLight: () => this.setState({ theme: 'light' }, () => this.save()),
+      setDark: () => this.setState({ theme: 'dark' }, () => this.save()),
+      goHome: () => this.go('inicio'),
+      openPalette: () => this.openP(), closePalette: () => this.closeP(), stop: e => e.stopPropagation(),
+      showMenuBtn: narrow, toggleSide: () => this.setState({ sideOpen: !st.sideOpen }),
+      showSidebar: !narrow || st.sideOpen,
+      layoutCols: narrow ? 'minmax(0,1fr)' : '272px minmax(0,1fr)',
+      side: narrow ? { pos: 'absolute', w: '288px', sh: 'var(--vp-shadow-xl)' } : { pos: 'relative', w: 'auto', sh: 'none' },
+      sideFilter: st.sideFilter, onSideFilter: e => this.setState({ sideFilter: e.target.value }),
+      paletteOpen: st.palette, q: st.q, toast: st.toast, hasToast: !!st.toast,
+      pg: {}, navGroups: [], results: [], intros: {}
+    };
+    if (!ready) return { ...base, pg: { home: true } };
+
+    // sidebar
+    const pm = this.pageMeta(), f = this.norm(st.sideFilter);
+    const mk = (label, r, count) => {
+      const act = route === r;
+      return { label, count: count == null ? '' : count, go: () => this.go(r), bg: act ? 'var(--vp-color-selection)' : 'transparent', fg: act ? 'var(--vp-color-primary-text)' : 'var(--vp-color-text-muted)', fw: act ? 500 : 400 };
+    };
+    const layers = ['Primitivas', 'Shell', 'Workbench', 'SPDA'];
+    const curComp = route.startsWith('c/') ? D.components.find(c => 'c/' + c.id === route) : null;
+    let groups = [
+      { title: 'Visão geral', items: [mk('Início', 'inicio'), mk('Princípios', 'principios')] },
+      { title: 'Fundamentos', items: ['cores', 'tipografia', 'espacamento', 'forma', 'movimento', 'densidade', 'contraste'].map(k => mk(pm[k][0], k)) },
+      { title: 'Componentes', items: [mk('Todos os componentes', 'componentes', D.components.length)] }
+    ];
+    layers.forEach(L => {
+      const cs = D.components.filter(c => c.layer === L);
+      groups.push({ title: L, key: L, collapsible: true, count: cs.length, items: cs.map(c => mk(c.name, 'c/' + c.id)) });
+    });
+    groups.push({ title: 'Telas', key: 'Telas', collapsible: true, count: D.screens.length, items: [mk('Todas as telas', 'telas')].concat(D.screens.map(s => mk(s.label, 't/' + s.id))) });
+    groups.push({ title: 'Estados', key: 'Estados', collapsible: true, count: D.states.length, items: [mk('Todos os estados', 'estados')].concat(D.states.map(s => mk(s.screen + ' — ' + s.label, 'e/' + s.id))) });
+    const curGroup = curComp ? curComp.layer : route.startsWith('t/') ? 'Telas' : route.startsWith('e/') ? 'Estados' : null;
+    groups = groups.map((g, i) => {
+      let items = g.items; if (f) items = items.filter(it => this.norm(it.label).includes(f));
+      const open = f ? true : g.collapsible ? (st.open[g.key] || g.key === curGroup) : true;
+      const prevPlain = i > 0 && !groups[i - 1].collapsible;
+      return { ...g, items, open, plain: !g.collapsible, collapsible: !!g.collapsible, chev: open ? 'rotate(90deg)' : 'none', indent: g.collapsible ? '14px' : '0px',
+        mt: i === 0 ? '4px' : g.collapsible ? (prevPlain ? '4px' : '2px') : '22px',
+        toggle: () => this.setState({ open: { ...st.open, [g.key]: !open } }) };
+    }).filter(g => !f || g.items.length);
+
+    // page flags
+    const tokenPages = ['cores', 'tipografia', 'espacamento', 'forma', 'movimento', 'densidade'];
+    const pg = { home: route === 'inicio', principios: route === 'principios', tokens: tokenPages.includes(route), densidade: route === 'densidade', contraste: route === 'contraste',
+      componentes: route === 'componentes', comp: !!curComp, telas: route === 'telas', tela: route.startsWith('t/'), estados: route === 'estados', estado: route.startsWith('e/') };
+    if (!Object.values(pg).some(Boolean)) pg.home = true;
+
+    const intros = D.intros || {};
+    const pageIntros = {
+      principios: 'Direção visual aprovada. Cada decisão de token e componente parte destes critérios.',
+      cores: intros.cores, tipografia: 'Famílias, escala e estilos compostos. Use os compostos com a propriedade font.',
+      espacamento: 'Escala de 4px usada em margens, gaps e preenchimentos.', forma: 'Raios, bordas, foco, níveis de elevação, sombras por tema e camadas.',
+      movimento: intros.movimento + ' Grade e medidas de layout do Shell e do Workbench.', densidade: intros.densidade,
+      contraste: intros.contraste, componentes: 'Os 37 componentes com ficha final, organizados por camada. Abra um para ver o exemplo ao vivo nos dois temas, a especificação e os tokens.',
+      telas: 'Telas de referência da plataforma. Cada uma lista os componentes que usa.', estados: 'Carregando, vazio, sem resultados e erro.'
+    };
+    let pageTitle = '', pageIntro = '', crumbs = [], crumbLast = '';
+    if (pm[route] && route !== 'inicio') {
+      pageTitle = pm[route][0]; pageIntro = pageIntros[route] || '';
+      if (pm[route][1] && pm[route][1] !== 'Visão geral') { crumbs = [{ label: pm[route][1], go: () => this.go('cores') }]; crumbLast = pageTitle; }
+    }
+
+    const out = { ...base, ready: true, navGroups: groups, sideEmpty: f && !groups.length, pg, intros, pageTitle, pageIntro,
+      hasPageHead: !!pageTitle, onMainScroll: null };
+
+    // home
+    if (pg.home) {
+      out.homeTiles = [
+        { n: D.tokens.length, label: 'Tokens', desc: 'Cores, tipografia, espaço, forma, movimento e densidade.', go: () => this.go('cores') },
+        { n: D.components.length, label: 'Componentes', desc: 'Primitivas, Shell, Workbench e SPDA.', go: () => this.go('componentes') },
+        { n: D.screens.length, label: 'Telas', desc: 'Da entrada ao Workbench SPDA.', go: () => this.go('telas') },
+        { n: D.states.length, label: 'Estados', desc: 'Carregando, vazio e erro.', go: () => this.go('estados') }
+      ];
+      const ld = { Primitivas: 'Controles e feedback usados em todas as telas.', Shell: 'Navegação global, Home e listas.', Workbench: 'Viewport 3D, docks e ferramentas.', SPDA: 'Fluxo técnico de análise e proteção.' };
+      out.layerCards = layers.map(L => { const cs = D.components.filter(c => c.layer === L); return { layer: L, count: cs.length, desc: ld[L], go: () => this.setState({ layer: L }, () => this.go('componentes')), items: cs.map(c => ({ name: c.name, go: () => this.go('c/' + c.id) })) }; });
+      out.startCode = '<link rel="stylesheet" href="design-system/vp-tokens.css">\n\n<body data-theme="light" data-density="comfortable">\n  <!-- Workbench: data-density="compact" -->\n  <!-- Tema escuro: data-theme="dark" -->\n</body>';
+      out.copyStart = () => this.copy(out.startCode);
+      out.pending = D.pending.map((p, i) => ({ ...p, bt: i ? '1px solid var(--vp-color-border)' : '0' }));
+    }
+    if (pg.principios) out.principles = D.principles.map((p, i) => ({ ...p, n: String(i + 1).padStart(2, '0') }));
+
+    // tokens
+    if (pg.tokens) {
+      const list = D.tokens.filter(t => this.tokenPageOf(t) === route && t.group);
+      const groupsT = {}; const order = [];
+      list.forEach(t => { const k = (t.kind === 'base' && route === 'cores' ? 'Primitivo · ' : '') + t.group; if (!groupsT[k]) { groupsT[k] = []; order.push(k); } groupsT[k].push(t); });
+      if (route === 'cores') order.sort((a, b) => (a.startsWith('Primitivo') ? 1 : 0) - (b.startsWith('Primitivo') ? 1 : 0));
+      const cols = { cores: '96px minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr)', tipografia: '170px minmax(0,1.3fr) minmax(0,1.2fr) 0px', densidade: '24px minmax(0,1.4fr) minmax(0,1fr) minmax(0,1fr)' }[route] || '96px minmax(0,1.4fr) minmax(0,1.2fr) 0px';
+      out.tokenGroups = order.map(k => {
+        const rows = groupsT[k].map((t, i) => {
+          const nm = t.name, g = t.group;
+          const r = { name: nm, anchor: 'tok-' + nm.replace(/^--/, ''), bt: i ? '1px solid var(--vp-color-border)' : '0', bg: st.flash === nm ? 'var(--vp-color-selection)' : 'transparent',
+            copy: () => this.copy('var(' + nm + ')'), vColor: false, vType: false, vSize: false, vFamily: false, vWeight: false, vSpace: false, vRadius: false, vShadow: false, vBorder: false };
+          if (route === 'cores') { r.vColor = true; r.v1 = t.light; r.v2 = t.kind === 'light' ? t.dark : '—'; }
+          else if (route === 'densidade') { r.v1 = t.light; r.v2 = t.compact || t.light; }
+          else {
+            r.v1 = t.kind === 'light' ? t.light : t.light; r.v2 = '';
+            if (route === 'tipografia') { if (/compostos/.test(g)) r.vType = true; else if (/font-size/.test(nm)) r.vSize = true; else if (/font-(sans|brand|mono)$/.test(nm)) r.vFamily = true; else if (/font-weight/.test(nm)) r.vWeight = true; }
+            if (route === 'espacamento') r.vSpace = true;
+            if (route === 'forma') { if (/radius/.test(nm)) r.vRadius = true; else if (/shadow|elevation-(raised|overlay|modal)/.test(nm)) r.vShadow = true; else if (/border-width/.test(nm)) r.vBorder = true; }
+            if (t.kind === 'light') { r.v1 = t.light; }
+          }
+          const v = 'var(' + nm + ')', Z = { mw: '0', w: 'auto', h: 'auto', bg: 'transparent', bd: '0', rad: '0', sh: 'none', font: 'inherit', fs: 'inherit', ff: 'inherit', fw: 'inherit', txt: '' };
+          let z = null;
+          if (r.vType) z = { font: v, txt: 'Galpão Norte' };
+          else if (r.vSize) z = { fs: v, ff: 'var(--vp-font-brand)', fw: 600, txt: 'Aa' };
+          else if (r.vFamily) z = { ff: v, fs: '20px', txt: 'Ag 0123' };
+          else if (r.vWeight) z = { fw: v, fs: '20px', ff: 'var(--vp-font-brand)', txt: 'Aa' };
+          else if (r.vSpace) z = { w: v, mw: '1px', h: '12px', bg: 'var(--vp-color-primary)', rad: '2px' };
+          else if (r.vRadius) z = { w: '36px', h: '36px', bd: '1.5px solid var(--vp-color-primary)', bg: 'var(--vp-color-selection)', rad: v };
+          else if (r.vShadow) z = { w: '56px', h: '32px', rad: 'var(--vp-radius-md)', bg: 'var(--vp-color-bg-elevated)', sh: v };
+          else if (r.vBorder) z = { w: '56px', h: v, bg: 'var(--vp-color-text)' };
+          r.vOther = !!z; r.z = Object.assign({}, Z, z || {});
+          return r;
+        });
+        const note = route === 'cores' && !k.startsWith('Primitivo') ? 'Amostra: claro | escuro' : route === 'cores' ? 'Não use direto nos componentes' : '';
+        return { title: k, count: rows.length, rows, cols, note, h0: route === 'densidade' ? '' : 'Amostra', h1: route === 'cores' ? 'Claro' : route === 'densidade' ? 'Confortável' : 'Valor', h2: route === 'cores' ? 'Escuro' : route === 'densidade' ? 'Compacta' : '' };
+      });
+    }
+
+    // contraste
+    if (pg.contraste) {
+      const pairs = D.contrast.pairs;
+      const flt = { todos: () => true, claro: p => p.theme === 'claro', escuro: p => p.theme === 'escuro', falhas: p => !p.passes };
+      out.ctTabs = [['todos', 'Todos'], ['claro', 'Claro'], ['escuro', 'Escuro'], ['falhas', 'Abaixo do mínimo']].map(([k, l]) => ({ label: l, n: pairs.filter(flt[k]).length, go: () => this.setState({ ct: k }), ...this.pill(st.ct === k) }));
+      out.ctRows = pairs.filter(flt[st.ct]).map((p, i) => ({ theme: p.theme, fg: p.foreground, fgv: p.fg_value, bgn: p.background, bgv: p.bg_value, ratio: p.ratio.toFixed(2) + ':1', usage: p.usage, bt: i ? '1px solid var(--vp-color-border)' : '0',
+        result: p.passes ? 'Passa · ' + p.minimum : 'Falha · ' + p.minimum, sb: p.passes ? 'var(--vp-color-success-subtle)' : 'var(--vp-color-danger-subtle)', sf: p.passes ? 'var(--vp-color-success-on-subtle)' : 'var(--vp-color-danger-on-subtle)', sd: p.passes ? 'var(--vp-color-success-border)' : 'var(--vp-color-danger-border)' }));
+    }
+
+    // índice de componentes
+    if (pg.componentes) {
+      const q = this.norm(st.compQ);
+      const match = c => !q || this.norm([c.name, c.id, c.usage, c.css].join(' ')).includes(q);
+      out.layerTabs = ['Todas'].concat(layers).map(L => ({ label: L, n: L === 'Todas' ? D.components.length : D.components.filter(c => c.layer === L).length, go: () => this.setState({ layer: L }), ...this.pill(st.layer === L) }));
+      const ld = { Primitivas: 'Controles e feedback', Shell: 'Navegação global e listas', Workbench: 'Viewport 3D e docks', SPDA: 'Fluxo técnico' };
+      out.compGroups = layers.filter(L => st.layer === 'Todas' || st.layer === L).map(L => {
+        const items = D.components.filter(c => c.layer === L && match(c)).map(c => ({ id: c.id, name: c.name, usage: c.usage, go: () => this.go('c/' + c.id) }));
+        return { layer: L, desc: ld[L], count: items.length, items };
+      }).filter(g => g.items.length);
+      out.compEmpty = !out.compGroups.length; out.compQ = st.compQ; out.onCompQ = e => this.setState({ compQ: e.target.value });
+    }
+
+    // componente
+    if (curComp) {
+      const c = curComp, i = D.components.indexOf(c), list = D.components;
+      crumbs = [{ label: 'Componentes', go: () => this.go('componentes') }, { label: c.layer, go: () => this.setState({ layer: c.layer }, () => this.go('componentes')) }]; crumbLast = c.name;
+      const tokNames = this.expandTokens(c.tokens);
+      const byName = {}; D.tokens.forEach(t => (byName[t.name] = t));
+      const classes = (c.css || '').split(/\s+/).filter(x => x.startsWith('.')).map(x => ({ name: x, copy: () => this.copy(x) }));
+      const code = '<!-- ' + c.name + ' · ' + c.layer + ' -->\n<link rel="stylesheet" href="design-system/vp-tokens.css">\n<link rel="stylesheet" href="design/plataforma/plataforma.css">\n\n/* Classes */\n' + ((c.css || '').split(/\s+/).filter(Boolean).join('\n') || '—') + '\n\n/* Tokens */\n' + tokNames.join('\n') + '\n\n/* Acessibilidade */\n/* ' + c.a11y + ' */';
+      out.comp = { id: c.id, name: c.name, layer: c.layer, usage: c.usage, do: c.do, dont: c.dont, a11y: c.a11y, classes, pos: String(i + 1).padStart(2, '0') + ' / ' + list.length };
+      out.specRows = [['Anatomia', c.anatomy], ['Variantes', c.variants], ['Tamanhos', c.sizes], ['Estados', c.states], ['Telas', c.screens]].filter(r => r[1] && r[1] !== '—').map(([k, v]) => ({ k, v }));
+      out.compTokens = tokNames.map(nm => { const t = byName[nm]; const isColor = t && (t.kind === 'light' || /^--vp-ref-/.test(nm)) && !/shadow/.test(nm);
+        return { name: nm, v1: t ? t.light : '—', v2: t ? (t.kind === 'light' ? t.dark : t.kind === 'comfortable' ? t.compact : '—') : '—', swOp: isColor ? 1 : 0, copy: () => this.copy('var(' + nm + ')') }; });
+      const stageTab = st.stageTab;
+      out.stageTabs = [['exemplo', 'Exemplo'], ['codigo', 'Código']].map(([k, l]) => ({ label: l, go: () => this.setState({ stageTab: k }), bd: stageTab === k ? 'var(--vp-color-primary)' : 'transparent', fg: stageTab === k ? 'var(--vp-color-text)' : 'var(--vp-color-text-muted)', fw: stageTab === k ? 500 : 400 }));
+      out.stageThemeOpts = [['page', 'Página'], ['light', 'Claro'], ['dark', 'Escuro']].map(([k, l]) => ({ label: l, go: () => this.setState({ stageTheme: k }), ...this.seg(st.stageTheme === k) }));
+      out.stageDensityOpts = [['comfortable', 'Confortável'], ['compact', 'Compacta']].map(([k, l]) => ({ label: l, go: () => this.setState({ stageDensity: k }), ...this.seg(st.stageDensity === k) }));
+      out.stageThemeAttr = st.stageTheme === 'page' ? st.theme : st.stageTheme; out.stageDensity = st.stageDensity;
+      out.showExemplo = stageTab === 'exemplo'; out.showCodigo = stageTab === 'codigo'; out.codeText = code; out.copyCode = () => this.copy(code);
+      const scrs = c.screenIds.map(id => D.screens.find(s => s.id === id)).filter(Boolean).map(s => ({ label: s.label, sub: 'Tela', img: 'assets/previews/' + s.id + '-' + (isDark ? 'escuro' : 'claro') + '.png', go: () => this.go('t/' + s.id) }));
+      const sts = (c.stateIds || []).map(id => D.states.find(s => s.id === id)).filter(Boolean).map(s => ({ label: s.screen + ' — ' + s.label, sub: 'Estado', img: 'assets/estados/' + s.id + '.png', go: () => this.go('e/' + s.id) }));
+      out.compScreens = scrs.concat(sts); out.hasCompScreens = out.compScreens.length > 0;
+      const p = list[i - 1], n = list[i + 1];
+      out.prev = { has: !!p, none: !p, label: p ? p.name : '', go: () => p && this.go('c/' + p.id) };
+      out.next = { has: !!n, label: n ? n.name : '', go: () => n && this.go('c/' + n.id) };
+      const secs = [['sec-exemplo', 'Exemplo'], ['sec-espec', 'Especificação'], ['sec-uso', 'Fazer e evitar'], ['sec-a11y', 'Acessibilidade'], ['sec-tokens', 'Tokens']].concat(out.hasCompScreens ? [['sec-telas', 'Usado em']] : []);
+      out.rail = secs.map(([id, l]) => ({ label: l, go: () => this.scrollToSec(id), bd: st.rail === id ? 'var(--vp-color-primary)' : 'var(--vp-color-border)', fg: st.rail === id ? 'var(--vp-color-text)' : 'var(--vp-color-text-muted)' }));
+      out.showRail = showRail; out.compCols = showRail ? 'minmax(0,1fr) 180px' : 'minmax(0,1fr)';
+      out.onMainScroll = () => {
+        const m = this.mainRef.current; if (!m) return; const top = m.getBoundingClientRect().top; let cur = secs[0][0];
+        secs.forEach(([id]) => { const el = document.getElementById(id); if (el && el.getBoundingClientRect().top - top < 160) cur = id; });
+        if (m.scrollTop + m.clientHeight >= m.scrollHeight - 4) cur = secs[secs.length - 1][0];
+        if (cur !== this.state.rail) this.setState({ rail: cur });
+      };
+    }
+
+    // telas
+    const compsFor = sid => D.components.filter(c => c.screenIds.includes(sid));
+    if (pg.telas) out.screenCards = D.screens.map(s => ({ label: s.label, desc: s.desc, nComp: compsFor(s.id).length + ' comp.', img: 'assets/previews/' + s.id + '-' + (isDark ? 'escuro' : 'claro') + '.png', go: () => this.go('t/' + s.id) }));
+    if (pg.tela) {
+      const s = D.screens.find(x => 't/' + x.id === route) || D.screens[0];
+      crumbs = [{ label: 'Telas', go: () => this.go('telas') }]; crumbLast = s.label;
+      out.pageTitle = s.label; out.pageIntro = s.desc; out.hasPageHead = true;
+      const pre = s.id.split('-')[0];
+      const states = D.states.filter(x => x.id.startsWith(pre === 'spda' ? 'zz' : pre)).map(x => ({ label: x.label, img: 'assets/estados/' + x.id + '.png', go: () => this.go('e/' + x.id) }));
+      out.scr = { label: s.label, file: s.file, img: 'assets/previews/' + s.id + '-' + (isDark ? 'escuro' : 'claro') + '.png', comps: compsFor(s.id).map(c => ({ name: c.name, layer: c.layer, go: () => this.go('c/' + c.id) })), states, hasStates: states.length > 0 };
+    }
+    if (pg.estados) {
+      const by = {}; const order = [];
+      D.states.forEach(s => { if (!by[s.screen]) { by[s.screen] = []; order.push(s.screen); } by[s.screen].push({ label: s.label, img: 'assets/estados/' + s.id + '.png', go: () => this.go('e/' + s.id) }); });
+      out.stateGroups = order.map(k => ({ screen: k, count: by[k].length, items: by[k] }));
+    }
+    if (pg.estado) {
+      const s = D.states.find(x => 'e/' + x.id === route) || D.states[0];
+      const scrId = { Entrada: 'entrada', Lista: 'lista', GED: 'ged', Workbench: 'workbench' }[s.screen];
+      crumbs = [{ label: 'Estados', go: () => this.go('estados') }, { label: s.screen, go: () => this.go('t/' + scrId) }]; crumbLast = s.label;
+      out.pageTitle = s.screen + ' — ' + s.label; out.pageIntro = ''; out.hasPageHead = true;
+      out.st = { label: s.label, screen: s.screen, file: s.file, img: 'assets/estados/' + s.id + '.png', goScreen: () => this.go('t/' + scrId) };
+    }
+    out.crumbs = crumbs; out.crumbLast = crumbLast; out.hasCrumbs = crumbs.length > 0;
+
+    // paleta
+    if (st.palette) {
+      const res = this.search(st.q), idx = Math.min(st.idx, Math.max(0, res.length - 1));
+      this.lastRes = res;
+      out.results = res.map((r, i) => ({ ...r, showHeader: i === 0 || res[i - 1].type !== r.type, isActive: i === idx, bg: i === idx ? 'var(--vp-color-selection)' : 'transparent',
+        ff: r.mono ? 'var(--vp-font-mono)' : 'var(--vp-font-sans)', fs: r.mono ? '13px' : '14px',
+        go: () => this.go(r.route, r.token), hover: () => { if (this.state.idx !== i) this.setState({ idx: i }); } }));
+      out.noResults = !!st.q && !res.length;
+      out.resultCount = st.q ? res.length + ' resultado' + (res.length === 1 ? '' : 's') : 'Sugestões';
+      out.onQ = e => this.setState({ q: e.target.value, idx: 0 });
+      out.onQKey = e => {
+        const R = this.lastRes || [];
+        if (e.key === 'ArrowDown') { e.preventDefault(); this.setState({ idx: Math.min(R.length - 1, this.state.idx + 1) }); }
+        else if (e.key === 'ArrowUp') { e.preventDefault(); this.setState({ idx: Math.max(0, this.state.idx - 1) }); }
+        else if (e.key === 'Enter') { const r = R[this.state.idx]; if (r) this.go(r.route, r.token); }
+      };
+    }
+    return out;
+  }
+}
+</script>
+</body>
+</html>
