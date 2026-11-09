@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Componentes | Creators Club identidade visual</title>
+  <link rel="canonical" href="https://raipp.com.br/creators-club-identidade-visual/componentes/">
+  <meta name="description" content="Exemplos de botões, cards, selos e campos do Creators Club, com uma demonstração dos estados de interação.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Raipp">
+  <meta property="og:title" content="Componentes | Creators Club identidade visual">
+  <meta property="og:description" content="Exemplos de botões, cards, selos e campos do Creators Club, com uma demonstração dos estados de interação.">
+  <meta property="og:url" content="https://raipp.com.br/creators-club-identidade-visual/componentes/">
+  <meta property="og:image" content="https://raipp.com.br/creators-club-identidade-visual/assets/meu-primeiro-remix.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="920">
+  <meta property="og:image:height" content="517">
+  <meta property="og:image:alt" content="Capa do Creators Club com o título Meu primeiro remix.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Componentes | Creators Club identidade visual">
+  <meta name="twitter:description" content="Exemplos de botões, cards, selos e campos do Creators Club, com uma demonstração dos estados de interação.">
+  <meta name="twitter:image" content="https://raipp.com.br/creators-club-identidade-visual/assets/meu-primeiro-remix.jpg">
+  <meta name="twitter:image:alt" content="Capa do Creators Club com o título Meu primeiro remix.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../guia.css">
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="../" data-cta="creators_club_identidade_visual"><span class="brand-mark" aria-hidden="true">Cc</span>Creators Club</a>
+      <nav class="page-nav" aria-label="Páginas do guia">
+        <a href="../" data-cta="creators_club_identidade_visual"><span class="nav-index">01</span> Identidade</a>
+        <a href="./" aria-current="page"><span class="nav-index">02</span> Componentes</a>
+      </nav>
+      <span class="header-note mono">Guia de interface</span>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <section class="shell hero components-hero" aria-labelledby="titulo">
+      <div class="hero-content">
+        <p class="kicker"><span class="rec-dot" aria-hidden="true"></span> 02 / Componentes</p>
+        <h1 id="titulo">Peças<br>em uso<span class="orange">.</span></h1>
+        <p class="hero-copy">Veja como botões, cards, selos e campos organizam a navegação, as aulas e o acervo do Creators Club.</p>
+        <a class="action primary" href="#botoes">Explorar os exemplos <span aria-hidden="true">↓</span></a>
+      </div>
+      <figure class="hero-figure">
+        <div class="component-poster" aria-hidden="true">
+          <div class="poster-meta mono"><span>Quadro 02</span><span>Biblioteca / UI</span></div>
+          <span class="poster-ghost">Cc</span>
+          <span class="rafa"><i></i><i></i></span>
+          <span class="poster-chip mono">Rafa / mascote</span>
+          <span class="poster-footer mono">Creators Club</span>
+        </div>
+        <figcaption>Rafa, mascote que aparece na home e na interface do protótipo.</figcaption>
+      </figure>
+    </section>
+
+    <div class="chapter-band">
+      <div class="shell chapter-inner mono">
+        <span><span class="rec-dot" aria-hidden="true"></span> Creators Club / Guia visual</span>
+        <nav aria-label="Nesta página"><a href="#botoes">Botões</a><a href="#cards">Cards</a><a href="#campos">Campos e selos</a></nav>
+      </div>
+    </div>
+
+    <section class="shell section" id="botoes" aria-labelledby="titulo-botoes">
+      <div class="section-head">
+        <div><p class="kicker">02.1 / Ações</p><h2 id="titulo-botoes">Qual é o próximo passo?</h2></div>
+        <p>Reserve o botão cheio para a ação principal. Use o contorno para uma ação complementar no mesmo bloco.</p>
+      </div>
+      <fieldset class="button-demo">
+        <legend>Veja os estados dos botões</legend>
+        <div class="state-options">
+          <label><input type="radio" name="state" value="default" checked><span>Padrão</span></label>
+          <label><input type="radio" name="state" value="hover"><span>Ao passar o mouse</span></label>
+          <label><input type="radio" name="state" value="focus"><span>Foco no teclado</span></label>
+        </div>
+        <div class="specimens">
+          <div class="button-spec"><span class="kicker">01 / Principal</span><span class="action primary sample-primary">Começar grátis</span><span class="spec-caption">Grafite cheio · canto de 12 px</span></div>
+          <div class="button-spec"><span class="kicker">02 / Secundário</span><span class="action secondary sample-secondary">Ver o que tá rolando</span><span class="spec-caption">Contorno grafite · canto de 12 px</span></div>
+        </div>
+      </fieldset>
+      <p class="small-note">O foco visível é uma recomendação deste guia para navegação pelo teclado.</p>
+    </section>
+
+    <section class="section section-tinted" id="cards" aria-labelledby="titulo-cards">
+      <div class="shell">
+        <div class="section-head">
+          <div><p class="kicker">02.2 / Conteúdo</p><h2 id="titulo-cards">A capa abre a cena.</h2></div>
+          <p>Os cards seguem uma ordem fácil de ler: capa, título e informações de apoio. Use o selo quando ele explicar um estado ou uma característica do conteúdo.</p>
+        </div>
+        <div class="card-showcase">
+          <figure class="component-sample">
+            <div class="sample-top mono"><span>01 / Card claro</span><span>Trilhas</span></div>
+            <article class="lesson-card">
+              <div class="card-cover">
+                <img src="../assets/errei-a-cor.jpg" alt="Capa com o título Errei a cor. Acertei o clima." width="920" height="517" loading="lazy">
+                <span class="badge accent cover-badge">Em andamento</span>
+              </div>
+              <div class="lesson-copy"><span class="mono card-meta">Aula · 16 min</span><h3>Paleta de três cores</h3><p>Cor · Trilhas</p></div>
+            </article>
+            <figcaption>Use em grades de aulas. O selo mostra onde a pessoa parou.</figcaption>
+          </figure>
+          <figure class="component-sample">
+            <div class="sample-top mono"><span>02 / Card escuro</span><span>Acervo</span></div>
+            <article class="featured-card">
+              <div class="card-cover"><img src="../assets/meu-primeiro-remix.jpg" alt="Capa com o título Meu primeiro remix." width="920" height="517" loading="lazy"></div>
+              <div class="featured-copy"><div><span class="mono card-meta">Acervo · Vídeo</span><h3>Meu primeiro remix</h3></div><span class="badge accent">Remix com crédito</span></div>
+            </article>
+            <figcaption>Use fundo grafite para separar destaques da grade de conteúdos.</figcaption>
+          </figure>
+        </div>
+        <p class="small-note">Demonstrações montadas com estilos, textos e capas do protótipo.</p>
+      </div>
+    </section>
+
+    <section class="shell section" id="campos" aria-labelledby="titulo-campos">
+      <div class="section-head">
+        <div><p class="kicker">02.3 / Campos e selos</p><h2 id="titulo-campos">Detalhes que orientam.</h2></div>
+        <p>Deixe o rótulo visível mesmo durante a digitação. Nos selos, use textos curtos que expliquem o significado da cor.</p>
+      </div>
+      <div class="structure-grid detail-grid">
+        <article class="structure-panel">
+          <div class="sample-top mono"><span>01 / Campo de texto</span><span>Login</span></div>
+          <label class="field-label mono" for="email-demo">E-mail ou usuário</label>
+          <input class="field-sample" type="text" id="email-demo" placeholder="Seu e-mail ou nome de usuário" autocomplete="off" aria-describedby="field-help">
+          <p class="spec-caption" id="field-help">Campo de demonstração. Experimente clicar ou usar Tab.</p>
+        </article>
+        <article class="structure-panel">
+          <div class="sample-top mono"><span>02 / Selos</span><span>Trilhas e Acervo</span></div>
+          <div class="badge-row"><span class="badge neutral">Cor</span><span class="badge neutral">Luz</span><span class="badge accent">Em andamento</span></div>
+          <p class="spec-caption">Neutro para tema ou categoria. Laranja para um estado que pede atenção.</p>
+        </article>
+      </div>
+    </section>
+
+    <div class="shell page-turn">
+      <div><p class="kicker">Voltar / 01</p><h2>Identidade visual.</h2></div>
+      <a class="action primary" href="../" data-cta="creators_club_identidade_visual"><span aria-hidden="true">←</span> Ver cores e tipografia</a>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="shell footer-inner"><span class="brand"><span class="brand-mark" aria-hidden="true">Cc</span>Creators Club</span><span>Guia de referência baseado no protótipo fornecido.</span></div>
+  </footer>
+</body>
+</html>
